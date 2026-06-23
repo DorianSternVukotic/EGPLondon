@@ -1,0 +1,23 @@
+---
+import type { Treatment } from '../lib/data';
+import { formatPrice, formatDuration, placeholderGradient } from '../lib/data';
+interface Props { treatment: Treatment; }
+const { treatment: t } = Astro.props;
+const blurb = t.description.length > 120 ? t.description.slice(0, 120).trimEnd() + '…' : t.description;
+const priceLabel = t.price === 0 ? 'Free' : `From ${formatPrice(t.discountedPrice ?? t.price)}`;
+---
+<a
+  href={`/treatments/${t.slug}`}
+  class="group flex flex-col bg-paper border border-beige-dark/70 hover:border-honey/60 hover:-translate-y-0.5 transition-all duration-300"
+>
+  <span class="h-1 w-full block" style={`background:${placeholderGradient(t.slug)}`}></span>
+  <div class="flex flex-col flex-1 p-6">
+    <p class="record text-[0.6rem] uppercase tracking-[0.2em] text-honey">{t.category}</p>
+    <h3 class="font-display text-xl leading-snug text-heading mt-2.5 group-hover:text-brand transition-colors">{t.name}</h3>
+    {blurb && <p class="mt-2.5 text-sm text-ink/65 leading-relaxed flex-1">{blurb}</p>}
+    <div class="mt-5 pt-4 border-t border-beige-dark/60 flex items-center justify-between record text-xs">
+      <span class="text-brand uppercase tracking-[0.12em]">{priceLabel}</span>
+      {t.duration ? <span class="text-stone tabular-nums">{formatDuration(t.duration)}</span> : null}
+    </div>
+  </div>
+</a>

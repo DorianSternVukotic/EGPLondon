@@ -1,0 +1,218 @@
+---
+import Base from '../layouts/Base.astro';
+import ConditionCard from '../components/ConditionCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import Testimonials from '../components/Testimonials.astro';
+import { site, credentials } from '../lib/site';
+import { conditionGroups, getTreatments, getConditions, treatmentCategories, formatPrice } from '../lib/data';
+import { mediaForSlug, cartoonFor } from '../lib/treatmentMedia';
+import { faqPage } from '../lib/schema';
+
+// Three most-requested categories, each shown as image+title + a few sub-treatments.
+const featuredCats = treatmentCategories()
+  .slice()
+  .sort((a, b) => b.items.length - a.items.length)
+  .slice(0, 3);
+const { face, body } = conditionGroups();
+const popularConditions = [...face, ...body].filter((c) => c.popular).slice(0, 6);
+const treatmentCount = getTreatments().length;
+const conditionCount = getConditions().length;
+
+const values = [
+  { label: 'Approach', t: 'Regenerative first', d: 'We favour treatments that stimulate your body’s own renewal — collagen, healing, vitality — rather than masking concerns.' },
+  { label: 'Practitioners', t: 'Medically led', d: 'Every plan is designed and delivered by trained medical professionals, never rushed and never delegated.' },
+  { label: 'Standard', t: 'Fully insured & certified', d: 'Medical-grade products, sterile protocols and complete clinical accountability.' },
+  { label: 'Counsel', t: 'Honest advice', d: 'No pressure, no trend-chasing. If a treatment isn’t right for you, we’ll tell you — and say why.' },
+  { label: 'Outcome', t: 'Natural results', d: 'Refreshed, balanced, never overdone. We enhance the features you already have.' },
+  { label: 'Care', t: 'Plans built around you', d: 'Every face is different. Your treatment plan is tailored to your goals, biology and timeline.' },
+];
+
+const faqs = [
+  { q: 'Do I need a consultation before treatment?', a: 'Yes — every treatment begins with a consultation so we can understand your goals and recommend the safest, most effective plan. Discovery consultations are complimentary.' },
+  { q: 'Where are you based?', a: `We’re at ${site.address.street}, ${site.address.locality} ${site.address.postcode}, a short walk from Clapham Common.` },
+  { q: 'How do I book?', a: 'Use the booking form on the site, call us, or message us on WhatsApp. We’ll confirm your appointment by phone or email.' },
+  { q: 'Are your treatments suitable for me?', a: 'Suitability depends on your medical history and goals, which we assess at your consultation. We’ll always tell you honestly if a treatment isn’t right for you.' },
+];
+const jsonLd = [faqPage(faqs)];
+---
+<Base title={`${site.name} London — Regenerative Aesthetics`} jsonLd={jsonLd} canonicalPath="/">
+  <!-- Hero — full-screen founders -->
+  <section class="relative min-h-[calc(100svh-4rem)] md:min-h-[calc(100svh-4.5rem)] flex items-end overflow-hidden">
+    <img
+      src="/assets/photos/hero-1.webp"
+      alt="The founders of EGP Aesthetics London — two sisters, both doctors"
+      width="1920" height="2880" fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover object-[center_18%]"
+    />
+    <!-- Scrims: vertical for the lower text band + horizontal to anchor the bottom-left headline -->
+    <div class="absolute inset-0 bg-gradient-to-t from-forest via-forest/50 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-forest/75 via-transparent to-transparent"></div>
+    <div class="relative w-full max-w-6xl mx-auto px-5 lg:px-6 pb-14 md:pb-20 [text-shadow:0_2px_18px_rgba(31,36,28,0.45)]">
+      <p class="eyebrow !text-honey-soft mb-5">Founded by two doctors · Two sisters</p>
+      <h1 class="font-display text-paper text-[clamp(2.75rem,8vw,6rem)] leading-[0.98] tracking-[-0.02em] max-w-3xl">
+        Beauty, rooted in <span class="italic font-medium text-honey-soft">health</span>.
+      </h1>
+      <p class="mt-6 text-lg text-paper/85 leading-relaxed max-w-lg">
+        Regenerative facial and body treatments, led by medical doctors — for results that look like you, only renewed.
+      </p>
+      <div class="mt-9 flex flex-col sm:flex-row gap-3">
+        <a href="/book" class="bg-paper text-forest px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium text-center hover:bg-honey-soft transition-colors">
+          Book a free consultation
+        </a>
+        <a href="/about" class="border border-paper/40 text-paper px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium text-center hover:bg-paper/10 transition-colors">
+          Meet your doctors
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Signature: the clinical-record strip (the proof layer) -->
+  <div class="border-b border-beige-dark/70 bg-paper">
+    <dl class="max-w-6xl mx-auto px-5 lg:px-6 grid grid-cols-2 md:grid-cols-4 divide-x divide-beige-dark/60">
+      {credentials.map((c) => (
+        <div class="px-4 md:px-6 py-5 first:pl-0 md:first:pl-0">
+          <dt class="record text-[0.62rem] uppercase tracking-[0.2em] text-stone">{c.label}</dt>
+          <dd class="font-display text-2xl md:text-[1.7rem] text-heading mt-1.5">{c.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+
+  <!-- Meet the founders — the un-copyable asset (archetype ③) -->
+  <section class="max-w-6xl mx-auto px-5 lg:px-6 py-20 md:py-28 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+    <div class="order-last lg:order-first">
+      <img src="/assets/photos/about-hero.webp" alt="The two founding doctors of EGP Aesthetics" loading="lazy" width="1200" height="1800" class="w-full aspect-[4/5] object-cover object-top" />
+    </div>
+    <div>
+      <p class="rule-label mb-5 max-w-xs"><span>Your doctors</span></p>
+      <h2 class="font-display text-4xl md:text-5xl leading-[1.05]">Two sisters.<br />Two doctors.<br />One <span class="living">philosophy</span>.</h2>
+      <p class="mt-6 text-ink/75 leading-relaxed max-w-md">
+        EGP was founded by two sisters — both medical doctors — who believe aesthetic medicine should restore rather
+        than mask. Every plan is designed and delivered by them, grounded in regenerative science and an unhurried,
+        honest standard of care.
+      </p>
+      <dl class="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 max-w-md">
+        {[
+          { k: 'Medically qualified', v: 'Doctor-led care' },
+          { k: 'Regenerative-trained', v: 'Collagen & biostimulation' },
+          { k: 'Founder-delivered', v: 'Seen by the sisters' },
+          { k: 'Honest by default', v: 'No pressure, no trends' },
+        ].map((f) => (
+          <div class="border-t border-beige-dark pt-3">
+            <dt class="record text-[0.6rem] uppercase tracking-[0.18em] text-honey">{f.k}</dt>
+            <dd class="text-sm text-ink/75 mt-1">{f.v}</dd>
+          </div>
+        ))}
+      </dl>
+      <a href="/about" class="inline-block mt-9 record text-xs uppercase tracking-[0.18em] text-brand hover:text-honey border-b border-honey/50 pb-1 transition-colors">
+        Read their story →
+      </a>
+    </div>
+  </section>
+
+  <!-- Philosophy thesis — bold sage-dominant surface -->
+  <section class="bg-forest text-paper/90">
+    <div class="max-w-5xl mx-auto px-5 lg:px-6 py-20 md:py-28">
+      <p class="rule-label !text-honey-soft mb-9"><span>The thesis</span></p>
+      <p class="font-display text-[clamp(1.6rem,3.6vw,2.6rem)] leading-[1.25] tracking-[-0.01em] text-paper">
+        Aesthetic medicine should never be aggressive or trend-driven. We work <span class="italic text-honey-soft">with</span>
+        your biology — stimulating the skin’s own renewal — so what you see in the mirror is unmistakably you, at your healthiest.
+      </p>
+      <a href="/about" class="inline-block mt-10 record text-xs uppercase tracking-[0.18em] text-paper/70 hover:text-paper border-b border-honey/50 pb-1 transition-colors">
+        Read our philosophy →
+      </a>
+    </div>
+  </section>
+
+  <!-- Featured treatments — image+title per category, then sub-treatments with cartoon line-art -->
+  <section class="max-w-6xl mx-auto px-5 lg:px-6 py-20">
+    <div class="flex items-end justify-between mb-10 gap-4">
+      <div>
+        <p class="rule-label mb-4 max-w-xs"><span>Most requested</span></p>
+        <h2 class="font-display text-4xl md:text-5xl">Featured treatments</h2>
+      </div>
+      <a href="/treatments" class="hidden sm:inline record text-xs uppercase tracking-[0.15em] text-brand hover:text-honey shrink-0 transition-colors">All {treatmentCount} →</a>
+    </div>
+
+    <div class="space-y-6">
+      {featuredCats.map((cat) => {
+        const media = mediaForSlug(cat.items[0]?.categorySlug);
+        const cartoon = cartoonFor(cat.name);
+        const items = cat.items.slice(0, 6);
+        return (
+          <div class="grid md:grid-cols-[0.85fr_1.4fr] border border-beige-dark/60 bg-paper overflow-hidden">
+            {/* Image + title (taller) */}
+            <div class="relative min-h-[260px] md:min-h-[380px]">
+              <img src={media.photo} alt={`${cat.name} treatments at EGP Aesthetics`} loading="lazy" class="absolute inset-0 w-full h-full object-cover object-[center_30%]" />
+              <div class="absolute inset-0 bg-gradient-to-t from-forest/85 via-forest/25 to-transparent"></div>
+              <div class="absolute bottom-0 inset-x-0 p-6 md:p-8">
+                <p class="eyebrow !text-honey-soft mb-2">{cat.items.length} treatments</p>
+                <h3 class="font-display text-3xl md:text-4xl text-paper capitalize">{cat.name.toLowerCase()}</h3>
+                <p class="mt-2 text-paper/80 text-sm max-w-xs leading-relaxed hidden md:block">{media.blurb}</p>
+              </div>
+            </div>
+
+            {/* List — one cartoon behind the whole list */}
+            <div class="relative overflow-hidden p-6 md:p-8 flex flex-col justify-center">
+              <img src={cartoon} alt="" aria-hidden="true" class="pointer-events-none absolute -right-8 top-1/2 -translate-y-1/2 h-[125%] w-auto max-w-[60%] object-contain object-right mix-blend-multiply opacity-70" />
+              <div class="absolute inset-0 bg-gradient-to-r from-paper via-paper/70 to-paper/20 pointer-events-none"></div>
+              <ul class="relative grid sm:grid-cols-2 gap-x-8">
+                {items.map((t) => (
+                  <li class="border-b border-beige-dark/50">
+                    <a href={`/treatments/${t.slug}`} class="group flex items-baseline justify-between gap-3 py-3">
+                      <span class="font-display text-base md:text-lg text-heading group-hover:text-brand transition-colors">{t.name}</span>
+                      <span class="record text-[0.7rem] text-stone group-hover:text-honey whitespace-nowrap transition-colors">{t.price === 0 ? 'Free' : `£${formatPrice(t.discountedPrice ?? t.price).replace('£', '')}`}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <a href="/treatments" class="relative mt-5 record text-[0.62rem] uppercase tracking-[0.18em] text-brand hover:text-honey border-b border-honey/50 pb-1 self-start transition-colors">View all {cat.name.toLowerCase()} →</a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+    <a href="/treatments" class="sm:hidden block text-center mt-8 record text-xs uppercase tracking-[0.15em] text-brand">All treatments →</a>
+  </section>
+
+  <!-- Conditions -->
+  <section class="bg-lichen/50 border-y border-beige-dark/60">
+    <div class="max-w-6xl mx-auto px-5 lg:px-6 py-20">
+      <div class="max-w-2xl mb-10">
+        <p class="rule-label mb-4 max-w-xs"><span>Start with your concern</span></p>
+        <h2 class="font-display text-4xl md:text-5xl">Explore by condition</h2>
+        <p class="mt-4 text-ink/70 leading-relaxed">Not sure which treatment you need? Begin with what you’d like to change — we’ll match it to the right approach.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {popularConditions.map((c) => <ConditionCard condition={c} />)}
+      </div>
+      <div class="mt-9">
+        <a href="/conditions" class="record text-xs uppercase tracking-[0.15em] text-brand hover:text-honey transition-colors">All {conditionCount} conditions →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why choose us -->
+  <section class="max-w-6xl mx-auto px-5 lg:px-6 py-20 md:py-24">
+    <div class="max-w-2xl mb-14">
+      <p class="rule-label mb-4 max-w-xs"><span>Why EGP</span></p>
+      <h2 class="font-display text-4xl md:text-5xl">A clinic that puts you first</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12">
+      {values.map((v) => (
+        <div class="border-t border-beige-dark pt-5">
+          <p class="record text-[0.62rem] uppercase tracking-[0.2em] text-honey mb-3">{v.label}</p>
+          <h3 class="font-display text-xl mb-2">{v.t}</h3>
+          <p class="text-ink/70 text-sm leading-relaxed">{v.d}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <BeforeAfter />
+  <Testimonials />
+  <Faq items={faqs} />
+  <CtaBand />
+</Base>

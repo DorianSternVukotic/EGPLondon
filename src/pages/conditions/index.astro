@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import ConditionCard from '../../components/ConditionCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { conditionGroups, getConditions } from '../../lib/data';
+import { breadcrumbList } from '../../lib/schema';
+
+const { face, body } = conditionGroups();
+const total = getConditions().length;
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Conditions', href: '/conditions' }];
+const jsonLd = [breadcrumbList(crumbs)];
+---
+<Base
+  title="Conditions We Treat | EGP Aesthetics London"
+  description={`Browse the ${total} face and body concerns we treat at EGP Aesthetics London — from fine lines and pigmentation to cellulite and skin laxity.`}
+  canonicalPath="/conditions"
+  jsonLd={jsonLd}
+>
+  <section class="max-w-6xl mx-auto px-5 lg:px-6 pt-6 pb-10">
+    <Breadcrumbs items={crumbs} />
+    <div class="mt-7 max-w-2xl">
+      <p class="rule-label mb-4 max-w-xs"><span>Start with your concern</span></p>
+      <h1 class="font-display text-5xl md:text-6xl tracking-[-0.02em]">Conditions we treat</h1>
+      <p class="mt-5 text-ink/75 leading-relaxed">
+        Not sure which treatment is right for you? Begin with the concern you’d like to address and we’ll match it to
+        the most effective, natural-looking approach.
+      </p>
+    </div>
+  </section>
+
+  {[{ label: 'Face concerns', items: face }, { label: 'Body concerns', items: body }].map((group) => (
+    <section class="max-w-6xl mx-auto px-5 lg:px-6 py-10">
+      <h2 class="font-display text-3xl md:text-4xl mb-7">{group.label}</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {group.items.map((c) => <ConditionCard condition={c} />)}
+      </div>
+    </section>
+  ))}
+
+  <div class="py-6"></div>
+  <CtaBand />
+</Base>

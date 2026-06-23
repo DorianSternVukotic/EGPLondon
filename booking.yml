@@ -1,0 +1,378 @@
+- generic [active] [ref=e1]:
+  - paragraph [ref=e2]: .
+  - link "Skip to content" [ref=e3] [cursor=pointer]:
+    - /url: "#MainContent"
+  - generic [ref=e5]:
+    - generic [ref=e10]:
+      - link [ref=e14] [cursor=pointer]:
+        - /url: /collections/all
+        - paragraph [ref=e15]: FREE UK DELIVERY OVER £80
+      - link "complimentary blue peel when you spend £200+" [ref=e19] [cursor=pointer]:
+        - /url: /collections/all
+        - paragraph [ref=e20]: complimentary blue peel when you spend £200+
+      - link [ref=e24] [cursor=pointer]:
+        - /url: /products/am-pm-supplement-system
+        - paragraph [ref=e25]: INTRODUCING THE AM & PM SUPPLEMENT SYSTEM
+      - link [ref=e29] [cursor=pointer]:
+        - /url: https://drdavidjack.com/pages/virtual-consultation
+        - paragraph [ref=e30]: BOOK A VIRTUAL CONSULTATION
+      - link [ref=e34] [cursor=pointer]:
+        - /url: https://drdavidjack-gb.attn.tv/p/hPQ/landing-page
+        - paragraph [ref=e35]: GET UP TO 15% OFF YOUR FIRST ORDER* - sign up now
+      - link [ref=e39] [cursor=pointer]:
+        - /url: /pages/subscribe-save
+        - paragraph [ref=e40]: NEVER MISS A DAY - SUBSCRIBE & SAVE UP TO 20%
+      - link [ref=e44] [cursor=pointer]:
+        - /url: /collections/all
+        - paragraph [ref=e45]: FREE UK DELIVERY OVER £80
+      - link [ref=e49] [cursor=pointer]:
+        - /url: /collections/all
+        - paragraph [ref=e50]: complimentary blue peel when you spend £200+
+      - link [ref=e54] [cursor=pointer]:
+        - /url: /products/am-pm-supplement-system
+        - paragraph [ref=e55]: INTRODUCING THE AM & PM SUPPLEMENT SYSTEM
+      - link [ref=e59] [cursor=pointer]:
+        - /url: https://drdavidjack.com/pages/virtual-consultation
+        - paragraph [ref=e60]: BOOK A VIRTUAL CONSULTATION
+      - link [ref=e64] [cursor=pointer]:
+        - /url: https://drdavidjack-gb.attn.tv/p/hPQ/landing-page
+        - paragraph [ref=e65]: GET UP TO 15% OFF YOUR FIRST ORDER* - sign up now
+      - link [ref=e69] [cursor=pointer]:
+        - /url: /pages/subscribe-save
+        - paragraph [ref=e70]: NEVER MISS A DAY - SUBSCRIBE & SAVE UP TO 20%
+      - link [ref=e74] [cursor=pointer]:
+        - /url: /collections/all
+        - paragraph [ref=e75]: FREE UK DELIVERY OVER £80
+    - banner [ref=e76]:
+      - generic [ref=e77]:
+        - button "Menu" [ref=e79] [cursor=pointer]:
+          - img [ref=e80]
+        - link "Dr. David Jack Dr. David Jack" [ref=e87] [cursor=pointer]:
+          - /url: /
+          - img "Dr. David Jack" [ref=e88]
+          - img "Dr. David Jack" [ref=e89]
+        - generic [ref=e90]:
+          - list [ref=e91]:
+            - text:  No results No results
+            - listitem [ref=e92]:
+              - link "Open cart" [ref=e94] [cursor=pointer]:
+                - /url: javascript:void(0);
+                - img [ref=e95]
+                - generic [ref=e97]: "0"
+            - generic [ref=e98]:
+              - generic [ref=e99] [cursor=pointer]: Currency
+              - generic [ref=e100]:
+                - combobox "Currency" [ref=e101] [cursor=pointer]:
+                  - option "EUR"
+                  - option "GBP" [selected]
+                  - option "USD"
+                - img [ref=e102]
+          - generic [ref=e104]:
+            - link [ref=e105] [cursor=pointer]:
+              - /url: javascript:void(0)
+              - img [ref=e106]
+            - paragraph [ref=e415]: A gift from us.
+            - list [ref=e110]:
+              - listitem [ref=e111]: Your cart is empty
+  - generic:
+    - main [ref=e112]:
+      - generic [ref=e113]:
+        - generic [ref=e120]:
+          - heading "our treatments" [level=3] [ref=e121]
+          - heading "Anti-Wrinkle Injections" [level=1] [ref=e122]
+          - heading "Price is based on areas treated and practitioner." [level=3] [ref=e123]
+          - paragraph [ref=e124]: Voted the 'Best' by Tatler, Vogue and The Times, Dr. David Jack’s Clinic prides itself in being the leading clinic for natural-looking, tasteful anti-ageing injectables.
+          - link "Book now" [ref=e125] [cursor=pointer]:
+            - /url: /pages/book-a-treatment-london
+          - generic [ref=e126]:
+            - heading "Need help?" [level=4] [ref=e127]
+            - paragraph [ref=e128]:
+              - text: Book a
+              - link "Virtual Consultation" [ref=e129] [cursor=pointer]:
+                - /url: https://drdavidjack.com/pages/virtual-consultation
+              - text: and talk to one of our Skin Experts.
+            - paragraph
+            - paragraph [ref=e130]: Call us on 0207 589 6309
+          - generic [ref=e131]:
+            - heading "Treatment is available at:" [level=4] [ref=e132]
+            - paragraph [ref=e133]:
+              - link "Harley Street Clinic" [ref=e134] [cursor=pointer]:
+                - /url: https://drdavidjack.com/pages/harley-street-clinic
+                - strong [ref=e135]: Harley Street Clinic
+            - paragraph [ref=e136]:
+              - link "Belgravia Clinic" [ref=e137] [cursor=pointer]:
+                - /url: https://drdavidjack.com/pages/belgravia-clinic
+                - strong [ref=e138]: Belgravia Clinic
+            - paragraph [ref=e139]:
+              - strong [ref=e140]:
+                - link "City Clinic" [ref=e141] [cursor=pointer]:
+                  - /url: https://drdavidjack.com/pages/the-city-clinic
+                  - strong [ref=e142]:
+                    - strong [ref=e143]:
+                      - strong [ref=e144]:
+                        - text: City
+                        - strong [ref=e145]: Clinic
+            - paragraph [ref=e146]:
+              - strong [ref=e147]:
+                - strong [ref=e148]:
+                  - strong [ref=e149]:
+                    - strong [ref=e150]:
+                      - strong [ref=e151]:
+                        - link "Edinburgh Clinic" [ref=e152] [cursor=pointer]:
+                          - /url: https://drdavidjack.com/pages/edinburgh-clinic
+                          - strong [ref=e153]: Edinburgh Clinic
+            - paragraph [ref=e154]:
+              - strong [ref=e155]:
+                - link "Liberty Clinic" [ref=e156] [cursor=pointer]:
+                  - /url: https://drdavidjack.com/pages/dr-david-jack-liberty
+                  - strong [ref=e157]: Liberty Clinic
+          - link "+ more information" [ref=e159] [cursor=pointer]:
+            - /url: javascript:void(0)
+        - generic [ref=e160]:
+          - heading "Key information" [level=3] [ref=e161]
+          - generic [ref=e163]:
+            - generic [ref=e164]:
+              - img "Price Icon" [ref=e166]
+              - heading "Price" [level=4] [ref=e167]
+              - paragraph [ref=e168]:
+                - text: Please download our price guide
+                - link "HERE" [ref=e169] [cursor=pointer]:
+                  - /url: https://drdavidjack.com/pages/price-list
+                  - strong [ref=e170]: HERE
+                - text: for full details. From £350 (varies with areas and practitioner).
+            - generic [ref=e171]:
+              - img "Clock Icon" [ref=e173]
+              - heading "Time of procedure" [level=4] [ref=e174]
+              - paragraph [ref=e175]: 15 minutes
+            - generic [ref=e176]:
+              - img "Discomfort Icon" [ref=e178]
+              - heading "Discomfort Level" [level=4] [ref=e179]
+              - paragraph [ref=e180]: 1 out of 5
+            - generic [ref=e181]:
+              - img "Downtime Icon" [ref=e183]
+              - heading "Downtime" [level=4] [ref=e184]
+              - paragraph [ref=e185]: Minimal downtime
+            - generic [ref=e186]:
+              - img "Average Sessions Required Icon" [ref=e188]
+              - heading "Average Sessions Required" [level=4] [ref=e189]
+              - paragraph [ref=e190]: Once every 3 to 4 months, with a complimentary review offered within 1 month of your initial appointment
+        - generic [ref=e192]:
+          - heading "Additional information" [level=2] [ref=e193]
+          - generic:
+            - generic [ref=e194]:
+              - heading "WHAT are Anti-Wrinkle Injections?" [level=5] [ref=e195] [cursor=pointer]
+              - generic [ref=e196] [cursor=pointer]: +
+            - generic [ref=e197]:
+              - heading "HOW do Anti-Wrinkle Injections WORK?" [level=5] [ref=e198] [cursor=pointer]
+              - generic [ref=e199] [cursor=pointer]: +
+            - generic [ref=e200]:
+              - heading "What are the benefits?" [level=5] [ref=e201] [cursor=pointer]
+              - generic [ref=e202] [cursor=pointer]: +
+            - generic [ref=e203]:
+              - heading "What areas can be treated?" [level=5] [ref=e204] [cursor=pointer]
+              - generic [ref=e205] [cursor=pointer]: +
+            - generic [ref=e206]:
+              - heading "Can it be used with other treatments?" [level=5] [ref=e207] [cursor=pointer]
+              - generic [ref=e208] [cursor=pointer]: +
+            - generic [ref=e209]:
+              - heading "What is the downtime?" [level=5] [ref=e210] [cursor=pointer]
+              - generic [ref=e211] [cursor=pointer]: +
+            - generic [ref=e212]:
+              - heading "Where is this treatment available?" [level=5] [ref=e213] [cursor=pointer]
+              - generic [ref=e214] [cursor=pointer]: +
+        - generic [ref=e216]:
+          - heading "Areas and Types of Injections" [level=2] [ref=e217]
+          - generic:
+            - generic [ref=e218]:
+              - heading "Masseter Injections" [level=5] [ref=e219] [cursor=pointer]
+              - generic [ref=e220] [cursor=pointer]: +
+            - generic [ref=e221]:
+              - heading "Injections for Hyperhidrosis" [level=5] [ref=e222] [cursor=pointer]
+              - generic [ref=e223] [cursor=pointer]: +
+            - generic [ref=e224]:
+              - heading "Injections for Trapezius Muscles" [level=5] [ref=e225] [cursor=pointer]
+              - generic [ref=e226] [cursor=pointer]: +
+            - generic [ref=e227]:
+              - heading "Injections for a Gummy Smile" [level=5] [ref=e228] [cursor=pointer]
+              - generic [ref=e229] [cursor=pointer]: +
+        - generic [ref=e231]:
+          - heading "Anti-Wrinkle Injections" [level=2] [ref=e232]
+          - generic [ref=e234]:
+            - generic [ref=e237]:
+              - generic [ref=e238]:
+                - generic [ref=e240]: before
+                - generic [ref=e242]: after
+              - generic [ref=e244]:
+                - paragraph
+                - paragraph [ref=e245]: "\"There are many nuances to every individual’s face that need to be accounted for when performing this treatment to ensure a ‘natural’ looking result\""
+                - paragraph
+                - heading "Dr. David Jack" [level=6] [ref=e246]
+            - generic [ref=e249]:
+              - generic [ref=e250]:
+                - generic [ref=e252]: before
+                - generic [ref=e254]: after
+              - generic [ref=e256]:
+                - paragraph
+                - paragraph [ref=e257]: After one session
+                - paragraph
+                - heading [level=6]
+            - generic [ref=e260]:
+              - generic [ref=e261]:
+                - generic [ref=e263]: before
+                - generic [ref=e265]: after
+              - generic [ref=e267]:
+                - paragraph
+                - paragraph [ref=e268]: After one session
+                - paragraph
+                - heading [level=6]
+    - generic [ref=e271]:
+      - generic [ref=e276]:
+        - heading "JOIN OUR SKIN HEALTH CONVERSATION & GET 10% OFF SKINCARE ON YOUR FIRST ORDER*" [level=2] [ref=e277]
+        - paragraph [ref=e278]: "*Excludes sets"
+      - contentinfo [ref=e279]:
+        - generic [ref=e280]:
+          - img "Dr. David Jack Logo Symbol White" [ref=e283]
+          - generic:
+            - generic [ref=e285]:
+              - heading "Dr. David Jack" [level=3] [ref=e286]:
+                - paragraph [ref=e287]: Dr. David Jack
+              - img [ref=e289]
+            - generic [ref=e315]:
+              - generic [ref=e317]:
+                - heading "Customer Care" [level=3] [ref=e318]
+                - list:
+                  - listitem [ref=e319]:
+                    - link "Contact Us" [ref=e320] [cursor=pointer]:
+                      - /url: /pages/contact
+                  - listitem [ref=e321]:
+                    - link "FAQs" [ref=e322] [cursor=pointer]:
+                      - /url: /pages/faqs
+                  - listitem [ref=e323]:
+                    - link "Affiliate Programme" [ref=e324] [cursor=pointer]:
+                      - /url: https://ui.awin.com/merchant-profile/23081
+                  - listitem [ref=e325]:
+                    - link "Rewards" [ref=e326] [cursor=pointer]:
+                      - /url: /pages/earn-rewards
+                  - listitem [ref=e327]:
+                    - link "Subscribe & Save" [ref=e328] [cursor=pointer]:
+                      - /url: /pages/subscribe-save
+                  - listitem [ref=e329]:
+                    - link "Klarna" [ref=e330] [cursor=pointer]:
+                      - /url: /pages/klarna
+                  - listitem [ref=e331]:
+                    - link "Delivery & Returns" [ref=e332] [cursor=pointer]:
+                      - /url: /pages/delivery-returns
+                  - listitem [ref=e333]:
+                    - link "Careers" [ref=e334] [cursor=pointer]:
+                      - /url: /pages/work-with-us
+              - generic [ref=e335]:
+                - heading "Clinic" [level=3] [ref=e336]
+                - list:
+                  - listitem [ref=e337]:
+                    - link "Harley Street Clinic" [ref=e338] [cursor=pointer]:
+                      - /url: /pages/harley-street-clinic
+                  - listitem [ref=e339]:
+                    - link "Belgravia Clinic" [ref=e340] [cursor=pointer]:
+                      - /url: /pages/belgravia-clinic
+                  - listitem [ref=e341]:
+                    - link "Edinburgh Clinic" [ref=e342] [cursor=pointer]:
+                      - /url: https://drdavidjack.com/pages/edinburgh-clinic
+                  - listitem [ref=e343]:
+                    - link "City Clinic" [ref=e344] [cursor=pointer]:
+                      - /url: /pages/the-city-clinic
+                  - listitem [ref=e345]:
+                    - link "SkinTech Studio" [ref=e346] [cursor=pointer]:
+                      - /url: /pages/skintech-studio-1
+                  - listitem [ref=e347]:
+                    - link "Dr David Jack" [ref=e348] [cursor=pointer]:
+                      - /url: /pages/practitioner-dr-david-jack
+                  - listitem [ref=e349]:
+                    - link "Treatments" [ref=e350] [cursor=pointer]:
+                      - /url: /blogs/treatments
+                  - listitem [ref=e351]:
+                    - link "Clinic Policies" [ref=e352] [cursor=pointer]:
+                      - /url: /pages/clinic-cancellation-policy
+                  - listitem [ref=e353]:
+                    - link "Careers" [ref=e354] [cursor=pointer]:
+                      - /url: /pages/work-with-us
+                  - listitem [ref=e355]:
+                    - link "Sustainability Commitment" [ref=e356] [cursor=pointer]:
+                      - /url: https://cdn.shopify.com/s/files/1/1525/0552/files/Dr._David_Jack_Bcorp.pdf?v=1748331118
+              - generic [ref=e357]:
+                - heading "About" [level=3] [ref=e358]
+                - list:
+                  - listitem [ref=e359]:
+                    - link "FAQ'S" [ref=e360] [cursor=pointer]:
+                      - /url: /pages/faqs
+                  - listitem [ref=e361]:
+                    - link "Contact" [ref=e362] [cursor=pointer]:
+                      - /url: /pages/contact
+                  - listitem [ref=e363]:
+                    - link "Clinic" [ref=e364] [cursor=pointer]:
+                      - /url: /pages/clinic
+                  - listitem [ref=e365]:
+                    - link "Blog / Advice" [ref=e366] [cursor=pointer]:
+                      - /url: /blogs/all
+                  - listitem [ref=e367]:
+                    - link "Rewards" [ref=e368] [cursor=pointer]:
+                      - /url: https://drdavidjack.com/pages/earn-rewards
+                  - listitem [ref=e369]:
+                    - link "Stockists" [ref=e370] [cursor=pointer]:
+                      - /url: https://drdavidjack.com/pages/stockists
+                  - listitem [ref=e371]:
+                    - link "Shop Skin Cusion" [ref=e372] [cursor=pointer]:
+                      - /url: https://drdavidjack.com/products/skin-cushion
+                  - listitem [ref=e373]:
+                    - link "Skintech Studio Treatments" [ref=e374] [cursor=pointer]:
+                      - /url: https://drdavidjack.com/pages/skintech-studio
+                  - listitem [ref=e375]:
+                    - link "Certified B Corporation™" [ref=e376] [cursor=pointer]:
+                      - /url: /pages/bcorp-aesthetic
+              - generic [ref=e378]:
+                - heading "Follow Us" [level=3] [ref=e379]
+                - list [ref=e380]:
+                  - listitem [ref=e381]:
+                    - link "Instagram" [ref=e382] [cursor=pointer]:
+                      - /url: https://www.instagram.com/drdavidjack/
+                  - listitem [ref=e383]:
+                    - link "Facebook" [ref=e384] [cursor=pointer]:
+                      - /url: https://www.facebook.com/drdavidjacklondon/
+                  - listitem [ref=e385]:
+                    - link "LinkedIn" [ref=e386] [cursor=pointer]:
+                      - /url: https://www.linkedin.com/company/dr-david-jack-aesthetic-clinics-skincare/
+                  - listitem [ref=e387]:
+                    - link "TikTok" [ref=e388] [cursor=pointer]:
+                      - /url: https://www.tiktok.com/@drdavidjack
+                  - listitem [ref=e389]:
+                    - link "YouTube" [ref=e390] [cursor=pointer]:
+                      - /url: https://www.youtube.com/@Drdavidjack
+                  - listitem [ref=e391]:
+                    - link "As seen in" [ref=e392] [cursor=pointer]:
+                      - /url: /blogs/in-the-press
+                  - listitem [ref=e393]:
+                    - link "Face Values" [ref=e394] [cursor=pointer]:
+                      - /url: /pages/face-values
+          - generic [ref=e395]:
+            - generic [ref=e396]:
+              - list:
+                - listitem [ref=e397]:
+                  - generic [ref=e398]:
+                    - text: © 2026
+                    - link "Dr. David Jack" [ref=e399] [cursor=pointer]:
+                      - /url: /
+                - listitem [ref=e400]:
+                  - link "Terms" [ref=e401] [cursor=pointer]:
+                    - /url: /pages/terms
+                - listitem [ref=e402]:
+                  - link "Privacy" [ref=e403] [cursor=pointer]:
+                    - /url: /pages/privacy
+                - listitem [ref=e404]:
+                  - link "Careers" [ref=e405] [cursor=pointer]:
+                    - /url: https://drdavidjack.com/pages/careers
+            - generic [ref=e406]:
+              - text: Site by
+              - link "dash" [ref=e407] [cursor=pointer]:
+                - /url: https://dashcreative.co/
+    - generic [ref=e408]: Use left/right arrows to navigate the slideshow or swipe left/right if using a mobile device
+  - iframe [ref=e409]:
+    

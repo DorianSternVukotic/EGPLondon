@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../lib/site';
+
+const values = [
+  { label: 'Principle', t: 'Regeneration over reaction', d: 'We favour treatments that stimulate your body’s own renewal — collagen, healing, vitality — rather than masking concerns.' },
+  { label: 'Principle', t: 'Honesty above all', d: 'No pressure and no trend-chasing. If a treatment isn’t right for you, we’ll tell you.' },
+  { label: 'Principle', t: 'Artistry with restraint', d: 'Refreshed, balanced, natural. We enhance the features you already have.' },
+];
+---
+<Base
+  title="About Us | EGP Aesthetics London"
+  description="Meet EGP Aesthetics London — a clinic founded on regenerative medicine, integrity and natural-looking results."
+  canonicalPath="/about"
+>
+  <section class="max-w-3xl mx-auto px-5 lg:px-6 pt-16 md:pt-24 text-center">
+    <p class="rule-label justify-center mb-5 max-w-[9rem] mx-auto"><span>Our story</span></p>
+    <h1 class="font-display text-5xl md:text-6xl leading-[1.04] tracking-[-0.02em]">Beauty that begins with <span class="living">health</span></h1>
+    <p class="mt-7 text-lg text-ink/75 leading-relaxed">
+      We are medical aesthetic practitioners, sisters and educators — united by a vision of beauty rooted in health,
+      regeneration and integrity. We believe aesthetic medicine should never be aggressive or trend-driven, but
+      regenerative, respectful and tailored to the individual.
+    </p>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-5 lg:px-6 py-16">
+    <img src="/assets/photos/hero-1.webp" alt="The founders of EGP Aesthetics London" width="1600" height="900" class="aspect-[16/9] w-full object-cover object-top" />
+  </section>
+
+  <section class="max-w-6xl mx-auto px-5 lg:px-6 pb-8">
+    <div class="grid md:grid-cols-3 gap-10">
+      {values.map((v) => (
+        <div class="border-t border-beige-dark pt-5">
+          <p class="record text-[0.62rem] uppercase tracking-[0.2em] text-honey mb-3">{v.label}</p>
+          <h3 class="font-display text-xl mb-2">{v.t}</h3>
+          <p class="text-ink/70 text-sm leading-relaxed">{v.d}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="max-w-3xl mx-auto px-5 lg:px-6 py-12 prose-egp text-center">
+    <p>
+      Combining medical expertise with artistic vision, our team delivers exceptional results in a calm, welcoming
+      setting in the heart of London. Whether you’re considering your first treatment or returning for ongoing care,
+      you’ll always be met with honesty, warmth and clinical excellence.
+    </p>
+  </section>
+
+  <CtaBand title="Come and meet us" text={`Visit us at ${site.address.street}, ${site.address.locality}. Book a complimentary discovery consultation.`} />
+</Base>

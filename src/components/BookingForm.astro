@@ -1,0 +1,62 @@
+---
+import { site } from '../lib/site';
+
+interface Props {
+  /** Pre-fill the "treatment of interest" field from a landing page. */
+  treatment?: string;
+  compact?: boolean;
+}
+const { treatment, compact = false } = Astro.props;
+const inputClass =
+  'w-full border border-beige-dark bg-paper px-4 py-3 text-ink placeholder:text-stone/70 focus:border-brand transition-colors';
+---
+
+<form
+  action={site.formEndpoint}
+  method="POST"
+  class:list={['grid gap-4', compact ? '' : 'sm:grid-cols-2']}
+>
+  <!-- Web3Forms config -->
+  <input type="hidden" name="access_key" value={site.formAccessKey} />
+  <input type="hidden" name="subject" value="New booking enquiry — egpaesthetics.co.uk" />
+  <input type="hidden" name="from_name" value="EGP Aesthetics website" />
+  <input type="hidden" name="redirect" value={`${site.url}/thank-you`} />
+  <!-- Honeypot -->
+  <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <div class={compact ? '' : 'sm:col-span-1'}>
+    <label class="block text-sm font-medium text-heading mb-1.5" for="bf-name">Full name</label>
+    <input id="bf-name" name="name" type="text" required autocomplete="name" class={inputClass} placeholder="Jane Smith" />
+  </div>
+  <div class={compact ? '' : 'sm:col-span-1'}>
+    <label class="block text-sm font-medium text-heading mb-1.5" for="bf-phone">Phone</label>
+    <input id="bf-phone" name="phone" type="tel" required autocomplete="tel" class={inputClass} placeholder="07…" />
+  </div>
+  <div class={compact ? '' : 'sm:col-span-2'}>
+    <label class="block text-sm font-medium text-heading mb-1.5" for="bf-email">Email</label>
+    <input id="bf-email" name="email" type="email" required autocomplete="email" class={inputClass} placeholder="you@email.com" />
+  </div>
+
+  <div class={compact ? '' : 'sm:col-span-1'}>
+    <label class="block text-sm font-medium text-heading mb-1.5" for="bf-treatment">Treatment of interest</label>
+    <input id="bf-treatment" name="treatment" type="text" value={treatment ?? ''} class={inputClass} placeholder="e.g. Profhilo" />
+  </div>
+  <div class={compact ? '' : 'sm:col-span-1'}>
+    <label class="block text-sm font-medium text-heading mb-1.5" for="bf-date">Preferred date / time</label>
+    <input id="bf-date" name="preferred_time" type="text" class={inputClass} placeholder="e.g. Thu afternoon" />
+  </div>
+
+  <div class={compact ? '' : 'sm:col-span-2'}>
+    <label class="block text-sm font-medium text-heading mb-1.5" for="bf-msg">Message <span class="text-sand font-normal">(optional)</span></label>
+    <textarea id="bf-msg" name="message" rows="3" class={inputClass} placeholder="Anything you'd like us to know"></textarea>
+  </div>
+
+  <div class={compact ? '' : 'sm:col-span-2'}>
+    <button type="submit" class="w-full bg-brand text-paper px-6 py-4 text-sm uppercase tracking-[0.14em] font-medium hover:bg-brand-dark transition-colors">
+      Request appointment
+    </button>
+    <p class="text-xs text-stone mt-3 text-center">
+      We'll confirm your slot by phone or email. By submitting you agree to be contacted about your enquiry.
+    </p>
+  </div>
+</form>

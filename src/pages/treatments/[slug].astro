@@ -1,0 +1,172 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Faq from '../../components/Faq.astro';
+import BookingForm from '../../components/BookingForm.astro';
+import TreatmentCard from '../../components/TreatmentCard.astro';
+import { getTreatments, getTreatment, relatedTreatments, formatPrice, formatDuration } from '../../lib/data';
+import { breadcrumbList, faqPage, medicalProcedure } from '../../lib/schema';
+import { site } from '../../lib/site';
+
+export function getStaticPaths() {
+  return getTreatments().map((t) => ({ params: { slug: t.slug } }));
+}
+
+const { slug } = Astro.params;
+const t = getTreatment(slug!)!;
+const related = relatedTreatments(t);
+const priceLabel = t.price === 0 ? 'Free' : formatPrice(t.discountedPrice ?? t.price);
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Treatments', href: '/treatments' },
+  { name: t.name, href: `/treatments/${t.slug}` },
+];
+
+// Detail rows shown in the sidebar.
+const facts = [
+  t.price ? { label: 'From', value: priceLabel } : { label: 'Price', value: 'Free' },
+  t.duration ? { label: 'Duration', value: formatDuration(t.duration) } : null,
+  t.downtimeDays != null ? { label: 'Downtime', value: t.downtimeDays === 0 ? 'None' : `${t.downtimeDays} day${t.downtimeDays > 1 ? 's' : ''}` } : null,
+  t.resultsWeeks ? { label: 'Results last', value: `${t.resultsWeeks}+ weeks` } : null,
+  { label: 'Consultation', value: t.requiresConsultation ? 'Required' : 'Recommended' },
+].filter(Boolean) as { label: string; value: string }[];
+
+const detailParas = t.details.split(/\n+/).map((s) => s.trim()).filter(Boolean);
+
+// Per-treatment FAQs → real content + FAQPage schema.
+const faqs = [
+  { q: `How much does ${t.name} cost at EGP Aesthetics?`, a: t.price === 0 ? `${t.name} is offered free of charge. A consultation is included.` : `${t.name} starts from ${priceLabel}. Your exact price is confirmed at consultation, based on your treatment plan.` },
+  t.duration ? { q: `How long does ${t.name} take?`, a: `A typical ${t.name} appointment takes around ${formatDuration(t.duration)}, including time to discuss your goals.` } : null,
+  { q: `Is there any downtime after ${t.name}?`, a: t.downtimeDays ? `Most clients allow around ${t.downtimeDays} day${t.downtimeDays > 1 ? 's' : ''} of recovery. We’ll give you full aftercare guidance.` : `${t.name} typically involves little to no downtime, though this varies by individual. We’ll advise you fully at your consultation.` },
+  { q: `Do I need a consultation first?`, a: `Yes — a consultation lets us confirm ${t.name} is right for you and tailor the treatment. Discovery consultations are complimentary.` },
+].filter(Boolean) as { q: string; a: string }[];
+
+const metaDesc = t.description
+  ? (t.description.length > 155 ? t.description.slice(0, 152).trimEnd() + '…' : t.description)
+  : `${t.name} at EGP Aesthetics London. Expert, regenerative treatment from ${priceLabel}. Book a consultation today.`;
+
+const jsonLd = [
+  breadcrumbList(crumbs),
+  faqPage(faqs),
+  medicalProcedure({ name: t.name, description: t.description || metaDesc, url: `/treatments/${t.slug}` }),
+];
+---
+<Base
+  title={`${t.name} London | EGP Aesthetics`}
+  description={metaDesc}
+  canonicalPath={`/treatments/${t.slug}`}
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="border-b border-beige-dark/60">
+    <div class="max-w-6xl mx-auto px-5 lg:px-6 pt-6 pb-14 md:pb-16">
+      <Breadcrumbs items={crumbs} />
+      <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-start mt-7">
+        <div>
+          <p class="eyebrow mb-4">{t.category}</p>
+          <h1 class="font-display text-4xl md:text-6xl leading-[1.04] tracking-[-0.02em]">{t.name}</h1>
+          {t.description && <p class="mt-6 text-lg text-ink/75 leading-relaxed max-w-xl">{t.description}</p>}
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href={`/book?treatment=${encodeURIComponent(t.name)}`} class="bg-brand text-paper px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium text-center hover:bg-brand-dark transition-colors">
+              Book this treatment
+            </a>
+            <a href={site.whatsappHref} class="border border-brand/25 text-brand px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium text-center hover:bg-brand/5 transition-colors">
+              Ask a question
+            </a>
+          </div>
+          <p class="mt-7 record text-[0.62rem] uppercase tracking-[0.18em] text-stone">
+            Reviewed by the EGP medical team · Last updated June 2026
+          </p>
+        </div>
+
+        <!-- Clinical-record spec panel (replaces the placeholder image) -->
+        <div class="bg-lichen/60 border border-beige-dark/70 order-first lg:order-last">
+          <p class="rule-label px-6 pt-6 pb-0 mb-5"><span>At a glance</span></p>
+          <dl class="px-6 pb-6 space-y-0">
+            {facts.map((f) => (
+              <div class="flex items-baseline justify-between gap-4 py-3 border-b border-beige-dark/50 last:border-0">
+                <dt class="record text-[0.62rem] uppercase tracking-[0.18em] text-stone">{f.label}</dt>
+                <dd class="font-display text-lg text-heading text-right">{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Body + sidebar -->
+  <section class="max-w-6xl mx-auto px-5 lg:px-6 py-14 grid lg:grid-cols-3 gap-10 lg:gap-14">
+    <div class="lg:col-span-2 prose-egp">
+      <h2>What is {t.name}?</h2>
+      <p>{t.description || `${t.name} is one of the regenerative treatments offered at EGP Aesthetics London.`}</p>
+
+      {detailParas.length > 0 && (
+        <>
+          <h2>What to expect</h2>
+          {detailParas.map((p) => <p>{p}</p>)}
+        </>
+      )}
+
+      {t.benefits.length > 0 && (
+        <>
+          <h2>Benefits</h2>
+          <ul>{t.benefits.map((b) => <li>{b}</li>)}</ul>
+        </>
+      )}
+
+      {t.preparation && (<><h3>Preparation</h3><p>{t.preparation}</p></>)}
+      {t.aftercare && (<><h3>Aftercare</h3><p>{t.aftercare}</p></>)}
+
+      <h2>Why choose EGP Aesthetics?</h2>
+      <p>
+        Our practitioners are medically trained and focus on regenerative, natural-looking results. Every {t.name}
+        treatment begins with a thorough consultation so your plan is tailored to you — never rushed, never overdone.
+      </p>
+    </div>
+
+    <aside class="lg:col-span-1">
+      <div class="sticky top-24 space-y-5">
+        <div class="bg-forest text-paper p-7">
+          <p class="rule-label !text-honey-soft mb-4"><span>Book</span></p>
+          <p class="font-display text-2xl leading-snug text-paper">{t.price === 0 ? 'Complimentary' : `From ${priceLabel}`}</p>
+          <p class="text-paper/70 text-sm mt-2 leading-relaxed">Every plan begins with a consultation, so your exact price is confirmed before any treatment.</p>
+          <a href={`/book?treatment=${encodeURIComponent(t.name)}`} class="block text-center mt-6 bg-paper text-forest px-6 py-3.5 text-sm uppercase tracking-[0.14em] font-medium hover:bg-honey-soft transition-colors">
+            Book now
+          </a>
+        </div>
+        <div class="bg-lichen/50 border border-beige-dark/60 p-7 text-sm">
+          <p class="record text-[0.62rem] uppercase tracking-[0.18em] text-honey mb-3">Questions?</p>
+          <p class="text-ink/70 mb-4 leading-relaxed">Speak to our team before you book — we’re happy to help.</p>
+          <a href={site.phoneHref} class="record text-brand hover:text-honey block transition-colors">{site.phone}</a>
+          <a href={`mailto:${site.email}`} class="record text-brand hover:text-honey block transition-colors mt-1 break-all">{site.email}</a>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <Faq items={faqs} heading={`${t.name} — your questions answered`} />
+
+  {related.length > 0 && (
+    <section class="max-w-6xl mx-auto px-5 lg:px-6 py-12">
+      <h2 class="font-semibold text-2xl md:text-3xl mb-8">Related treatments</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {related.map((r) => <TreatmentCard treatment={r} />)}
+      </div>
+    </section>
+  )}
+
+  <!-- Booking -->
+  <section class="bg-lichen/50 border-y border-beige-dark/60">
+    <div class="max-w-3xl mx-auto px-5 lg:px-6 py-20">
+      <div class="text-center mb-9">
+        <p class="rule-label justify-center mb-4 max-w-[12rem] mx-auto"><span>Book</span></p>
+        <h2 class="font-display text-3xl md:text-4xl">Request your {t.name} appointment</h2>
+      </div>
+      <div class="bg-paper border border-beige-dark/70 p-6 md:p-9">
+        <BookingForm treatment={t.name} />
+      </div>
+    </div>
+  </section>
+</Base>

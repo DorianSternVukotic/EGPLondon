@@ -1,0 +1,23 @@
+---
+import { site } from '../lib/site';
+interface Props { title?: string; text?: string; }
+const {
+  title = 'Ready to begin?',
+  text = 'Book a complimentary discovery consultation and we’ll design a plan around your goals.',
+} = Astro.props;
+---
+<section class="bg-forest text-paper">
+  <div class="max-w-4xl mx-auto px-5 lg:px-6 py-20 md:py-24 text-center">
+    <p class="rule-label !text-honey-soft justify-center mb-7 max-w-xs mx-auto"><span>Consultation</span></p>
+    <h2 class="font-display text-4xl md:text-5xl text-paper leading-[1.05]">{title}</h2>
+    <p class="mt-5 text-paper/75 max-w-xl mx-auto leading-relaxed">{text}</p>
+    <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="/book" class="bg-paper text-forest px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium hover:bg-honey-soft transition-colors">
+        Book an appointment
+      </a>
+      <a href={site.whatsappHref} class="border border-paper/30 text-paper px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium hover:bg-paper/10 transition-colors">
+        WhatsApp us
+      </a>
+    </div>
+  </div>
+</section>

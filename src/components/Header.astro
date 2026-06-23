@@ -1,0 +1,77 @@
+---
+import { site } from '../lib/site';
+
+const nav = [
+  { label: 'Treatments', href: '/treatments' },
+  { label: 'Conditions', href: '/conditions' },
+  { label: 'About', href: '/about' },
+  { label: 'Find Us', href: '/find-us' },
+];
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || path.startsWith(href + '/');
+---
+
+<header class="sticky top-0 z-50 bg-paper/90 backdrop-blur border-b border-beige-dark/70">
+  <nav class="max-w-6xl mx-auto px-5 lg:px-6 h-16 md:h-[4.5rem] flex items-center justify-between gap-6">
+    <a href="/" class="shrink-0" aria-label={`${site.name} — home`}>
+      <img src="/assets/logo-black.png" alt={site.name} width="652" height="91" class="h-7 md:h-8 w-auto" />
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden md:flex items-center gap-9">
+      {nav.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              'relative py-1 text-sm transition-colors hover:text-brand after:absolute after:-bottom-0.5 after:left-0 after:h-px after:bg-honey after:transition-all',
+              isActive(item.href) ? 'text-brand after:w-full' : 'text-ink/75 after:w-0 hover:after:w-full',
+            ]}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="hidden md:flex items-center gap-5">
+      <a href={site.phoneHref} class="record text-xs text-ink/65 hover:text-brand">{site.phone}</a>
+      <a
+        href="/book"
+        class="bg-brand text-paper px-5 py-2.5 text-xs uppercase tracking-[0.15em] font-medium hover:bg-brand-dark transition-colors"
+      >
+        Book
+      </a>
+    </div>
+
+    <!-- Mobile toggle (CSS-only) -->
+    <input type="checkbox" id="nav-toggle" class="peer hidden" />
+    <label for="nav-toggle" class="md:hidden cursor-pointer p-2 -mr-2" aria-label="Toggle menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-heading">
+        <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </label>
+
+    <!-- Mobile drawer -->
+    <div class="hidden peer-checked:block absolute top-16 inset-x-0 bg-paper border-b border-beige-dark md:hidden shadow-lg">
+      <ul class="px-5 py-4 flex flex-col gap-1">
+        {nav.map((item) => (
+          <li>
+            <a href={item.href} class="block py-2.5 text-ink hover:text-brand border-b border-beige-dark/40">
+              {item.label}
+            </a>
+          </li>
+        ))}
+        <li class="pt-3">
+          <a href="/book" class="block text-center bg-brand text-paper px-5 py-3 text-sm uppercase tracking-[0.15em] font-medium">
+            Book a consultation
+          </a>
+        </li>
+        <li class="pt-1 text-center">
+          <a href={site.phoneHref} class="text-sm text-ink/70">{site.phone}</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
