@@ -1,12 +1,16 @@
 ---
 import { getReviews } from '../lib/data';
-interface Props { limit?: number; }
-const { limit = 6 } = Astro.props;
+interface Props { limit?: number; seed?: string; heading?: string; }
+const { limit = 6, seed = '', heading = 'What our clients say' } = Astro.props;
 // Prefer reviews with a written comment; longest first for richer cards.
-const reviews = getReviews()
+const all = getReviews()
   .filter((r) => r.comment)
-  .sort((a, b) => b.comment.length - a.comment.length)
-  .slice(0, limit);
+  .sort((a, b) => b.comment.length - a.comment.length);
+// Rotate the visible window by seed so different pages surface different reviews.
+let s = 0;
+for (let i = 0; i < seed.length; i++) s = (s * 31 + seed.charCodeAt(i)) >>> 0;
+const start = all.length ? s % all.length : 0;
+const reviews = Array.from({ length: Math.min(limit, all.length) }, (_, i) => all[(start + i) % all.length]);
 if (reviews.length === 0) return null;
 const clamp = (s: string) => (s.length > 240 ? s.slice(0, 237).trimEnd() + '…' : s);
 
@@ -22,7 +26,7 @@ const avatarFor = (name: string) => {
   <div class="max-w-6xl mx-auto px-5 lg:px-6 py-20 md:py-24">
     <div class="max-w-2xl mb-12">
       <p class="rule-label mb-4 max-w-xs"><span>In their words</span></p>
-      <h2 class="font-display text-4xl md:text-5xl">What our clients say</h2>
+      <h2 class="font-display text-4xl md:text-5xl">{heading}</h2>
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {reviews.map((r) => (

@@ -4,6 +4,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Faq from '../../components/Faq.astro';
 import ConditionCard from '../../components/ConditionCard.astro';
 import BeforeAfterFigure from '../../components/BeforeAfterFigure.astro';
+import Testimonials from '../../components/Testimonials.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { getConditions, getCondition, formatPrice } from '../../lib/data';
 import { conditionPhoto } from '../../lib/treatmentMedia';
@@ -127,6 +128,8 @@ const jsonLd = [breadcrumbList(crumbs), faqPage(faqs), medicalCondition];
       </div>
     </section>
   )}
+
+  <Testimonials limit={3} seed={c.slug} heading="What our clients say" />
 
   <CtaBand title={`Concerned about ${c.title.toLowerCase()}?`} />
 </Base>

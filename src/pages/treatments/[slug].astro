@@ -5,6 +5,7 @@ import Faq from '../../components/Faq.astro';
 import BookingForm from '../../components/BookingForm.astro';
 import TreatmentCard from '../../components/TreatmentCard.astro';
 import BeforeAfterFigure from '../../components/BeforeAfterFigure.astro';
+import Testimonials from '../../components/Testimonials.astro';
 import { getTreatments, getTreatment, relatedTreatments, formatPrice, formatDuration } from '../../lib/data';
 import { mediaForSlug } from '../../lib/treatmentMedia';
 import { breadcrumbList, faqPage, medicalProcedure } from '../../lib/schema';
@@ -169,6 +170,8 @@ const jsonLd = [
       </div>
     </section>
   )}
+
+  <Testimonials limit={3} seed={t.slug} heading="What our clients say" />
 
   <!-- Booking -->
   <section class="bg-lichen/50 border-y border-beige-dark/60">
