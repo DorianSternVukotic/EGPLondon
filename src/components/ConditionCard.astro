@@ -1,26 +1,10 @@
 ---
 import type { Condition } from '../lib/data';
+import { conditionPhoto } from '../lib/treatmentMedia';
 interface Props { condition: Condition; }
 const { condition: c } = Astro.props;
 
-// Source data carries no per-condition imagery, so map each concern to a
-// representative clinic photo deterministically (stable per slug, varied across
-// the grid). Face concerns draw from the face/skin set, body from body/laser.
-const facePhotos = [
-  '/assets/demo/cat-face.webp',
-  '/assets/demo/cat-skin.jpg',
-  '/assets/demo/cat-fillers.jpg',
-];
-const bodyPhotos = [
-  '/assets/demo/cat-body.jpg',
-  '/assets/demo/cat-laser.jpg',
-  '/assets/demo/cat-skin.jpg',
-];
-const pool = c.group === 'face' ? facePhotos : bodyPhotos;
-let h = 0;
-for (const ch of c.slug) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
-const photo = pool[h % pool.length];
-
+const photo = conditionPhoto(c);
 const area = c.group === 'face' ? 'Face' : 'Body';
 const pills = c.treatments.slice(0, 3);
 ---
