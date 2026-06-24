@@ -23,8 +23,9 @@
   --color-beige-dark: #d8d9cc;   /* hairline borders / dividers */
 
   /* Accent + neutrals */
-  --color-honey: #a98a5e;        /* single warm accent — used with restraint */
-  --color-honey-soft: #c4a87f;
+  --color-honey: #a98a5e;        /* single warm accent — fills/borders/icons only */
+  --color-honey-soft: #c4a87f;   /* honey-on-dark (forest surfaces) */
+  --color-honey-ink: #7a6238;    /* honey used as TEXT on light — WCAG AA (≈5.5:1 paper, ≈4.6:1 lichen) */
   --color-sand: #646760;         /* muted sage-grey text (legacy name) — darkened to meet WCAG AA (≈5.5:1 on paper, ≈4.9:1 on lichen panels) */
   --color-stone: #646760;        /* muted sage-grey text — AA-legible on paper & lichen panels */
   --color-ink: #23271f;          /* green-black body text */
@@ -71,7 +72,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.22em;
   font-size: 0.68rem;
   font-weight: 500;
-  color: var(--color-honey);
+  color: var(--color-honey-ink);   /* dark-surface usages override with !text-honey-soft */
 }
 
 /* A hairline rule that carries a mono record label inline — the recurring

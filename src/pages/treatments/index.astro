@@ -31,7 +31,7 @@ const anchor = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
     <nav class="mt-9 flex flex-wrap gap-x-5 gap-y-2 record text-[0.62rem] uppercase tracking-[0.18em]">
       {cats.map((cat) => (
         <a href={`#${anchor(cat.name)}`} class="text-stone hover:text-brand border-b border-transparent hover:border-honey pb-1 transition-colors">
-          {cat.name} <span class="text-honey">{cat.items.length}</span>
+          {cat.name} <span class="text-honey-ink">{cat.items.length}</span>
         </a>
       ))}
     </nav>
