@@ -27,7 +27,7 @@ const socials = Object.entries(site.social);
     </div>
 
     <div>
-      <h3 class="eyebrow !text-cream/60 mb-4">Explore</h3>
+      <h3 class="eyebrow text-cream/60 mb-4">Explore</h3>
       <ul class="space-y-2.5 text-sm">
         {quickLinks.map((l) => (
           <li><a href={l.href} class="text-cream/80 hover:text-cream">{l.label}</a></li>
@@ -36,7 +36,7 @@ const socials = Object.entries(site.social);
     </div>
 
     <div>
-      <h3 class="eyebrow !text-cream/60 mb-4">Visit</h3>
+      <h3 class="eyebrow text-cream/60 mb-4">Visit</h3>
       <address class="not-italic text-sm text-cream/80 leading-relaxed">
         {site.address.street}<br />
         {site.address.locality} {site.address.postcode}<br />
@@ -46,7 +46,7 @@ const socials = Object.entries(site.social);
     </div>
 
     <div>
-      <h3 class="eyebrow !text-cream/60 mb-4">Opening Hours</h3>
+      <h3 class="eyebrow text-cream/60 mb-4">Opening Hours</h3>
       <ul class="space-y-1.5 text-sm text-cream/80">
         {hours.map((h) => (
           <li class="flex justify-between gap-4">

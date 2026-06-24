@@ -129,7 +129,7 @@ const jsonLd = [
     <aside class="lg:col-span-1">
       <div class="sticky top-24 space-y-5">
         <div class="bg-forest text-paper p-7">
-          <p class="rule-label !text-honey-soft mb-4"><span>Book</span></p>
+          <p class="rule-label text-honey-soft mb-4"><span>Book</span></p>
           <p class="font-display text-2xl leading-snug text-paper">{t.price === 0 ? 'Complimentary' : `From ${priceLabel}`}</p>
           <p class="text-paper/70 text-sm mt-2 leading-relaxed">Every plan begins with a consultation, so your exact price is confirmed before any treatment.</p>
           <a href={`/book?treatment=${encodeURIComponent(t.name)}`} class="block text-center mt-6 bg-paper text-forest px-6 py-3.5 text-sm uppercase tracking-[0.14em] font-medium hover:bg-honey-soft transition-colors">

@@ -70,34 +70,39 @@ body {
   }
 }
 
-/* The signature clinical-record label: mono, spaced, quiet. */
-.eyebrow {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: 0.68rem;
-  font-weight: 500;
-  color: var(--color-honey-ink);   /* dark-surface usages override with !text-honey-soft */
-}
+/* In @layer components so a text-colour utility (e.g. text-honey-soft on dark
+   surfaces, text-cream in the footer) overrides the default colour without
+   needing !important. */
+@layer components {
+  /* The signature clinical-record label: mono, spaced, quiet. */
+  .eyebrow {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--color-honey-ink);
+  }
 
-/* A hairline rule that carries a mono record label inline — the recurring
-   structural device. Usage: <p class="rule-label"><span>Label</span></p> */
-.rule-label {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 0.66rem;
-  font-weight: 500;
-  color: var(--color-brand-soft);
-}
-.rule-label::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--color-beige-dark);
+  /* A hairline rule that carries a mono record label inline — the recurring
+     structural device. Usage: <p class="rule-label"><span>Label</span></p> */
+  .rule-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.66rem;
+    font-weight: 500;
+    color: var(--color-brand-soft);
+  }
+  .rule-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--color-beige-dark);
+  }
 }
 
 /* Mono data cells used in the clinical-record strips. */
