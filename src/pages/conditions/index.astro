@@ -32,7 +32,7 @@ const jsonLd = [breadcrumbList(crumbs)];
   {[{ label: 'Face concerns', items: face }, { label: 'Body concerns', items: body }].map((group) => (
     <section class="max-w-6xl mx-auto px-5 lg:px-6 py-10">
       <h2 class="font-display text-3xl md:text-4xl mb-7">{group.label}</h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {group.items.map((c) => <ConditionCard condition={c} />)}
       </div>
     </section>

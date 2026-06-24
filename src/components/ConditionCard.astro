@@ -2,18 +2,53 @@
 import type { Condition } from '../lib/data';
 interface Props { condition: Condition; }
 const { condition: c } = Astro.props;
+
+// Source data carries no per-condition imagery, so map each concern to a
+// representative clinic photo deterministically (stable per slug, varied across
+// the grid). Face concerns draw from the face/skin set, body from body/laser.
+const facePhotos = [
+  '/assets/demo/cat-face.webp',
+  '/assets/demo/cat-skin.jpg',
+  '/assets/demo/cat-fillers.jpg',
+];
+const bodyPhotos = [
+  '/assets/demo/cat-body.jpg',
+  '/assets/demo/cat-laser.jpg',
+  '/assets/demo/cat-skin.jpg',
+];
+const pool = c.group === 'face' ? facePhotos : bodyPhotos;
+let h = 0;
+for (const ch of c.slug) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+const photo = pool[h % pool.length];
+
+const area = c.group === 'face' ? 'Face' : 'Body';
+const pills = c.treatments.slice(0, 3);
 ---
 <a
   href={`/conditions/${c.slug}`}
-  class="group relative flex min-w-0 items-center gap-4 bg-paper border border-beige-dark/70 p-5 pl-6 hover:border-honey/60 transition-all"
+  class="group block bg-paper rounded-card overflow-hidden border border-beige-dark/70 hover:border-honey/60 hover:shadow-lg transition-all"
 >
-  <span class="absolute left-0 inset-y-0 w-0.5 bg-honey scale-y-0 group-hover:scale-y-100 origin-top transition-transform"></span>
-  <div class="min-w-0 flex-1">
-    <h3 class="font-display text-lg text-heading group-hover:text-brand transition-colors truncate">{c.title}</h3>
-    <p class="text-sm text-ink/80 truncate mt-0.5">{c.description}</p>
+  <div class="aspect-[4/3] overflow-hidden bg-lichen">
+    <img
+      src={photo}
+      alt={`${c.title} — ${area}`}
+      loading="lazy"
+      decoding="async"
+      width="600"
+      height="450"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+    />
   </div>
-  <span class="record text-[0.6rem] uppercase tracking-[0.2em] text-stone group-hover:text-honey-ink shrink-0 flex items-center gap-2 transition-colors">
-    View
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:translate-x-0.5 transition-transform"><polyline points="9 18 15 12 9 6"/></svg>
-  </span>
+  <div class="p-6">
+    <p class="record text-[0.6rem] uppercase tracking-[0.2em] text-honey-ink">{area}</p>
+    <h3 class="font-display text-2xl text-heading mt-1 group-hover:text-brand transition-colors">{c.title}</h3>
+    <p class="mt-2 text-sm text-ink/70 leading-relaxed line-clamp-2">{c.description}</p>
+    {pills.length > 0 && (
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {pills.map((t) => (
+          <li class="record text-[0.62rem] px-3 py-1 rounded-full bg-lichen/70 border border-beige-dark/70 text-ink/75">{t.label}</li>
+        ))}
+      </ul>
+    )}
+  </div>
 </a>
