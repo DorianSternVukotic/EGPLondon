@@ -25,8 +25,8 @@
   /* Accent + neutrals */
   --color-honey: #a98a5e;        /* single warm accent — used with restraint */
   --color-honey-soft: #c4a87f;
-  --color-sand: #8a8b7c;         /* muted sage-grey text (legacy name) */
-  --color-stone: #8a8b7c;
+  --color-sand: #646760;         /* muted sage-grey text (legacy name) — darkened to meet WCAG AA (≈5.5:1 on paper, ≈4.9:1 on lichen panels) */
+  --color-stone: #646760;        /* muted sage-grey text — AA-legible on paper & lichen panels */
   --color-ink: #23271f;          /* green-black body text */
   --color-heading: #1a1e16;      /* headings */
 

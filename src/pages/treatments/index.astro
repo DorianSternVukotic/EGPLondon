@@ -44,8 +44,8 @@ const anchor = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         {/* Part 1 — image + title (taller) */}
         <div class="relative overflow-hidden min-h-[300px] md:min-h-[360px] flex items-end">
           <img src={meta.photo} alt={`${cat.name} treatments at EGP Aesthetics`} loading="lazy" class="absolute inset-0 w-full h-full object-cover object-[center_30%]" />
-          <div class="absolute inset-0 bg-gradient-to-t from-forest/85 via-forest/25 to-transparent"></div>
-          <div class="absolute inset-0 bg-gradient-to-r from-forest/65 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-forest/90 via-forest/45 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-forest/70 to-transparent"></div>
           <div class="relative p-7 md:p-10">
             <p class="eyebrow !text-honey-soft mb-2">{cat.items.length} treatments</p>
             <h2 class="font-display text-3xl md:text-4xl text-paper capitalize">{cat.name.toLowerCase()}</h2>

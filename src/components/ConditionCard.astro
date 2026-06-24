@@ -5,12 +5,12 @@ const { condition: c } = Astro.props;
 ---
 <a
   href={`/conditions/${c.slug}`}
-  class="group relative flex items-center gap-4 bg-paper border border-beige-dark/70 p-5 pl-6 hover:border-honey/60 transition-all"
+  class="group relative flex min-w-0 items-center gap-4 bg-paper border border-beige-dark/70 p-5 pl-6 hover:border-honey/60 transition-all"
 >
   <span class="absolute left-0 inset-y-0 w-0.5 bg-honey scale-y-0 group-hover:scale-y-100 origin-top transition-transform"></span>
   <div class="min-w-0 flex-1">
     <h3 class="font-display text-lg text-heading group-hover:text-brand transition-colors truncate">{c.title}</h3>
-    <p class="text-sm text-ink/60 truncate mt-0.5">{c.description}</p>
+    <p class="text-sm text-ink/80 truncate mt-0.5">{c.description}</p>
   </div>
   <span class="record text-[0.6rem] uppercase tracking-[0.2em] text-stone group-hover:text-honey shrink-0 flex items-center gap-2 transition-colors">
     View

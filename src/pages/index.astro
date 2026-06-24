@@ -46,10 +46,11 @@ const jsonLd = [faqPage(faqs)];
       width="1920" height="2880" fetchpriority="high"
       class="absolute inset-0 w-full h-full object-cover object-[center_18%]"
     />
-    <!-- Scrims: vertical for the lower text band + horizontal to anchor the bottom-left headline -->
-    <div class="absolute inset-0 bg-gradient-to-t from-forest via-forest/50 to-transparent"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-forest/75 via-transparent to-transparent"></div>
-    <div class="relative w-full max-w-6xl mx-auto px-5 lg:px-6 pb-14 md:pb-20 [text-shadow:0_2px_18px_rgba(31,36,28,0.45)]">
+    <!-- Scrims: vertical carries the whole lower text band dark enough for the eyebrow + headline,
+         horizontal anchors the bottom-left text. -->
+    <div class="absolute inset-0 bg-gradient-to-t from-forest from-10% via-forest/70 via-60% to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-forest/70 via-transparent to-transparent"></div>
+    <div class="relative w-full max-w-6xl mx-auto px-5 lg:px-6 pb-14 md:pb-20 [text-shadow:0_1px_2px_rgba(20,24,18,0.9),0_3px_22px_rgba(20,24,18,0.55)]">
       <p class="eyebrow !text-honey-soft mb-5">Founded by two doctors · Two sisters</p>
       <h1 class="font-display text-paper text-[clamp(2.75rem,8vw,6rem)] leading-[0.98] tracking-[-0.02em] max-w-3xl">
         Beauty, rooted in <span class="italic font-medium text-honey-soft">health</span>.
@@ -68,16 +69,20 @@ const jsonLd = [faqPage(faqs)];
     </div>
   </section>
 
-  <!-- Signature: the clinical-record strip (the proof layer) -->
+  <!-- Signature: the clinical-record strip (the proof layer).
+       Mobile = 2×2 hairline grid (gap-px reveals the divider colour); md = single row with
+       vertical dividers, first cell flush to the gutter. -->
   <div class="border-b border-beige-dark/70 bg-paper">
-    <dl class="max-w-6xl mx-auto px-5 lg:px-6 grid grid-cols-2 md:grid-cols-4 divide-x divide-beige-dark/60">
-      {credentials.map((c) => (
-        <div class="px-4 md:px-6 py-5 first:pl-0 md:first:pl-0">
-          <dt class="record text-[0.62rem] uppercase tracking-[0.2em] text-stone">{c.label}</dt>
-          <dd class="font-display text-2xl md:text-[1.7rem] text-heading mt-1.5">{c.value}</dd>
-        </div>
-      ))}
-    </dl>
+    <div class="max-w-6xl mx-auto px-5 lg:px-6">
+      <dl class="grid grid-cols-2 md:grid-cols-4 gap-px bg-beige-dark/60 md:gap-0 md:bg-transparent md:divide-x md:divide-beige-dark/60">
+        {credentials.map((c) => (
+          <div class="bg-paper px-4 md:px-6 md:first:pl-0 py-5">
+            <dt class="record text-[0.62rem] uppercase tracking-[0.2em] text-stone">{c.label}</dt>
+            <dd class="font-display text-2xl md:text-[1.7rem] text-heading mt-1.5">{c.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   </div>
 
   <!-- Meet the founders — the un-copyable asset (archetype ③) -->
@@ -146,7 +151,7 @@ const jsonLd = [faqPage(faqs)];
             {/* Image + title (taller) */}
             <div class="relative min-h-[260px] md:min-h-[380px]">
               <img src={media.photo} alt={`${cat.name} treatments at EGP Aesthetics`} loading="lazy" class="absolute inset-0 w-full h-full object-cover object-[center_30%]" />
-              <div class="absolute inset-0 bg-gradient-to-t from-forest/85 via-forest/25 to-transparent"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-forest/90 via-forest/45 to-transparent"></div>
               <div class="absolute bottom-0 inset-x-0 p-6 md:p-8">
                 <p class="eyebrow !text-honey-soft mb-2">{cat.items.length} treatments</p>
                 <h3 class="font-display text-3xl md:text-4xl text-paper capitalize">{cat.name.toLowerCase()}</h3>
