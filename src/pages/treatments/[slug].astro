@@ -4,7 +4,9 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Faq from '../../components/Faq.astro';
 import BookingForm from '../../components/BookingForm.astro';
 import TreatmentCard from '../../components/TreatmentCard.astro';
+import BeforeAfterFigure from '../../components/BeforeAfterFigure.astro';
 import { getTreatments, getTreatment, relatedTreatments, formatPrice, formatDuration } from '../../lib/data';
+import { mediaForSlug } from '../../lib/treatmentMedia';
 import { breadcrumbList, faqPage, medicalProcedure } from '../../lib/schema';
 import { site } from '../../lib/site';
 
@@ -96,11 +98,22 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- Treatment image -->
+  <figure class="max-w-6xl mx-auto px-5 lg:px-6 pt-10">
+    <div class="relative aspect-[16/7] md:aspect-[16/6] overflow-hidden bg-lichen">
+      <img src={mediaForSlug(t.categorySlug).photo} alt={`${t.name} at EGP Aesthetics`} loading="lazy" width="1600" height="700" class="w-full h-full object-cover" />
+    </div>
+  </figure>
+
   <!-- Body + sidebar -->
   <section class="max-w-6xl mx-auto px-5 lg:px-6 py-14 grid lg:grid-cols-3 gap-10 lg:gap-14">
     <div class="lg:col-span-2 prose-egp">
       <h2>What is {t.name}?</h2>
       <p>{t.description || `${t.name} is one of the regenerative treatments offered at EGP Aesthetics London.`}</p>
+
+      <h2>Before &amp; after</h2>
+      <p>A typical result following a course of {t.name} at EGP Aesthetics. Individual results vary; your plan is tailored at consultation.</p>
+      <BeforeAfterFigure seed={t.slug} caption={`Illustrative before & after · ${t.name}`} />
 
       {detailParas.length > 0 && (
         <>

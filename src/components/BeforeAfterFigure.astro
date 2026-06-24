@@ -1,0 +1,33 @@
+---
+/* Inline before/after pair for the body of treatment & condition articles.
+   Placeholder imagery for now: a stable case pair is chosen from the gallery
+   photos by `seed` so each page differs but stays constant across builds.
+   Pass explicit `before`/`after` to override. */
+interface Props {
+  seed?: string;
+  before?: string;
+  after?: string;
+  caption?: string;
+}
+const { seed = '', before, after, caption } = Astro.props;
+let h = 0;
+for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+const n = h % 5;
+const beforeSrc = before ?? `/assets/photos/case${n}-before.webp`;
+const afterSrc = after ?? `/assets/photos/case${n}-after.webp`;
+---
+<figure class="my-9 bg-paper border border-beige-dark/70">
+  <div class="grid grid-cols-2">
+    <div class="relative aspect-[3/4]">
+      <img src={beforeSrc} alt="Before treatment" loading="lazy" width="540" height="720" class="w-full h-full object-cover" />
+      <span class="absolute top-3 left-3 record text-[0.58rem] uppercase tracking-[0.2em] bg-paper text-ink px-2.5 py-1">Before</span>
+    </div>
+    <div class="relative aspect-[3/4] border-l border-paper">
+      <img src={afterSrc} alt="After treatment" loading="lazy" width="540" height="720" class="w-full h-full object-cover" />
+      <span class="absolute top-3 left-3 record text-[0.58rem] uppercase tracking-[0.2em] bg-brand text-paper px-2.5 py-1">After</span>
+    </div>
+  </div>
+  <figcaption class="p-4 record text-[0.6rem] uppercase tracking-[0.18em] text-stone">
+    {caption ?? 'Illustrative before & after · Individual results vary'}
+  </figcaption>
+</figure>
