@@ -4,23 +4,23 @@ import CtaBand from '../components/CtaBand.astro';
 import { site } from '../lib/site';
 
 const values = [
-  { label: 'Principle', t: 'Regeneration over reaction', d: 'We favour treatments that stimulate your body’s own renewal — collagen, healing, vitality — rather than masking concerns.' },
-  { label: 'Principle', t: 'Honesty above all', d: 'No pressure and no trend-chasing. If a treatment isn’t right for you, we’ll tell you.' },
-  { label: 'Principle', t: 'Artistry with restraint', d: 'Refreshed, balanced, natural. We enhance the features you already have.' },
+  { label: 'Principle', t: 'Non-surgical by design', d: 'We favour advanced biostimulating treatments that support your skin’s own renewal, keeping intervention — and downtime — to a minimum.' },
+  { label: 'Principle', t: 'Honesty above all', d: 'No pressure and no trend-chasing. If a treatment isn’t right for you, we’ll say so.' },
+  { label: 'Principle', t: 'Artistry with restraint', d: 'Refreshed, balanced and natural. We enhance the features you already have rather than rebuild them.' },
 ];
 ---
 <Base
   title="About Us | EGP Aesthetics London"
-  description="Meet EGP Aesthetics London — a clinic founded on regenerative medicine, integrity and natural-looking results."
+  description="Meet EGP Aesthetics London — a doctor-led clinic founded by two sisters on advanced non-surgical science, honesty and natural-looking results."
   canonicalPath="/about"
 >
   <section class="max-w-3xl mx-auto px-5 lg:px-6 pt-16 md:pt-24 text-center">
     <p class="rule-label justify-center mb-5 max-w-[9rem] mx-auto"><span>Our story</span></p>
-    <h1 class="font-display text-5xl md:text-6xl leading-[1.04] tracking-[-0.02em]">Beauty that begins with <span class="living">health</span></h1>
+    <h1 class="font-display text-5xl md:text-6xl leading-[1.04] tracking-[-0.02em]">A more considered kind of <span class="living">aesthetics</span></h1>
     <p class="mt-7 text-lg text-ink/75 leading-relaxed">
-      We are medical aesthetic practitioners, sisters and educators — united by a vision of beauty rooted in health,
-      regeneration and integrity. We believe aesthetic medicine should never be aggressive or trend-driven, but
-      regenerative, respectful and tailored to the individual.
+      We are two sisters — both medical doctors — who founded EGP as the antidote to a mass market built on the same
+      few syringes and a single, over-filled look. We believe aesthetic medicine should be non-surgical wherever
+      possible, led by science rather than trends, and tailored to the individual in front of us.
     </p>
   </section>
 
@@ -42,11 +42,11 @@ const values = [
 
   <section class="max-w-3xl mx-auto px-5 lg:px-6 py-12 prose-egp text-center">
     <p>
-      Combining medical expertise with artistic vision, our team delivers exceptional results in a calm, welcoming
-      setting in the heart of London. Whether you’re considering your first treatment or returning for ongoing care,
-      you’ll always be met with honesty, warmth and clinical excellence.
+      Combining medical training with a measured, science-first approach, we deliver results in a calm, private
+      setting in the heart of London. Whether it’s your first treatment or ongoing care, you’ll always be met with
+      honesty, warmth and clinical rigour — and never sold something you don’t need.
     </p>
   </section>
 
-  <CtaBand title="Come and meet us" text={`Visit us at ${site.address.street}, ${site.address.locality}. Book a complimentary discovery consultation.`} />
+  <CtaBand title="Come and meet us" text={`Visit us at ${site.address.street}, ${site.address.locality}. Book a complimentary discovery consultation and digital skin analysis.`} />
 </Base>

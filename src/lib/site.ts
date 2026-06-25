@@ -3,9 +3,9 @@
 export const site = {
   name: 'EGP Aesthetics',
   legalName: 'EGP Aesthetics London',
-  tagline: 'Regenerative aesthetics, rooted in health',
+  tagline: 'Non-invasive aesthetics, medically led',
   description:
-    'Premier aesthetic clinic in London offering advanced facial treatments, anti-wrinkle injections, dermal fillers and body contouring. Expert practitioners, natural results.',
+    'Doctor-led aesthetic clinic in London SW8, founded by two sisters who are both medical doctors. Advanced non-surgical and biostimulating treatments — Profhilo, Polynucleotides, PRP, Exosomes, Sculptra — for natural results.',
   url: 'https://www.egpaesthetics.co.uk',
   email: 'info@egpaesthetics.co.uk',
   phone: '07944 24 2079',
@@ -46,10 +46,10 @@ export const hours: { day: string; value: string }[] = [
     Each is a (label, value) pair so it typesets as a medical-record row. */
 export const credentials: { label: string; value: string }[] = [
   { label: 'Practice', value: 'Doctor-led' },
-  { label: 'Method', value: 'Regenerative' },
+  { label: 'Method', value: 'Non-surgical' },
   { label: 'Location', value: 'London SW8' },
   { label: 'Rating', value: '5.0 ★' },
 ];
 
 /** Short inline trust line still used in a few places. */
-export const trustBadges = ['Doctor-led', 'Fully insured', 'Regenerative medicine', '5★ rated'];
+export const trustBadges = ['Doctor-led', 'Fully insured', 'Non-surgical', '5★ rated'];

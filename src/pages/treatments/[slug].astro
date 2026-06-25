@@ -47,7 +47,7 @@ const faqs = [
 
 const metaDesc = t.description
   ? (t.description.length > 155 ? t.description.slice(0, 152).trimEnd() + '…' : t.description)
-  : `${t.name} at EGP Aesthetics London. Expert, regenerative treatment from ${priceLabel}. Book a consultation today.`;
+  : `${t.name} at EGP Aesthetics London. Advanced, non-surgical, doctor-led treatment from ${priceLabel}. Book a consultation today.`;
 
 const jsonLd = [
   breadcrumbList(crumbs),
@@ -110,7 +110,7 @@ const jsonLd = [
   <section class="max-w-6xl mx-auto px-5 lg:px-6 py-14 grid lg:grid-cols-3 gap-10 lg:gap-14">
     <div class="lg:col-span-2 prose-egp">
       <h2>What is {t.name}?</h2>
-      <p>{t.description || `${t.name} is one of the regenerative treatments offered at EGP Aesthetics London.`}</p>
+      <p>{t.description || `${t.name} is one of the advanced, non-surgical treatments offered at EGP Aesthetics London.`}</p>
 
       <h2>Before &amp; after</h2>
       <p>A typical result following a course of {t.name} at EGP Aesthetics. Individual results vary; your plan is tailored at consultation.</p>
@@ -135,7 +135,7 @@ const jsonLd = [
 
       <h2>Why choose EGP Aesthetics?</h2>
       <p>
-        Our practitioners are medically trained and focus on regenerative, natural-looking results. Every {t.name}
+        Our doctors are medically trained and favour advanced, non-surgical methods for natural-looking results. Every {t.name}
         treatment begins with a thorough consultation so your plan is tailored to you — never rushed, never overdone.
       </p>
     </div>

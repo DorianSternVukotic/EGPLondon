@@ -1,0 +1,67 @@
+---
+/** Homepage "by area" showcase — a photo-led counterpart to the cartoon-driven
+    Featured treatments grid (the two sit back-to-back for comparison). Styled
+    after the supplied reference: full-width stacked banners with a real macro
+    photo of the affected area, a forest scrim down the left and the name /
+    short description / price overlaid. Names + prices come from the live data;
+    photos are tasteful stock macros (public/assets/photos/area-*.webp). */
+import { getTreatment, formatPrice } from '../lib/data';
+
+const raw = [
+  { slug: 'profhilo', title: 'Profhilo® skin remodelling', area: 'Skin', photo: '/assets/photos/area-cheek.webp', desc: 'Bio-remodelling that deeply hydrates and firms the skin from within.', pos: 'center' },
+  { slug: 'nctf-under-eye-skin-booster', title: 'NCTF under-eye booster', area: 'Under-eye', photo: '/assets/photos/area-eye.webp', desc: 'A vitamin-rich booster to brighten and revive tired under-eyes.', pos: 'center' },
+  { slug: 'lip-enhancement', title: 'Lip enhancement', area: 'Lips', photo: '/assets/photos/area-lips.webp', desc: 'Subtle, natural volume and definition — balanced, never overfilled.', pos: 'center' },
+  { slug: 'chin-filler', title: 'Chin filler', area: 'Chin & jaw', photo: '/assets/photos/area-chin.webp', desc: 'Definition and balance for a more refined profile.', pos: 'center' },
+];
+
+const cards = raw.map((c) => {
+  const t = getTreatment(c.slug);
+  const price = t ? (t.price === 0 ? 'Free' : `From ${formatPrice(t.discountedPrice ?? t.price)}`) : '';
+  return { ...c, name: c.title ?? t?.name ?? c.slug, price };
+});
+---
+<section class="bg-paper border-t border-beige-dark/60">
+  <div class="max-w-6xl mx-auto px-5 lg:px-6 py-20">
+    <div class="flex items-end justify-between mb-9 gap-4">
+      <div>
+        <p class="rule-label mb-4 max-w-xs"><span>Treatments by area</span></p>
+        <h2 class="font-display text-4xl md:text-5xl">A closer look</h2>
+        <p class="mt-3 text-ink/70 leading-relaxed max-w-lg">
+          Four of our most-requested face treatments — each matched to exactly where you’d like to see a change.
+        </p>
+      </div>
+      <a href="/treatments" class="hidden sm:inline record text-xs uppercase tracking-[0.15em] text-brand hover:text-honey-ink shrink-0 transition-colors">All treatments →</a>
+    </div>
+
+    <div class="space-y-4">
+      {cards.map((c) => (
+        <a
+          href={`/treatments/${c.slug}`}
+          class="group relative block overflow-hidden border border-beige-dark/60 min-h-[156px] md:min-h-[188px]"
+        >
+          <img
+            src={c.photo}
+            alt={`${c.name} — ${c.area.toLowerCase()} treatment at EGP Aesthetics`}
+            loading="lazy"
+            width="1760"
+            height="760"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+            style={`object-position:${c.pos}`}
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-forest/95 from-5% via-forest/60 via-42% to-transparent to-[82%]"></div>
+          <div class="relative flex flex-col justify-center min-h-[156px] md:min-h-[188px] p-6 md:p-9 max-w-[72%] sm:max-w-[64%]">
+            <p class="eyebrow text-honey-soft mb-2">{c.area}</p>
+            <h3 class="font-display text-2xl md:text-[2.1rem] leading-[1.05] text-paper">{c.name}</h3>
+            <p class="mt-2 text-paper/80 text-sm md:text-[0.95rem] leading-relaxed max-w-sm">{c.desc}</p>
+            <div class="mt-3 flex items-center gap-4">
+              <span class="record text-xs uppercase tracking-[0.14em] text-honey-soft">{c.price}</span>
+              <span class="record text-[0.7rem] uppercase tracking-[0.16em] text-paper/70 group-hover:text-paper inline-flex items-center gap-1 transition-colors">
+                Learn more <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">→</span>
+              </span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

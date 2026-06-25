@@ -1,0 +1,103 @@
+---
+/** Homepage "visit the clinic" block: a hairline-ledger composite of a photo
+    strip, an embedded map and the NAP / hours / travel details. Single source
+    of truth for clinic data is src/lib/site.ts. Clinic photos are tasteful
+    stock placeholders for now (public/assets/photos/clinic-*.webp). */
+import { site, hours } from '../lib/site';
+
+const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(
+  `${site.address.street}, ${site.address.locality} ${site.address.postcode}`,
+)}&output=embed`;
+
+// Alternating wide-room / close-detail for rhythm across the strip.
+const photos = [
+  { src: '/assets/photos/clinic-1.webp', alt: 'A calm, modern treatment room at EGP Aesthetics — cream panelling, a clean white couch and a light-wood consultation desk' },
+  { src: '/assets/photos/clinic-3.webp', alt: 'A clinical serum applied during a calm, elegant facial treatment' },
+  { src: '/assets/photos/clinic-2.webp', alt: 'A minimal, architectural clinic reception with wood-panelled walls and soft natural light' },
+  { src: '/assets/photos/clinic-4.webp', alt: 'A practitioner using a non-surgical skin device during a facial treatment' },
+];
+---
+<section class="bg-lichen/40 border-y border-beige-dark/60">
+  <div class="max-w-6xl mx-auto px-5 lg:px-6 py-20 md:py-24">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10">
+      <div class="max-w-xl">
+        <p class="rule-label mb-4 max-w-xs"><span>Visit the clinic</span></p>
+        <h2 class="font-display text-4xl md:text-5xl">Find us in London</h2>
+        <p class="mt-4 text-ink/70 leading-relaxed">
+          Our clinic sits on Wandsworth Road in south-west London — a calm, private space a short walk from Clapham
+          Common, where every consultation and treatment is carried out by the founding doctors themselves.
+        </p>
+      </div>
+      <a href="/book" class="shrink-0 bg-forest text-paper px-7 py-3.5 text-sm uppercase tracking-[0.14em] text-center hover:bg-brand transition-colors">
+        Book a visit
+      </a>
+    </div>
+
+    <!-- Hairline-ledger composite: photo strip over map + details -->
+    <div class="border border-beige-dark/60 bg-beige-dark/60 grid gap-px overflow-hidden rounded-card">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-px">
+        {photos.map((p) => (
+          <img
+            src={p.src}
+            alt={p.alt}
+            loading="lazy"
+            width="1600"
+            height="1067"
+            class="aspect-[4/3] w-full h-full object-cover bg-paper"
+          />
+        ))}
+      </div>
+
+      <div class="grid lg:grid-cols-[1.5fr_1fr] gap-px">
+        <div class="relative bg-paper min-h-[340px] lg:min-h-[440px]">
+          <iframe
+            src={mapEmbed}
+            title="Map to EGP Aesthetics, 809 Wandsworth Road, London SW8 3JH"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="absolute inset-0 w-full h-full"
+            style="border:0"
+          ></iframe>
+        </div>
+
+        <div class="bg-paper p-7 md:p-9 flex flex-col gap-7">
+          <div>
+            <p class="rule-label mb-3 max-w-[9rem]"><span>Address</span></p>
+            <address class="not-italic font-display text-xl text-heading leading-relaxed">
+              {site.address.street}<br />{site.address.locality} {site.address.postcode}
+            </address>
+            <div class="mt-3 record text-xs flex flex-wrap gap-x-4 gap-y-1">
+              <a href={site.phoneHref} class="text-brand hover:text-honey-ink transition-colors">{site.phone}</a>
+              <a href={`mailto:${site.email}`} class="text-brand hover:text-honey-ink transition-colors">{site.email}</a>
+            </div>
+            <a href={site.mapsUrl} class="inline-block mt-3 record text-[0.7rem] uppercase tracking-[0.16em] text-honey-ink hover:text-brand border-b border-honey/50 pb-0.5 transition-colors">
+              Get directions →
+            </a>
+          </div>
+
+          <div>
+            <p class="rule-label mb-3 max-w-[11rem]"><span>Opening hours</span></p>
+            <ul class="text-sm text-ink/80">
+              {hours.map((h) => (
+                <li class="flex justify-between gap-4 border-b border-beige-dark/50 py-1.5">
+                  <span>{h.day}</span><span class="record text-xs text-stone">{h.value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
+            <div>
+              <h3 class="font-display text-base mb-1.5">Getting here</h3>
+              <p class="text-ink/65 leading-relaxed">Clapham Common (Northern line) is around a 10-minute walk, and buses 87 and 88 stop nearby.</p>
+            </div>
+            <div>
+              <h3 class="font-display text-base mb-1.5">Parking</h3>
+              <p class="text-ink/65 leading-relaxed">Pay &amp; display parking is available on The Chase and Victoria Rise, with car parks 3–5 minutes away.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

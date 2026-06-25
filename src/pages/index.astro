@@ -5,9 +5,11 @@ import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import Testimonials from '../components/Testimonials.astro';
+import TreatmentShowcase from '../components/TreatmentShowcase.astro';
+import ClinicLocation from '../components/ClinicLocation.astro';
 import { site, credentials } from '../lib/site';
 import { conditionGroups, getTreatments, getConditions, treatmentCategories, formatPrice } from '../lib/data';
-import { mediaForSlug, cartoonFor } from '../lib/treatmentMedia';
+import { mediaForSlug, cartoonForCategory } from '../lib/treatmentMedia';
 import { faqPage } from '../lib/schema';
 
 // Three most-requested categories, each shown as image+title + a few sub-treatments.
@@ -21,23 +23,23 @@ const treatmentCount = getTreatments().length;
 const conditionCount = getConditions().length;
 
 const values = [
-  { label: 'Approach', t: 'Regenerative first', d: 'We favour treatments that stimulate your body’s own renewal — collagen, healing, vitality — rather than masking concerns.' },
-  { label: 'Practitioners', t: 'Medically led', d: 'Every plan is designed and delivered by trained medical professionals, never rushed and never delegated.' },
-  { label: 'Standard', t: 'Fully insured & certified', d: 'Medical-grade products, sterile protocols and complete clinical accountability.' },
-  { label: 'Counsel', t: 'Honest advice', d: 'No pressure, no trend-chasing. If a treatment isn’t right for you, we’ll tell you — and say why.' },
-  { label: 'Outcome', t: 'Natural results', d: 'Refreshed, balanced, never overdone. We enhance the features you already have.' },
-  { label: 'Care', t: 'Plans built around you', d: 'Every face is different. Your treatment plan is tailored to your goals, biology and timeline.' },
+  { label: 'Approach', t: 'Non-surgical first', d: 'We reach for advanced biostimulating science — Profhilo, Polynucleotides, PRP, Exosomes, Sculptra — and turn to filler only when it’s genuinely the right tool.' },
+  { label: 'Practitioners', t: 'Medically led', d: 'Every plan is designed and delivered by two qualified doctors — never rushed, never delegated to a technician.' },
+  { label: 'Standard', t: 'Fully insured & certified', d: 'Medical-grade products, sterile protocols and complete clinical accountability behind every treatment.' },
+  { label: 'Counsel', t: 'Honest advice', d: 'No pressure and no trend-chasing. If a treatment isn’t right for you, we’ll tell you — and explain why.' },
+  { label: 'Outcome', t: 'Natural results', d: 'Refreshed and balanced, never the overfilled, ‘done’ look. We work with the features you already have.' },
+  { label: 'Science', t: 'Cutting-edge, evidence-based', d: 'We stay current with regenerative and device-based medicine so your options reflect what genuinely works — not what’s trending online.' },
 ];
 
 const faqs = [
-  { q: 'Do I need a consultation before treatment?', a: 'Yes — every treatment begins with a consultation so we can understand your goals and recommend the safest, most effective plan. Discovery consultations are complimentary.' },
-  { q: 'Where are you based?', a: `We’re at ${site.address.street}, ${site.address.locality} ${site.address.postcode}, a short walk from Clapham Common.` },
-  { q: 'How do I book?', a: 'Use the booking form on the site, call us, or message us on WhatsApp. We’ll confirm your appointment by phone or email.' },
-  { q: 'Are your treatments suitable for me?', a: 'Suitability depends on your medical history and goals, which we assess at your consultation. We’ll always tell you honestly if a treatment isn’t right for you.' },
+  { q: 'Do I need a consultation before treatment?', a: 'Yes — every treatment begins with a consultation so we can assess your skin and recommend the safest, most effective plan. Discovery consultations, including a digital skin analysis, are complimentary.' },
+  { q: 'Are your treatments non-surgical?', a: 'Yes. Our focus is advanced non-surgical and biostimulating treatments — from Profhilo and Polynucleotides to ultrasound and radiofrequency tightening — designed to support your skin’s own renewal with no surgery and minimal downtime.' },
+  { q: 'Do you offer dermal and lip fillers?', a: 'We do, but we treat filler as one tool among many rather than the default answer. We’ll only recommend it when it’s clinically the right choice for your goals — and often there’s a more regenerative option.' },
+  { q: 'What makes EGP different from a high-street clinic?', a: 'Every treatment is planned and delivered by two medical doctors, using cutting-edge non-surgical science rather than a one-size-fits-all menu. The clinic is fully insured, evidence-led, and honest about what will — and won’t — help.' },
 ];
 const jsonLd = [faqPage(faqs)];
 ---
-<Base title={`${site.name} London — Regenerative Aesthetics`} jsonLd={jsonLd} canonicalPath="/">
+<Base title={`${site.name} London — Non-Surgical, Doctor-Led Aesthetics`} jsonLd={jsonLd} canonicalPath="/">
   <!-- Hero — full-screen founders -->
   <section class="relative min-h-[calc(100svh-4rem)] md:min-h-[calc(100svh-4.5rem)] flex items-end overflow-hidden">
     <img
@@ -53,10 +55,10 @@ const jsonLd = [faqPage(faqs)];
     <div class="relative w-full max-w-6xl mx-auto px-5 lg:px-6 pb-14 md:pb-20 [text-shadow:0_1px_2px_rgba(20,24,18,0.9),0_3px_22px_rgba(20,24,18,0.55)]">
       <p class="eyebrow text-honey-soft mb-5">Founded by two doctors · Two sisters</p>
       <h1 class="font-display text-paper text-[clamp(2.75rem,8vw,6rem)] leading-[0.98] tracking-[-0.02em] max-w-3xl">
-        Beauty, rooted in <span class="italic font-medium text-honey-soft">health</span>.
+        Advanced aesthetics, without the <span class="italic font-medium text-honey-soft">scalpel</span>.
       </h1>
-      <p class="mt-6 text-lg text-paper/85 leading-relaxed max-w-lg">
-        Regenerative facial and body treatments, led by medical doctors — for results that look like you, only renewed.
+      <p class="mt-6 text-lg text-paper/85 leading-relaxed max-w-xl">
+        Non-surgical, doctor-led treatments that work with your biology — biostimulators, polynucleotides and regenerative science, not a default syringe of filler.
       </p>
       <div class="mt-9 flex flex-col sm:flex-row gap-3">
         <a href="/book" class="bg-paper text-forest px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium text-center hover:bg-honey-soft transition-colors">
@@ -92,16 +94,16 @@ const jsonLd = [faqPage(faqs)];
     </div>
     <div>
       <p class="rule-label mb-5 max-w-xs"><span>Your doctors</span></p>
-      <h2 class="font-display text-4xl md:text-5xl leading-[1.05]">Two sisters.<br />Two doctors.<br />One <span class="living">philosophy</span>.</h2>
+      <h2 class="font-display text-4xl md:text-5xl leading-[1.05]">Two sisters.<br />Two doctors.<br />One <span class="living">standard</span>.</h2>
       <p class="mt-6 text-ink/75 leading-relaxed max-w-md">
-        EGP was founded by two sisters — both medical doctors — who believe aesthetic medicine should restore rather
-        than mask. Every plan is designed and delivered by them, grounded in regenerative science and an unhurried,
-        honest standard of care.
+        EGP was founded by two sisters — both medical doctors — who built the clinic they wished existed: medically led,
+        unhurried, and free of pressure to over-treat. Every plan is designed and delivered by them, drawing on advanced
+        non-surgical and biostimulating treatments rather than the off-the-shelf approach of the high street.
       </p>
       <dl class="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 max-w-md">
         {[
           { k: 'Medically qualified', v: 'Doctor-led care' },
-          { k: 'Regenerative-trained', v: 'Collagen & biostimulation' },
+          { k: 'Technology-led', v: 'Biostimulation & devices' },
           { k: 'Founder-delivered', v: 'Seen by the sisters' },
           { k: 'Honest by default', v: 'No pressure, no trends' },
         ].map((f) => (
@@ -122,8 +124,9 @@ const jsonLd = [faqPage(faqs)];
     <div class="max-w-5xl mx-auto px-5 lg:px-6 py-20 md:py-28">
       <p class="rule-label text-honey-soft mb-9"><span>The thesis</span></p>
       <p class="font-display text-[clamp(1.6rem,3.6vw,2.6rem)] leading-[1.25] tracking-[-0.01em] text-paper">
-        Aesthetic medicine should never be aggressive or trend-driven. We work <span class="italic text-honey-soft">with</span>
-        your biology — stimulating the skin’s own renewal — so what you see in the mirror is unmistakably you, at your healthiest.
+        Most of the market chases a single look with the same few products. We do the opposite — we read your skin, then
+        choose from the most advanced non-surgical science available, so the result is
+        <span class="italic text-honey-soft">unmistakably you</span>, only better rested.
       </p>
       <a href="/about" class="inline-block mt-10 record text-xs uppercase tracking-[0.18em] text-paper/70 hover:text-paper border-b border-honey/50 pb-1 transition-colors">
         Read our philosophy →
@@ -144,7 +147,7 @@ const jsonLd = [faqPage(faqs)];
     <div class="space-y-6">
       {featuredCats.map((cat) => {
         const media = mediaForSlug(cat.items[0]?.categorySlug);
-        const cartoon = cartoonFor(cat.name);
+        const cartoon = cartoonForCategory(cat.name);
         const items = cat.items.slice(0, 6);
         return (
           <div class="grid md:grid-cols-[0.85fr_1.4fr] border border-beige-dark/60 bg-paper overflow-hidden">
@@ -182,13 +185,16 @@ const jsonLd = [faqPage(faqs)];
     <a href="/treatments" class="sm:hidden block text-center mt-8 record text-xs uppercase tracking-[0.15em] text-brand">All treatments →</a>
   </section>
 
+  <!-- By area — photo-led showcase (comparison counterpart to Featured treatments) -->
+  <TreatmentShowcase />
+
   <!-- Conditions -->
   <section class="bg-lichen/50 border-y border-beige-dark/60">
     <div class="max-w-6xl mx-auto px-5 lg:px-6 py-20">
       <div class="max-w-2xl mb-10">
         <p class="rule-label mb-4 max-w-xs"><span>Start with your concern</span></p>
         <h2 class="font-display text-4xl md:text-5xl">Explore by condition</h2>
-        <p class="mt-4 text-ink/70 leading-relaxed">Not sure which treatment you need? Begin with what you’d like to change — we’ll match it to the right approach.</p>
+        <p class="mt-4 text-ink/70 leading-relaxed">Not sure which treatment you need? Begin with what you’d like to change — we’ll match it to the most appropriate, least invasive approach.</p>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {popularConditions.map((c) => <ConditionCard condition={c} />)}
@@ -203,7 +209,7 @@ const jsonLd = [faqPage(faqs)];
   <section class="max-w-6xl mx-auto px-5 lg:px-6 py-20 md:py-24">
     <div class="max-w-2xl mb-14">
       <p class="rule-label mb-4 max-w-xs"><span>Why EGP</span></p>
-      <h2 class="font-display text-4xl md:text-5xl">A clinic that puts you first</h2>
+      <h2 class="font-display text-4xl md:text-5xl">The premium, medical alternative</h2>
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12">
       {values.map((v) => (
@@ -219,5 +225,6 @@ const jsonLd = [faqPage(faqs)];
   <BeforeAfter />
   <Testimonials />
   <Faq items={faqs} />
+  <ClinicLocation />
   <CtaBand />
 </Base>

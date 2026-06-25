@@ -1,0 +1,89 @@
+---
+/** Interactive "problem face" navigator for the treatments page.
+    The labelled medical illustration (public/assets/problemface.png, 1692×929)
+    already carries the concern labels; we overlay transparent hotspot links
+    positioned over each label (coordinates measured from the source image) so
+    tapping a concern jumps to the matching condition ("problem") or treatment
+    ("therapy") page. A persistent honey marker + hover wash signals that the
+    labels are interactive; a chip row beneath keeps it fully usable on small
+    screens and legible to crawlers. */
+
+type Spot = {
+  label: string;
+  href: string;
+  kind: 'Concern' | 'Treatment';
+  side: 'left' | 'right';
+  top: number;
+  left: number;
+  width: number;
+};
+
+// Geometry is a percentage of the image box; values measured from the source.
+const H = 8.5; // hotspot height, % of image height
+const spots: Spot[] = [
+  // Left column — labels right-aligned, ending near x≈22%
+  { label: 'Forehead wrinkles', href: '/treatments/forehead-lines', kind: 'Treatment', side: 'left', top: 15.2, left: 5.8, width: 17.3 },
+  { label: 'Double eyelids', href: '/treatments/brow-lift', kind: 'Treatment', side: 'left', top: 30.0, left: 8.8, width: 14.5 },
+  { label: 'Freckles', href: '/conditions/hyperpigmentation-melasma', kind: 'Concern', side: 'left', top: 45.2, left: 13.9, width: 9.4 },
+  { label: 'Sagging skin', href: '/conditions/sagging-skin-skin-laxity', kind: 'Concern', side: 'left', top: 61.2, left: 10.3, width: 12.9 },
+  // Right column — labels left-aligned, starting near x≈81%
+  { label: 'Wrinkles', href: '/treatments/anti-wrinkle-injections', kind: 'Treatment', side: 'right', top: 27.1, left: 79.5, width: 9.6 },
+  { label: 'Pores', href: '/treatments/microneedling-facial', kind: 'Treatment', side: 'right', top: 42.5, left: 79.5, width: 7.3 },
+  { label: 'Acne scars', href: '/conditions/acne-acne-scarring', kind: 'Concern', side: 'right', top: 57.4, left: 79.5, width: 11.6 },
+  { label: 'Face contour', href: '/treatments/full-face-balancing', kind: 'Treatment', side: 'right', top: 71.4, left: 79.5, width: 13 },
+];
+---
+<section class="bg-lichen/30 border-y border-beige-dark/60">
+  <div class="max-w-6xl mx-auto px-5 lg:px-6 py-16 md:py-20">
+    <div class="max-w-2xl mb-9 md:mb-11">
+      <p class="rule-label mb-4 max-w-xs"><span>Start with your concern</span></p>
+      <h2 class="font-display text-3xl md:text-4xl">Find your treatment by area</h2>
+      <p class="mt-4 text-ink/70 leading-relaxed">
+        Tap a concern on the map to jump straight to how we treat it — every path leads to a doctor-led,
+        non-surgical plan.
+      </p>
+    </div>
+
+    <!-- The labelled illustration + overlaid hotspot links -->
+    <div class="relative mx-auto max-w-4xl">
+      <img
+        src="/assets/problemface.png"
+        alt="A face with common concerns labelled: forehead wrinkles, double eyelids, freckles and sagging skin on the left; wrinkles, pores, acne scars and face contour on the right"
+        width="1692"
+        height="929"
+        class="block w-full h-auto rounded-card border border-beige-dark/50 bg-paper"
+      />
+      {spots.map((s) => (
+        <a
+          href={s.href}
+          aria-label={`${s.label} — ${s.kind === 'Concern' ? 'explore this concern' : 'view treatment'}`}
+          class:list={[
+            'group/spot absolute flex items-center rounded-full outline-none ring-2 ring-honey/0',
+            'hover:ring-honey/60 focus-visible:ring-honey/70 hover:bg-honey/15 focus-visible:bg-honey/15',
+            'transition-all duration-300',
+            s.side === 'left' ? 'justify-start' : 'justify-end',
+          ]}
+          style={`top:${s.top}%; left:${s.left}%; width:${s.width}%; height:${H}%;`}
+        >
+          <span
+            class="block h-2 w-2 md:h-2.5 md:w-2.5 rounded-full bg-honey ring-2 ring-paper shadow-sm group-hover/spot:scale-150 transition-transform duration-300"
+            aria-hidden="true"
+          ></span>
+        </a>
+      ))}
+    </div>
+
+    <!-- Always-usable fallback: works on touch screens and for assistive tech -->
+    <div class="mt-8 flex flex-wrap items-center gap-2">
+      <span class="record text-[0.6rem] uppercase tracking-[0.18em] text-stone mr-1">Jump to</span>
+      {spots.map((s) => (
+        <a
+          href={s.href}
+          class="record text-[0.7rem] uppercase tracking-[0.1em] text-brand hover:text-honey-ink border border-beige-dark/60 hover:border-honey/60 rounded-full px-3 py-1.5 transition-colors"
+        >
+          {s.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

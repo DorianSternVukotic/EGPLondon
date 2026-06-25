@@ -3,45 +3,83 @@
     line-art supplied by the client (public/assets/cartoons). Not final imagery. */
 export interface CatMedia { photo: string; blurb: string; }
 
-/** Category banner photo + blurb, keyed by a treatment's `categorySlug`. */
+/** Category banner photo + blurb, keyed by a treatment's `categorySlug`.
+    Blurbs lead on advanced, non-surgical science — not "filler by default". */
 export const catMeta: Record<string, CatMedia> = {
-  face: { photo: '/assets/demo/cat-face.webp', blurb: 'Regenerative facials and rejuvenation for a healthy, natural glow.' },
-  'anti-wrinkle': { photo: '/assets/demo/cat-injectables.webp', blurb: 'Refined anti-wrinkle treatments that soften lines while keeping your expressions your own.' },
-  fillers: { photo: '/assets/demo/cat-fillers.jpg', blurb: 'Subtle dermal fillers to restore volume, contour and balance.' },
-  body: { photo: '/assets/demo/cat-body.jpg', blurb: 'Body contouring and skin-tightening to refine and renew.' },
-  skin: { photo: '/assets/demo/cat-skin.jpg', blurb: 'Targeted skin treatments for tone, texture and clarity.' },
-  hair: { photo: '/assets/demo/cat-laser.jpg', blurb: 'Regenerative hair and scalp treatments to support natural growth.' },
-  lips: { photo: '/assets/demo/cat-wellness.jpg', blurb: 'Natural lip enhancement, in proportion with your features.' },
+  face: { photo: '/assets/demo/cat-face.webp', blurb: 'Advanced, non-surgical facial rejuvenation — biostimulation and medical skin science, not filler by default.' },
+  'anti-wrinkle': { photo: '/assets/demo/cat-injectables.webp', blurb: 'Precise, micro-dosed anti-wrinkle treatment that softens lines while keeping every expression your own.' },
+  fillers: { photo: '/assets/demo/cat-fillers.jpg', blurb: 'Considered dermal filler, used with restraint to restore balance — never to overfill.' },
+  body: { photo: '/assets/demo/cat-body.jpg', blurb: 'Non-invasive body contouring and skin-tightening, powered by ultrasound, radiofrequency and cryolipolysis.' },
+  skin: { photo: '/assets/demo/cat-skin.jpg', blurb: 'Medical-grade skin treatments — peels, microneedling and boosters that rebuild tone, texture and clarity.' },
+  hair: { photo: '/assets/demo/cat-laser.jpg', blurb: 'Regenerative hair and scalp treatment that supports your own natural growth.' },
+  lips: { photo: '/assets/demo/cat-wellness.jpg', blurb: 'Natural lip enhancement, kept in proportion with the rest of your face.' },
 };
 
 export const fallbackMedia: CatMedia = {
   photo: '/assets/demo/cat-face.webp',
-  blurb: 'Expert, regenerative treatments tailored to you.',
+  blurb: 'Advanced, non-surgical treatments, tailored to you.',
 };
 
 export const mediaForSlug = (slug?: string): CatMedia => catMeta[slug ?? ''] ?? fallbackMedia;
 
-/** Full cartoon line-art pool. */
-export const cartoons = [
-  '/assets/cartoons/category12122.webp',
-  '/assets/cartoons/category19577.webp',
-  '/assets/cartoons/category26289.webp',
-  '/assets/cartoons/category50064.webp',
-  '/assets/cartoons/category59085.webp',
-  '/assets/cartoons/category72859.webp',
-  '/assets/cartoons/category75876.webp',
-  '/assets/cartoons/category87331.webp',
-  '/assets/cartoons/category91566.webp',
-  '/assets/cartoons/category98864.webp',
-];
+/** Named cartoon line-art (public/assets/cartoons), so pools read clearly.
+    Each is right-weighted line-art on a near-white field — designed to sit
+    full-bleed under mix-blend-multiply with text overlaid on the left/bottom. */
+const ART = {
+  faceHand: '/assets/cartoons/category12122.webp',     // woman, hand at chin, eyes closed
+  bodyArmsUp: '/assets/cartoons/category19577.webp',   // female torso, arms raised
+  profileLips: '/assets/cartoons/category26289.webp',  // side profile, lips
+  vial: '/assets/cartoons/category50064.webp',         // hand holding a serum/PRP vial
+  maleAbs: '/assets/cartoons/category59085.webp',      // male torso / abdomen
+  hair: '/assets/cartoons/category72859.webp',         // styled hair / scalp
+  dna: '/assets/cartoons/category75876.webp',          // DNA double helix
+  faceWoman: '/assets/cartoons/category87331.webp',    // woman's face, three-quarter
+  bodyFemale: '/assets/cartoons/category91566.webp',   // female body, standing
+  profilesPair: '/assets/cartoons/category98864.webp', // two male head/shoulder profiles
+} as const;
 
-/** Deterministic "random" cartoon from the pool, seeded by a string (slug/name)
-    so it varies per treatment but stays stable across builds. */
-export const cartoonFor = (seed: string): string => {
+/** Full pool (kept for any generic use). */
+export const cartoons = Object.values(ART);
+
+/** Subject pools so the now-prominent line-art matches the treatment. */
+const POOLS = {
+  science: [ART.vial, ART.dna],
+  face: [ART.faceWoman, ART.faceHand],
+  lips: [ART.profileLips, ART.faceWoman],
+  body: [ART.bodyFemale, ART.bodyArmsUp, ART.maleAbs],
+  hair: [ART.hair, ART.profilesPair],
+  skin: [ART.faceHand, ART.faceWoman, ART.vial],
+} as const;
+
+const hash = (s: string): number => {
   let h = 0;
-  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
-  return cartoons[h % cartoons.length];
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
 };
+const pick = (pool: readonly string[], seed: string) => pool[hash(seed) % pool.length];
+
+/** Pick the subject pool for a treatment from its name/category, then choose a
+    stable member by slug hash. Regenerative/biostimulation treatments lead with
+    the science line-art (vial / DNA). */
+const poolFor = (hay: string, categorySlug?: string): readonly string[] => {
+  if (/prp|exosome|polynucleotide|profhilo|sculptra|booster|mesotherap|stem|nctf|collagen|biostim|microneedl|peel/.test(hay)) return POOLS.science;
+  if (categorySlug === 'hair' || /hair|scalp/.test(hay)) return POOLS.hair;
+  if (categorySlug === 'lips' || /\blip\b|\blips\b|lip /.test(hay)) return POOLS.lips;
+  if (categorySlug === 'body' || /body|fat|cellulite|coolsculpt|freez|contour|tighten|radiofrequenc|ultrasound|sculpt/.test(hay)) return POOLS.body;
+  if (categorySlug === 'skin' || /facial|detox|cleansing|pigment|acne|texture|glow/.test(hay)) return POOLS.skin;
+  return POOLS.face; // face, anti-wrinkle, most fillers
+};
+
+/** Centerpiece cartoon for a treatment card — category-aware + stable per slug. */
+export const cartoonForTreatment = (t: { slug: string; name: string; categorySlug?: string }): string =>
+  pick(poolFor(`${t.slug} ${t.name}`.toLowerCase(), t.categorySlug), t.slug);
+
+/** Cartoon for a whole category block (homepage featured), keyed by category name. */
+export const cartoonForCategory = (name: string): string =>
+  pick(poolFor(name.toLowerCase(), name.toLowerCase().replace(/[^a-z]/g, '')), name);
+
+/** Legacy: deterministic cartoon from a seed string (kept for back-compat). */
+export const cartoonFor = (seed: string): string => pick(cartoons, seed);
 
 /* ── Condition card imagery ───────────────────────────────────────────
    Face concerns use the deaging-europe condition photos (public/assets/
