@@ -4,7 +4,7 @@ import CtaBand from '../../components/CtaBand.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ProblemFaceNav from '../../components/ProblemFaceNav.astro';
 import { treatmentCategories, getTreatments, formatPrice, formatDuration } from '../../lib/data';
-import { mediaForSlug, cartoonForTreatment } from '../../lib/treatmentMedia';
+import { mediaForSlug, cartoonsForTreatments } from '../../lib/treatmentMedia';
 import { breadcrumbList } from '../../lib/schema';
 
 const cats = treatmentCategories();
@@ -43,6 +43,7 @@ const anchor = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
   {cats.map((cat) => {
     const meta = mediaForSlug(cat.items[0]?.categorySlug);
+    const cartoons = cartoonsForTreatments(cat.items);
     return (
       <section id={anchor(cat.name)} class="max-w-6xl mx-auto px-5 lg:px-6 py-10 md:py-12 scroll-mt-24">
         {/* Part 1 — image + title (taller) */}
@@ -61,14 +62,14 @@ const anchor = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
              The illustration is the centerpiece (full-bleed, mix-blend on a soft
              sage field); a paper scrim down the bottom keeps the overlaid name legible. */}
         <div class="grid sm:grid-cols-2 gap-px bg-beige-dark/60 border border-beige-dark/60 mt-px">
-          {cat.items.map((t) => (
+          {cat.items.map((t, i) => (
             <a
               href={`/treatments/${t.slug}`}
               class="group relative overflow-hidden bg-gradient-to-br from-lichen/45 via-paper to-paper min-h-[300px] md:min-h-[360px] flex flex-col justify-end"
             >
               {/* Cartoon centerpiece — large, right-weighted, blended onto the field */}
               <img
-                src={cartoonForTreatment(t)}
+                src={cartoons[i]}
                 alt=""
                 aria-hidden="true"
                 class="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 h-[116%] w-auto max-w-[78%] object-contain object-right mix-blend-multiply transition-transform duration-700 ease-out group-hover:scale-[1.045]"

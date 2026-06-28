@@ -41,15 +41,19 @@ const ART = {
 /** Full pool (kept for any generic use). */
 export const cartoons = Object.values(ART);
 
-/** Subject pools so the now-prominent line-art matches the treatment. */
+/** Subject pools, each ordered with the most on-subject art first and kept broad
+    (≥2 members) so a category's cards rotate through several illustrations rather
+    than repeating one or two. Regenerative/biostimulation treatments lead with
+    the science line-art (vial / DNA). */
 const POOLS = {
-  science: [ART.vial, ART.dna],
-  face: [ART.faceWoman, ART.faceHand],
-  lips: [ART.profileLips, ART.faceWoman],
-  body: [ART.bodyFemale, ART.bodyArmsUp, ART.maleAbs],
+  science: [ART.vial, ART.dna, ART.faceHand, ART.faceWoman],
+  face: [ART.faceWoman, ART.faceHand, ART.profileLips, ART.vial, ART.dna],
+  lips: [ART.profileLips, ART.faceWoman, ART.faceHand],
+  body: [ART.bodyFemale, ART.bodyArmsUp, ART.maleAbs, ART.profilesPair],
   hair: [ART.hair, ART.profilesPair],
-  skin: [ART.faceHand, ART.faceWoman, ART.vial],
+  skin: [ART.faceHand, ART.faceWoman, ART.vial, ART.dna, ART.profileLips],
 } as const;
+type PoolKey = keyof typeof POOLS;
 
 const hash = (s: string): number => {
   let h = 0;
@@ -58,58 +62,80 @@ const hash = (s: string): number => {
 };
 const pick = (pool: readonly string[], seed: string) => pool[hash(seed) % pool.length];
 
-/** Pick the subject pool for a treatment from its name/category, then choose a
-    stable member by slug hash. Regenerative/biostimulation treatments lead with
-    the science line-art (vial / DNA). */
-const poolFor = (hay: string, categorySlug?: string): readonly string[] => {
-  if (/prp|exosome|polynucleotide|profhilo|sculptra|booster|mesotherap|stem|nctf|collagen|biostim|microneedl|peel/.test(hay)) return POOLS.science;
-  if (categorySlug === 'hair' || /hair|scalp/.test(hay)) return POOLS.hair;
-  if (categorySlug === 'lips' || /\blip\b|\blips\b|lip /.test(hay)) return POOLS.lips;
-  if (categorySlug === 'body' || /body|fat|cellulite|coolsculpt|freez|contour|tighten|radiofrequenc|ultrasound|sculpt/.test(hay)) return POOLS.body;
-  if (categorySlug === 'skin' || /facial|detox|cleansing|pigment|acne|texture|glow/.test(hay)) return POOLS.skin;
-  return POOLS.face; // face, anti-wrinkle, most fillers
+/** Pick the subject pool key for a treatment from its name/category. */
+const poolKeyFor = (hay: string, categorySlug?: string): PoolKey => {
+  if (categorySlug === 'hair' || /hair|scalp/.test(hay)) return 'hair';
+  if (categorySlug === 'lips' || /\blip\b|\blips\b|lip /.test(hay)) return 'lips';
+  if (categorySlug === 'body' || /body|fat|cellulite|coolsculpt|freez|contour|tighten|radiofrequenc|ultrasound|sculpt/.test(hay)) return 'body';
+  if (/prp|exosome|polynucleotide|profhilo|sculptra|booster|mesotherap|stem|nctf|collagen|biostim|microneedl|peel/.test(hay)) return 'science';
+  if (categorySlug === 'skin' || /facial|detox|cleansing|pigment|acne|texture|glow/.test(hay)) return 'skin';
+  return 'face'; // face, anti-wrinkle, most fillers
 };
+const poolFor = (hay: string, categorySlug?: string): readonly string[] => POOLS[poolKeyFor(hay, categorySlug)];
 
-/** Centerpiece cartoon for a treatment card — category-aware + stable per slug. */
-export const cartoonForTreatment = (t: { slug: string; name: string; categorySlug?: string }): string =>
-  pick(poolFor(`${t.slug} ${t.name}`.toLowerCase(), t.categorySlug), t.slug);
+/** Centerpiece cartoons for a whole category's cards, in render order. Each
+    subject pool keeps its own cursor so its members cycle evenly, and a card is
+    nudged to the next member whenever it would repeat the card before it — so the
+    grid stays varied with no two adjacent cards sharing the same line-art. */
+export const cartoonsForTreatments = (
+  items: { slug: string; name: string; categorySlug?: string }[],
+): string[] => {
+  const cursor = new Map<PoolKey, number>();
+  const out: string[] = [];
+  items.forEach((t, idx) => {
+    const key = poolKeyFor(`${t.slug} ${t.name}`.toLowerCase(), t.categorySlug);
+    const pool = POOLS[key];
+    let n = cursor.get(key) ?? 0;
+    let art = pool[n % pool.length];
+    if (idx > 0 && art === out[idx - 1] && pool.length > 1) { n++; art = pool[n % pool.length]; }
+    cursor.set(key, n + 1);
+    out.push(art);
+  });
+  return out;
+};
 
 /** Cartoon for a whole category block (homepage featured), keyed by category name. */
 export const cartoonForCategory = (name: string): string =>
   pick(poolFor(name.toLowerCase(), name.toLowerCase().replace(/[^a-z]/g, '')), name);
 
-/** Legacy: deterministic cartoon from a seed string (kept for back-compat). */
-export const cartoonFor = (seed: string): string => pick(cartoons, seed);
-
 /* ── Condition card imagery ───────────────────────────────────────────
-   Face concerns use the deaging-europe condition photos (public/assets/
-   conditions). The reference site carries no body imagery, so body concerns
-   fall back to clean clinic lifestyle photos, picked deterministically. */
-const refPhoto = (n: string) => `/assets/conditions/${n}.jpg`;
+   Each concern is matched to a tasteful, real stock close-up of the relevant
+   face or body area (public/assets/conditions/*.jpg). First matching rule wins,
+   so order from most-specific to most-generic. Shared by the homepage
+   "Explore by condition" grid, the /conditions index and each condition hero. */
+const condPhoto = (n: string) => `/assets/conditions/${n}.jpg`;
 
-// First matching rule wins; applied to FACE concerns only.
+// FACE — order matters (e.g. brows before eyes, gummy-smile before lips).
 const faceConditionRules: [RegExp, string][] = [
-  [/eye|tear/, refPhoto('eyes')],
-  [/acne/, refPhoto('acne')],
-  [/pigment|melasma|rosacea/, refPhoto('pigmentation')],
-  [/jowl|sagging|heavy|chin|bruxism|jaw|neck/, refPhoto('sagging')],
-  [/wrinkle|line|fold|brow|cheek|smile|lip|nasolabial/, refPhoto('wrinkles')],
+  [/eyebrow|\bbrow/, condPhoto('brows')],
+  [/eye|tear|periorbit/, condPhoto('under-eye')],
+  [/acne|blemish|spot|congest/, condPhoto('acne')],
+  [/rosacea|redness|flush|thread.?vein|couperos/, condPhoto('rosacea')],
+  [/pigment|melasma|freckle|sun.?damage|hyperpig/, condPhoto('pigmentation')],
+  [/gummy|smile|teeth|tooth/, condPhoto('smile')],
+  [/lip|barcode|perioral|mouth|smoker/, condPhoto('lips')],
+  [/jowl|heavy.?lower|lower.?face|sagging/, condPhoto('neck')],
+  [/chin|jaw|bruxism|masseter|pebble/, condPhoto('jawline')],
+  [/nasolabial|cheek|fold|shadow|marionette|mid.?face/, condPhoto('cheeks')],
 ];
 
-const bodyConditionPhotos = [
-  '/assets/demo/cat-body.jpg',
-  '/assets/demo/cat-laser.jpg',
-  '/assets/demo/cat-skin.jpg',
+// BODY — order matters (thigh before laxity so inner-thigh maps to legs).
+const bodyConditionRules: [RegExp, string][] = [
+  [/cellulite/, condPhoto('cellulite')],
+  [/thigh|\bleg/, condPhoto('cellulite')],
+  [/stretch.?mark/, condPhoto('stretch-marks')],
+  [/belly|abdom|tummy|stomach|post.?pregnan|bloat|water.?retention|swelling/, condPhoto('belly')],
+  [/love.?handle|flank|waist|muffin/, condPhoto('waist')],
+  [/arm|bingo|elbow/, condPhoto('arms')],
+  [/double.?chin|jawline.?fat|\bneck|submental/, condPhoto('neck')],
+  [/sagging|laxity|saggy|loose|crepe|décolle|decolle/, condPhoto('decolletage')],
 ];
 
-/** Representative photo for a condition card. Stable per slug across builds. */
+/** Representative photo for a condition card — accurate per concern, stable
+    across builds. Falls back to a clean portrait / décolletage if nothing matches. */
 export const conditionPhoto = (c: { slug: string; title: string; group: 'face' | 'body' }): string => {
-  if (c.group === 'body') {
-    let h = 0;
-    for (let i = 0; i < c.slug.length; i++) h = (h * 31 + c.slug.charCodeAt(i)) >>> 0;
-    return bodyConditionPhotos[h % bodyConditionPhotos.length];
-  }
   const hay = `${c.slug} ${c.title}`.toLowerCase();
-  for (const [re, photo] of faceConditionRules) if (re.test(hay)) return photo;
-  return refPhoto('wrinkles'); // generic face fallback
+  const rules = c.group === 'body' ? bodyConditionRules : faceConditionRules;
+  for (const [re, photo] of rules) if (re.test(hay)) return photo;
+  return c.group === 'body' ? condPhoto('decolletage') : condPhoto('face');
 };
