@@ -6,7 +6,7 @@ import BookingForm from '../../components/BookingForm.astro';
 import TreatmentCard from '../../components/TreatmentCard.astro';
 import BeforeAfterFigure from '../../components/BeforeAfterFigure.astro';
 import Testimonials from '../../components/Testimonials.astro';
-import { getTreatments, getTreatment, relatedTreatments, formatPrice, formatDuration } from '../../lib/data';
+import { getTreatments, getTreatment, relatedTreatments, conditionsForTreatment, formatPrice, formatDuration } from '../../lib/data';
 import { mediaForSlug } from '../../lib/treatmentMedia';
 import { breadcrumbList, faqPage, medicalProcedure } from '../../lib/schema';
 import { site } from '../../lib/site';
@@ -18,6 +18,7 @@ export function getStaticPaths() {
 const { slug } = Astro.params;
 const t = getTreatment(slug!)!;
 const related = relatedTreatments(t);
+const concerns = conditionsForTreatment(t);
 const priceLabel = t.price === 0 ? 'Free' : formatPrice(t.discountedPrice ?? t.price);
 
 const crumbs = [
@@ -159,6 +160,22 @@ const jsonLd = [
       </div>
     </aside>
   </section>
+
+  {concerns.length > 0 && (
+    <section class="max-w-6xl mx-auto px-5 lg:px-6 pb-14">
+      <p class="rule-label mb-6"><span>Concerns this treats</span></p>
+      <div class="flex flex-wrap gap-2.5">
+        {concerns.map((c) => (
+          <a
+            href={`/conditions/${c.slug}`}
+            class="record text-[0.68rem] uppercase tracking-[0.16em] border border-beige-dark/80 px-4 py-2.5 text-brand hover:border-honey hover:text-honey-ink transition-colors"
+          >
+            {c.title}
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 
   <Faq items={faqs} heading={`${t.name} — your questions answered`} />
 

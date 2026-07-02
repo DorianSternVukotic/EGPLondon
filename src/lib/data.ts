@@ -94,9 +94,35 @@ const _treatments: Treatment[] = (() => {
 })();
 
 /* ── Conditions (deduped by normalised slug) ───────────────────────── */
+
+/* Condition records name treatments loosely ("PRP Treatment", "Sculptra")
+   rather than by menu name — map those spellings to real treatment pages.
+   Labels with no bookable equivalent ("Combined Treatment", "IPL Therapy",
+   "Skincare Routine") are deliberately absent and render unlinked. */
+const treatmentAliases: Record<string, string> = {
+  'radiofrequency & ultrasound': 'rf-ultrasound-tightening',
+  'prp treatment': 'prp-face',
+  'ultrasound lift & tighten': 'ultrasound-lift-tighten',
+  'ultrasound therapy': 'ultrasound-lift-tighten',
+  'fat freezing treatment': 'fat-freezing-abolten',
+  'medical skin peels': 'medical-skin-peels',
+  '3-step under-eye treatment': '3-step-under-eye-signature-treatment',
+  'under-eye skin booster': 'nctf-under-eye-skin-booster',
+  'profhilo': 'profhilo',
+  'barcode lips treatment': 'barcode-lips',
+  'bruxism treatment': 'bruxism-grinding',
+  'masseter treatment': 'jaw-slimming',
+  'pebble chin treatment': 'pebble-chin',
+  'sculptra': 'sculptra-face',
+  'gummy smile treatment': 'gummy-smile',
+  'nasolabial folds filler': 'filler-nasolabial-folds',
+  'body fat burning mesotherapy': 'body-fat-burning-mesotherapy',
+};
+
 const _conditions: Condition[] = (() => {
   const seen = new Set<string>();
   const treatmentByName = new Map(_treatments.map((t) => [t.name.toLowerCase(), t.slug]));
+  const bySlug = new Set(_treatments.map((t) => t.slug));
   return (conditionsRaw.conditions as any[])
     .filter((c) => c.is_active !== false)
     .map((c) => ({ ...c, _slug: normSlug(c.slug) }))
@@ -107,7 +133,9 @@ const _conditions: Condition[] = (() => {
         const label = (m?.[1] ?? t).trim();
         const price = m?.[2] ? Number(m[2].replace(/,/g, '')) : null;
         // best-effort internal link to a real treatment page
-        const slug = treatmentByName.get(label.toLowerCase()) ?? null;
+        const key = label.toLowerCase();
+        const aliased = treatmentAliases[key];
+        const slug = treatmentByName.get(key) ?? (aliased && bySlug.has(aliased) ? aliased : null);
         return { label, price, slug };
       });
       return {
@@ -150,6 +178,10 @@ export const conditionGroups = () => ({
 export const relatedTreatments = (t: Treatment, n = 4) =>
   _treatments.filter((x) => x.category === t.category && x.slug !== t.slug).slice(0, n);
 
+/* Conditions that list a given treatment — the treatment→condition back-links. */
+export const conditionsForTreatment = (t: Treatment) =>
+  _conditions.filter((c) => c.treatments.some((x) => x.slug === t.slug));
+
 /* ── Before/after gallery (real photos, downloaded locally by index) ── */
 export interface GalleryCase {
   id: string;
@@ -189,3 +221,9 @@ const _reviews: Review[] = (reviewsRaw.reviews as any[])
     comment: tidy(r.comment),
   }));
 export const getReviews = () => _reviews;
+
+export const reviewStats = () => {
+  const count = _reviews.length;
+  const average = count ? Math.round((_reviews.reduce((s, r) => s + r.rating, 0) / count) * 10) / 10 : 0;
+  return { count, average };
+};

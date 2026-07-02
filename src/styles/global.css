@@ -11,7 +11,7 @@
   /* Sage family — the brand spine */
   --color-brand: #464c45;        /* deep sage — primary */
   --color-brand-dark: #353b34;   /* hover / pressed */
-  --color-brand-soft: #6f7568;   /* lichen-grey for labels/icons */
+  --color-brand-soft: #5f6558;   /* lichen-grey for labels/icons — AA on paper (≈5.8:1) & lichen panels (≈4.9:1) */
   --color-forest: #282d26;       /* deepest sage — inverted surfaces */
 
   /* Surfaces — clean warm paper, not spa-beige */
