@@ -10,9 +10,9 @@ export const catMeta: Record<string, CatMedia> = {
   'anti-wrinkle': { photo: '/assets/demo/cat-injectables.webp', blurb: 'Precise, micro-dosed anti-wrinkle treatment that softens lines while keeping every expression your own.' },
   fillers: { photo: '/assets/demo/cat-fillers.jpg', blurb: 'Considered dermal filler, used with restraint to restore balance — never to overfill.' },
   body: { photo: '/assets/demo/cat-body.jpg', blurb: 'Non-invasive body contouring and skin-tightening, powered by ultrasound, radiofrequency and cryolipolysis.' },
-  skin: { photo: '/assets/demo/cat-skin.jpg', blurb: 'Medical-grade skin treatments — peels, microneedling and boosters that rebuild tone, texture and clarity.' },
+  skin: { photo: '/assets/photos/area-eye.webp', blurb: 'Medical-grade skin treatments — peels, microneedling and boosters that rebuild tone, texture and clarity.' },
   hair: { photo: '/assets/demo/cat-laser.jpg', blurb: 'Regenerative hair and scalp treatment that supports your own natural growth.' },
-  lips: { photo: '/assets/demo/cat-wellness.jpg', blurb: 'Natural lip enhancement, kept in proportion with the rest of your face.' },
+  lips: { photo: '/assets/photos/area-lips.webp', blurb: 'Natural lip enhancement, kept in proportion with the rest of your face.' },
 };
 
 export const fallbackMedia: CatMedia = {
@@ -40,6 +40,27 @@ const ART = {
 
 /** Full pool (kept for any generic use). */
 export const cartoons = Object.values(ART);
+
+/** Subject focus per artwork for the row vignettes on the treatments index.
+    Each sheet is 393×422 with thin strokes on a near-white field, so the
+    vignette zooms (CSS transform: scale) into the subject, anchored at
+    transform-origin. Origins were eyeballed from the artwork (e.g. profileLips
+    hugs the right edge, dna sits left of centre). `scale` is calibrated for a
+    tiny (~48px) frame; larger frames damp it (see treatments/index.astro). */
+export interface MedallionFocus { origin: string; scale: number; }
+export const medallionFocus: Record<string, MedallionFocus> = {
+  [ART.faceHand]: { origin: '40% 30%', scale: 2 },
+  [ART.bodyArmsUp]: { origin: '52% 45%', scale: 2.1 },
+  [ART.profileLips]: { origin: '85% 55%', scale: 2 },
+  [ART.vial]: { origin: '55% 42%', scale: 1.9 },
+  [ART.maleAbs]: { origin: '62% 50%', scale: 1.8 },
+  [ART.hair]: { origin: '55% 30%', scale: 1.9 },
+  [ART.dna]: { origin: '40% 55%', scale: 2.6 },
+  [ART.faceWoman]: { origin: '52% 42%', scale: 1.9 },
+  [ART.bodyFemale]: { origin: '60% 45%', scale: 1.9 },
+  [ART.profilesPair]: { origin: '63% 42%', scale: 1.8 },
+};
+export const fallbackFocus: MedallionFocus = { origin: '50% 40%', scale: 1.8 };
 
 /** Subject pools, each ordered with the most on-subject art first and kept broad
     (≥2 members) so a category's cards rotate through several illustrations rather

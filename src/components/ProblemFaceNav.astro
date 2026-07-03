@@ -1,12 +1,15 @@
 ---
 /** Interactive "problem face" navigator for the treatments page.
-    The labelled medical illustration (public/assets/problemface.png, 1692×929)
+    The labelled medical illustration (public/assets/problemface.webp — a
+    side-trimmed 1484×929 crop of assets-src/problemface.png, x 88→1572)
     already carries the concern labels; we overlay transparent hotspot links
-    positioned over each label (coordinates measured from the source image) so
-    tapping a concern jumps to the matching condition ("problem") or treatment
-    ("therapy") page. A persistent honey marker + hover wash signals that the
-    labels are interactive; a chip row beneath keeps it fully usable on small
-    screens and legible to crawlers. */
+    positioned over each label (coordinates measured from the source image,
+    then transformed for the crop) so tapping a concern jumps to the matching
+    condition ("problem") or treatment ("therapy") page. The image runs
+    full-bleed so the face itself is the centrepiece; a persistent honey
+    marker + hover wash signals that the labels are interactive, and a chip
+    row beneath keeps it fully usable on small screens and legible to
+    crawlers. */
 
 type Spot = {
   label: string;
@@ -18,24 +21,24 @@ type Spot = {
   width: number;
 };
 
-// Geometry is a percentage of the image box; values measured from the source.
+// Geometry is a percentage of the (cropped) image box.
 const H = 8.5; // hotspot height, % of image height
 const spots: Spot[] = [
-  // Left column — labels right-aligned, ending near x≈22%
-  { label: 'Forehead wrinkles', href: '/treatments/forehead-lines', kind: 'Treatment', side: 'left', top: 15.2, left: 5.8, width: 17.3 },
-  { label: 'Double eyelids', href: '/treatments/brow-lift', kind: 'Treatment', side: 'left', top: 30.0, left: 8.8, width: 14.5 },
-  { label: 'Freckles', href: '/conditions/hyperpigmentation-melasma', kind: 'Concern', side: 'left', top: 45.2, left: 13.9, width: 9.4 },
-  { label: 'Sagging skin', href: '/conditions/sagging-skin-skin-laxity', kind: 'Concern', side: 'left', top: 61.2, left: 10.3, width: 12.9 },
-  // Right column — labels left-aligned, starting near x≈81%
-  { label: 'Wrinkles', href: '/treatments/anti-wrinkle-injections', kind: 'Treatment', side: 'right', top: 27.1, left: 79.5, width: 9.6 },
-  { label: 'Pores', href: '/treatments/microneedling-facial', kind: 'Treatment', side: 'right', top: 42.5, left: 79.5, width: 7.3 },
-  { label: 'Acne scars', href: '/conditions/acne-acne-scarring', kind: 'Concern', side: 'right', top: 57.4, left: 79.5, width: 11.6 },
-  { label: 'Face contour', href: '/treatments/full-face-balancing', kind: 'Treatment', side: 'right', top: 71.4, left: 79.5, width: 13 },
+  // Left column — labels right-aligned
+  { label: 'Forehead wrinkles', href: '/treatments/forehead-lines', kind: 'Treatment', side: 'left', top: 15.2, left: 0.7, width: 19.7 },
+  { label: 'Double eyelids', href: '/treatments/brow-lift', kind: 'Treatment', side: 'left', top: 30.0, left: 4.1, width: 16.5 },
+  { label: 'Freckles', href: '/conditions/hyperpigmentation-melasma', kind: 'Concern', side: 'left', top: 45.2, left: 9.9, width: 10.7 },
+  { label: 'Sagging skin', href: '/conditions/sagging-skin-skin-laxity', kind: 'Concern', side: 'left', top: 61.2, left: 5.8, width: 14.7 },
+  // Right column — labels left-aligned
+  { label: 'Wrinkles', href: '/treatments/anti-wrinkle-injections', kind: 'Treatment', side: 'right', top: 27.1, left: 84.7, width: 10.9 },
+  { label: 'Pores', href: '/treatments/microneedling-facial', kind: 'Treatment', side: 'right', top: 42.5, left: 84.7, width: 8.3 },
+  { label: 'Acne scars', href: '/conditions/acne-acne-scarring', kind: 'Concern', side: 'right', top: 57.4, left: 84.7, width: 13.2 },
+  { label: 'Face contour', href: '/treatments/full-face-balancing', kind: 'Treatment', side: 'right', top: 71.4, left: 84.7, width: 14.8 },
 ];
 ---
 <section class="bg-lichen/30 border-y border-beige-dark/60">
-  <div class="max-w-6xl mx-auto px-5 lg:px-6 py-16 md:py-20">
-    <div class="max-w-2xl mb-9 md:mb-11">
+  <div class="max-w-6xl mx-auto px-5 lg:px-6 pt-16 md:pt-20 pb-9 md:pb-11">
+    <div class="max-w-2xl">
       <p class="rule-label mb-4 max-w-xs"><span>Start with your concern</span></p>
       <h2 class="font-display text-3xl md:text-4xl">Find your treatment by area</h2>
       <p class="mt-4 text-ink/70 leading-relaxed">
@@ -43,38 +46,42 @@ const spots: Spot[] = [
         non-surgical plan.
       </p>
     </div>
+  </div>
 
-    <!-- The labelled illustration + overlaid hotspot links -->
-    <div class="relative mx-auto max-w-4xl">
-      <img
-        src="/assets/problemface.png"
-        alt="A face with common concerns labelled: forehead wrinkles, double eyelids, freckles and sagging skin on the left; wrinkles, pores, acne scars and face contour on the right"
-        width="1692"
-        height="929"
-        class="block w-full h-auto rounded-card border border-beige-dark/50 bg-paper"
-      />
-      {spots.map((s) => (
-        <a
-          href={s.href}
-          aria-label={`${s.label} — ${s.kind === 'Concern' ? 'explore this concern' : 'view treatment'}`}
-          class:list={[
-            'group/spot absolute flex items-center rounded-full outline-none ring-2 ring-honey/0',
-            'hover:ring-honey/60 focus-visible:ring-honey/70 hover:bg-honey/15 focus-visible:bg-honey/15',
-            'transition-all duration-300',
-            s.side === 'left' ? 'justify-start' : 'justify-end',
-          ]}
-          style={`top:${s.top}%; left:${s.left}%; width:${s.width}%; height:${H}%;`}
-        >
-          <span
-            class="block h-2 w-2 md:h-2.5 md:w-2.5 rounded-full bg-honey ring-2 ring-paper shadow-sm group-hover/spot:scale-150 transition-transform duration-300"
-            aria-hidden="true"
-          ></span>
-        </a>
-      ))}
-    </div>
+  <!-- The labelled illustration, full-bleed up to its native 1484px (never
+       upscaled — the labels are baked into the bitmap and would blur) -->
+  <div class="relative mx-auto max-w-[1484px] border-y min-[1486px]:border-x border-beige-dark/50 bg-paper">
+    <img
+      src="/assets/problemface.webp"
+      alt="A face with common concerns labelled: forehead wrinkles, double eyelids, freckles and sagging skin on the left; wrinkles, pores, acne scars and face contour on the right"
+      width="1484"
+      height="929"
+      loading="lazy"
+      class="block w-full h-auto"
+    />
+    {spots.map((s) => (
+      <a
+        href={s.href}
+        aria-label={`${s.label} — ${s.kind === 'Concern' ? 'explore this concern' : 'view treatment'}`}
+        class:list={[
+          'group/spot absolute flex items-center rounded-full outline-none ring-2 ring-honey/0',
+          'hover:ring-honey/60 focus-visible:ring-honey/70 hover:bg-honey/15 focus-visible:bg-honey/15',
+          'transition-all duration-300',
+          s.side === 'left' ? 'justify-start' : 'justify-end',
+        ]}
+        style={`top:${s.top}%; left:${s.left}%; width:${s.width}%; height:${H}%;`}
+      >
+        <span
+          class="block h-2 w-2 md:h-3 md:w-3 rounded-full bg-honey ring-2 ring-paper shadow-sm group-hover/spot:scale-150 transition-transform duration-300"
+          aria-hidden="true"
+        ></span>
+      </a>
+    ))}
+  </div>
 
-    <!-- Always-usable fallback: works on touch screens and for assistive tech -->
-    <div class="mt-8 flex flex-wrap items-center gap-2">
+  <!-- Always-usable fallback: works on touch screens and for assistive tech -->
+  <div class="max-w-6xl mx-auto px-5 lg:px-6 py-8 md:py-10">
+    <div class="flex flex-wrap items-center gap-2">
       <span class="record text-[0.6rem] uppercase tracking-[0.18em] text-stone mr-1">Jump to</span>
       {spots.map((s) => (
         <a

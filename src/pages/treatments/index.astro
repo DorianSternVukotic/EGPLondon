@@ -4,7 +4,7 @@ import CtaBand from '../../components/CtaBand.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ProblemFaceNav from '../../components/ProblemFaceNav.astro';
 import { treatmentCategories, getTreatments, formatPrice, formatDuration } from '../../lib/data';
-import { mediaForSlug, cartoonsForTreatments } from '../../lib/treatmentMedia';
+import { mediaForSlug, cartoonsForTreatments, cartoonForCategory, medallionFocus, fallbackFocus } from '../../lib/treatmentMedia';
 import { breadcrumbList } from '../../lib/schema';
 
 const cats = treatmentCategories();
@@ -41,55 +41,98 @@ const anchor = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
   <ProblemFaceNav />
 
-  {cats.map((cat) => {
+  {cats.map((cat, ci) => {
     const meta = mediaForSlug(cat.items[0]?.categorySlug);
     const cartoons = cartoonsForTreatments(cat.items);
+    const foci = cartoons.map((c) => medallionFocus[c] ?? fallbackFocus);
+    const flip = ci % 2 === 1;
     return (
-      <section id={anchor(cat.name)} class="max-w-6xl mx-auto px-5 lg:px-6 py-10 md:py-12 scroll-mt-24">
-        {/* Part 1 — image + title (taller) */}
-        <div class="relative overflow-hidden min-h-[300px] md:min-h-[360px] flex items-end">
-          <img src={meta.photo} alt={`${cat.name} treatments at EGP Aesthetics`} loading="lazy" class="absolute inset-0 w-full h-full object-cover object-[center_30%]" />
-          <div class="absolute inset-0 bg-gradient-to-t from-forest/90 via-forest/45 to-transparent"></div>
-          <div class="absolute inset-0 bg-gradient-to-r from-forest/70 to-transparent"></div>
-          <div class="relative p-7 md:p-10">
-            <p class="eyebrow text-honey-soft mb-2">{cat.items.length} treatments</p>
-            <h2 class="font-display text-3xl md:text-4xl text-paper capitalize">{cat.name.toLowerCase()}</h2>
-            <p class="mt-2 text-paper/80 text-sm md:text-base max-w-md leading-relaxed">{meta.blurb}</p>
-          </div>
-        </div>
-
-        {/* Part 2 — two columns of tall cards, each built around its cartoon line-art.
-             The illustration is the centerpiece (full-bleed, mix-blend on a soft
-             sage field); a paper scrim down the bottom keeps the overlaid name legible. */}
-        <div class="grid sm:grid-cols-2 gap-px bg-beige-dark/60 border border-beige-dark/60 mt-px">
-          {cat.items.map((t, i) => (
-            <a
-              href={`/treatments/${t.slug}`}
-              class="group relative overflow-hidden bg-gradient-to-br from-lichen/45 via-paper to-paper min-h-[300px] md:min-h-[360px] flex flex-col justify-end"
-            >
-              {/* Cartoon centerpiece — large, right-weighted, blended onto the field */}
-              <img
-                src={cartoons[i]}
-                alt=""
-                aria-hidden="true"
-                class="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 h-[116%] w-auto max-w-[78%] object-contain object-right mix-blend-multiply transition-transform duration-700 ease-out group-hover:scale-[1.045]"
-              />
-              {/* Legibility scrims — bottom band for the text, faint left wash for balance */}
-              <div class="absolute inset-0 bg-gradient-to-t from-paper from-[6%] via-paper/85 via-[34%] to-transparent to-[66%] pointer-events-none"></div>
-              <div class="absolute inset-0 bg-gradient-to-r from-paper/70 via-transparent to-transparent pointer-events-none"></div>
-              {/* Hover wash of warmth */}
-              <div class="absolute inset-0 bg-honey/0 group-hover:bg-honey/[0.04] transition-colors duration-500 pointer-events-none"></div>
-
-              <div class="relative p-6 md:p-7">
-                <h3 class="font-display text-2xl md:text-[1.7rem] leading-[1.12] text-heading group-hover:text-brand transition-colors max-w-[15ch]">{t.name}</h3>
-                <div class="mt-4 flex items-center gap-4 record text-xs">
-                  <span class="text-brand uppercase tracking-[0.12em]">{t.price === 0 ? 'Free' : `From ${formatPrice(t.discountedPrice ?? t.price)}`}</span>
-                  {t.duration ? <span class="text-stone tabular-nums">{formatDuration(t.duration)}</span> : null}
-                  <span class="ml-auto text-honey-ink opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" aria-hidden="true">→</span>
+      <section id={anchor(cat.name)} class="max-w-6xl mx-auto px-5 lg:px-6 py-7 md:py-9 scroll-mt-24">
+        {/* One framed split per category — the homepage "Featured treatments"
+             layout, grown up: an editorial photo panel carries the category
+             (sticky on desktop, alternating sides), and the treatments read as
+             a menu of compact rows so the section scales from 1 to 17 items. */}
+        {/* No overflow-hidden here — it would become the sticky panel's scrollport and break pinning.
+             The column template flips with the photo so the menu always keeps the wide column. */}
+        <div class:list={['grid gap-px bg-beige-dark/60 border border-beige-dark/60', flip ? 'lg:grid-cols-[1.4fr_0.85fr]' : 'lg:grid-cols-[0.85fr_1.4fr]']}>
+          {/* Photo panel — sticky beside long lists, banner on mobile. Long
+               categories pin for several viewport-heights, so their sticky
+               column fills the whole viewport: the photo flexes to take most
+               of it and a consultation card (with the category line-art as a
+               watermark) occupies the bottom — no bare paper trailing the
+               photo while it follows the scroll. */}
+          <div class:list={['relative bg-paper', flip && 'lg:order-last']}>
+            <div class:list={[
+              'relative h-[230px] md:h-[280px] lg:sticky lg:top-[5.25rem] lg:flex lg:flex-col',
+              cat.items.length <= 2
+                ? 'lg:h-[min(calc(100svh_-_6.5rem),19rem)]'
+                : cat.items.length <= 4
+                  ? 'lg:h-[min(calc(100svh_-_6.5rem),26rem)]'
+                  : 'lg:h-[calc(100svh_-_6.5rem)]',
+            ]}>
+              <div class="relative h-full lg:h-auto lg:flex-1 lg:min-h-0">
+                <img src={meta.photo} alt={`${cat.name} treatments at EGP Aesthetics`} loading="lazy" class="absolute inset-0 w-full h-full object-cover object-[center_30%]" />
+                <div class="absolute inset-0 bg-gradient-to-t from-forest/95 via-forest/55 to-transparent"></div>
+                <div class="absolute bottom-0 inset-x-0 p-6 md:p-8">
+                  <p class="eyebrow text-honey-soft mb-2">{cat.items.length} {cat.items.length === 1 ? 'treatment' : 'treatments'}</p>
+                  <h2 class="font-display text-3xl md:text-4xl text-paper capitalize">{cat.name.toLowerCase()}</h2>
+                  <p class="mt-2 text-paper/80 text-sm max-w-sm leading-relaxed hidden md:block">{meta.blurb}</p>
                 </div>
               </div>
-            </a>
-          ))}
+              {cat.items.length > 4 ? (
+                <a href="/book" class="group/cta relative hidden lg:block shrink-0 overflow-hidden border-t border-beige-dark/60 bg-lichen/40 px-6 py-5">
+                  <img
+                    src={cartoonForCategory(cat.name)}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    class="pointer-events-none absolute -right-3 top-1/2 -translate-y-1/2 h-[165%] w-auto max-w-[52%] object-contain object-right mix-blend-multiply opacity-70 transition-transform duration-700 ease-out group-hover/cta:scale-[1.05]"
+                  />
+                  <p class="relative eyebrow mb-1.5">Not sure where to start?</p>
+                  <p class="relative font-display text-lg leading-snug text-heading group-hover/cta:text-brand transition-colors max-w-[17ch]">
+                    Book a free discovery consultation <span class="text-honey-ink" aria-hidden="true">→</span>
+                  </p>
+                </a>
+              ) : null}
+            </div>
+          </div>
+
+          {/* The menu — one row per treatment: cartoon medallion, name + one-line
+               whisper of the description, price + duration in the record layer. */}
+          <div class="relative bg-paper flex flex-col justify-center">
+            <ol class="divide-y divide-beige-dark/50">
+              {cat.items.map((t, i) => (
+                <li>
+                  <a
+                    href={`/treatments/${t.slug}`}
+                    class="group grid grid-cols-[auto_1fr_auto] items-center gap-x-4 md:gap-x-6 px-4 md:px-6 py-3 md:py-3.5 hover:bg-lichen/40 transition-colors"
+                  >
+                    {/* The problem vignette — the line-art is the row's anchor, so it gets
+                         real size; a soft per-art zoom (origins from medallionFocus, damped
+                         because the larger frame already shows most of the sheet) keeps the
+                         subject filling the frame, and the inner wrapper adds a hover zoom
+                         the inline transform on the img would otherwise swallow. */}
+                    <span class="relative h-20 w-20 md:h-28 md:w-28 shrink-0 rounded-card overflow-hidden bg-gradient-to-br from-lichen/90 to-paper border border-beige-dark/60 group-hover:border-honey/60 transition-colors">
+                      <span class="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.06]">
+                        <img src={cartoons[i]} alt="" aria-hidden="true" loading="lazy" class="absolute inset-0 h-full w-full object-cover mix-blend-multiply" style={`transform:scale(${1 + (foci[i].scale - 1) * 0.6});transform-origin:${foci[i].origin};`} />
+                      </span>
+                    </span>
+                    <span class="min-w-0">
+                      <h3 class="font-display text-lg md:text-[1.45rem] leading-snug text-heading group-hover:text-brand transition-colors">
+                        {t.name}
+                        <span class="inline-block ml-2 text-honey-ink text-base opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" aria-hidden="true">→</span>
+                      </h3>
+                      {t.description ? <p class="hidden md:line-clamp-2 text-[0.84rem] text-stone leading-snug mt-1 max-w-md">{t.description}</p> : null}
+                    </span>
+                    <span class="text-right shrink-0">
+                      <span class="block record text-[0.7rem] uppercase tracking-[0.12em] text-brand">{t.price === 0 ? 'Free' : `From ${formatPrice(t.discountedPrice ?? t.price)}`}</span>
+                      {t.duration ? <span class="block record text-[0.68rem] text-stone tabular-nums mt-0.5">{formatDuration(t.duration)}</span> : null}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </section>
     );
