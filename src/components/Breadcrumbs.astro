@@ -3,7 +3,7 @@ import type { Crumb } from '../lib/schema';
 interface Props { items: Crumb[]; }
 const { items } = Astro.props;
 ---
-<nav aria-label="Breadcrumb" class="record text-[0.62rem] uppercase tracking-[0.18em] text-stone">
+<nav aria-label="Breadcrumb" class="record text-2xs uppercase tracking-[0.18em] text-stone">
   <ol class="flex flex-wrap items-center gap-2">
     {items.map((c, i) => (
       <li class="flex items-center gap-2">

@@ -20,14 +20,14 @@ const afterSrc = after ?? `/assets/photos/case${n}-after.webp`;
   <div class="grid grid-cols-2">
     <div class="relative aspect-[3/4]">
       <img src={beforeSrc} alt="Before treatment" loading="lazy" width="540" height="720" class="w-full h-full object-cover" />
-      <span class="absolute top-3 left-3 record text-[0.58rem] uppercase tracking-[0.2em] bg-paper text-ink px-2.5 py-1">Before</span>
+      <span class="absolute top-3 left-3 record text-2xs uppercase tracking-[0.2em] bg-paper text-ink px-2.5 py-1">Before</span>
     </div>
     <div class="relative aspect-[3/4] border-l border-paper">
       <img src={afterSrc} alt="After treatment" loading="lazy" width="540" height="720" class="w-full h-full object-cover" />
-      <span class="absolute top-3 left-3 record text-[0.58rem] uppercase tracking-[0.2em] bg-brand text-paper px-2.5 py-1">After</span>
+      <span class="absolute top-3 left-3 record text-2xs uppercase tracking-[0.2em] bg-brand text-paper px-2.5 py-1">After</span>
     </div>
   </div>
-  <figcaption class="p-4 record text-[0.6rem] uppercase tracking-[0.18em] text-stone">
+  <figcaption class="p-4 record text-2xs uppercase tracking-[0.18em] text-stone">
     {caption ?? 'Illustrative before & after · Individual results vary'}
   </figcaption>
 </figure>

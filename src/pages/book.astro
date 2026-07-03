@@ -37,7 +37,7 @@ const treatment = Astro.url.searchParams.get('treatment') ?? undefined;
           <p class="rule-label mb-4 max-w-[10rem]"><span>Opening hours</span></p>
           <ul class="space-y-0 text-sm text-ink/80">
             {hours.map((h) => (
-              <li class="flex justify-between gap-4 border-b border-beige-dark/50 py-2 last:border-0"><span>{h.day}</span><span class="record text-xs text-stone">{h.value}</span></li>
+              <li class="flex justify-between gap-4 border-b border-beige-dark/50 py-2 last:border-0"><span>{h.day}</span><span class="record text-2xs text-stone">{h.value}</span></li>
             ))}
           </ul>
         </div>

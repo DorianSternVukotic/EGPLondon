@@ -24,13 +24,13 @@ const pills = c.treatments.slice(0, 3);
     />
   </div>
   <div class="p-6">
-    <p class="record text-[0.6rem] uppercase tracking-[0.2em] text-honey-ink">{area}</p>
+    <p class="record text-2xs uppercase tracking-[0.2em] text-honey-ink">{area}</p>
     <h3 class="font-display text-2xl text-heading mt-1 group-hover:text-brand transition-colors">{c.title}</h3>
     <p class="mt-2 text-sm text-ink/70 leading-relaxed line-clamp-2">{c.description}</p>
     {pills.length > 0 && (
       <ul class="mt-4 flex flex-wrap gap-2">
         {pills.map((t) => (
-          <li class="record text-[0.62rem] px-3 py-1 rounded-full bg-lichen/70 border border-beige-dark/70 text-ink/75">{t.label}</li>
+          <li class="record text-2xs px-2.5 py-1 bg-lichen/70 border border-beige-dark/70 text-ink/75">{t.label}</li>
         ))}
       </ul>
     )}

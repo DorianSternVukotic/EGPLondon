@@ -12,10 +12,10 @@ const priceLabel = t.price === 0 ? 'Free' : `From ${formatPrice(t.discountedPric
 >
   <span class="h-1 w-full block" style={`background:${placeholderGradient(t.slug)}`}></span>
   <div class="flex flex-col flex-1 p-6">
-    <p class="record text-[0.6rem] uppercase tracking-[0.2em] text-honey-ink">{t.category}</p>
+    <p class="record text-2xs uppercase tracking-[0.2em] text-honey-ink">{t.category}</p>
     <h3 class="font-display text-xl leading-snug text-heading mt-2.5 group-hover:text-brand transition-colors">{t.name}</h3>
     {blurb && <p class="mt-2.5 text-sm text-ink/65 leading-relaxed flex-1">{blurb}</p>}
-    <div class="mt-5 pt-4 border-t border-beige-dark/60 flex items-center justify-between record text-xs">
+    <div class="mt-5 pt-4 border-t border-beige-dark/60 flex items-center justify-between record text-2xs">
       <span class="text-brand uppercase tracking-[0.12em]">{priceLabel}</span>
       {t.duration ? <span class="text-stone tabular-nums">{formatDuration(t.duration)}</span> : null}
     </div>

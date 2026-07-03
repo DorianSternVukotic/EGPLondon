@@ -56,7 +56,7 @@ const gradients = [
   'linear-gradient(135deg,#e6ddd1 0%,#d4c9bc 100%)',
   'linear-gradient(135deg,#efeae3 0%,#c9c1b0 100%)',
   'linear-gradient(135deg,#d4c9bc 0%,#9d9585 100%)',
-  'linear-gradient(135deg,#eef0ec 0%,#c7cdc4 100%)',
+  'linear-gradient(135deg,#f2ede5 0%,#cfc3b4 100%)',
   'linear-gradient(135deg,#e9e2d6 0%,#b5ad9d 100%)',
 ];
 export const placeholderGradient = (seed: string) => {

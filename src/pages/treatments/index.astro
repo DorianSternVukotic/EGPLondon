@@ -30,7 +30,7 @@ const anchor = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         discovery consultation and digital skin analysis and we’ll guide you to the least invasive option for your goals.
       </p>
     </div>
-    <nav class="mt-9 flex flex-wrap gap-x-5 gap-y-2 record text-[0.62rem] uppercase tracking-[0.18em]">
+    <nav class="mt-9 flex flex-wrap gap-x-5 gap-y-2 record text-2xs uppercase tracking-[0.18em]">
       {cats.map((cat) => (
         <a href={`#${anchor(cat.name)}`} class="text-stone hover:text-brand border-b border-transparent hover:border-honey pb-1 transition-colors">
           {cat.name} <span class="text-honey-ink">{cat.items.length}</span>
@@ -122,11 +122,11 @@ const anchor = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
                         {t.name}
                         <span class="inline-block ml-2 text-honey-ink text-base opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" aria-hidden="true">→</span>
                       </h3>
-                      {t.description ? <p class="hidden md:line-clamp-2 text-[0.84rem] text-stone leading-snug mt-1 max-w-md">{t.description}</p> : null}
+                      {t.description ? <p class="hidden md:line-clamp-2 text-sm text-stone leading-snug mt-1 max-w-md">{t.description}</p> : null}
                     </span>
                     <span class="text-right shrink-0">
-                      <span class="block record text-[0.7rem] uppercase tracking-[0.12em] text-brand">{t.price === 0 ? 'Free' : `From ${formatPrice(t.discountedPrice ?? t.price)}`}</span>
-                      {t.duration ? <span class="block record text-[0.68rem] text-stone tabular-nums mt-0.5">{formatDuration(t.duration)}</span> : null}
+                      <span class="block record text-2xs uppercase tracking-[0.12em] text-brand">{t.price === 0 ? 'Free' : `From ${formatPrice(t.discountedPrice ?? t.price)}`}</span>
+                      {t.duration ? <span class="block record text-2xs text-stone tabular-nums mt-0.5">{formatDuration(t.duration)}</span> : null}
                     </span>
                   </a>
                 </li>

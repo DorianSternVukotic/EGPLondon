@@ -17,19 +17,19 @@ if (cases.length === 0) return null;
         <div class="grid grid-cols-2">
           <div class="relative aspect-[3/4]">
             <img src={c.before} alt={`Before — ${c.title}`} loading="lazy" width="540" height="720" class="w-full h-full object-cover" />
-            <span class="absolute top-3 left-3 record text-[0.58rem] uppercase tracking-[0.2em] bg-paper text-ink px-2.5 py-1">Before</span>
+            <span class="absolute top-3 left-3 record text-2xs uppercase tracking-[0.2em] bg-paper text-ink px-2.5 py-1">Before</span>
           </div>
           <div class="relative aspect-[3/4] border-l border-paper">
             <img src={c.after} alt={`After — ${c.title}`} loading="lazy" width="540" height="720" class="w-full h-full object-cover" />
-            <span class="absolute top-3 left-3 record text-[0.58rem] uppercase tracking-[0.2em] bg-brand text-paper px-2.5 py-1">After</span>
+            <span class="absolute top-3 left-3 record text-2xs uppercase tracking-[0.2em] bg-brand text-paper px-2.5 py-1">After</span>
           </div>
         </div>
         <figcaption class="p-5 flex items-baseline justify-between gap-4">
           <h3 class="font-display text-lg text-heading">{c.title}</h3>
-          {c.projectType && <p class="record text-[0.62rem] uppercase tracking-[0.18em] text-stone shrink-0">{c.projectType}</p>}
+          {c.projectType && <p class="record text-2xs uppercase tracking-[0.18em] text-stone shrink-0">{c.projectType}</p>}
         </figcaption>
       </figure>
     ))}
   </div>
-  <p class="record text-[0.62rem] uppercase tracking-[0.16em] text-stone mt-8">Photographs published with written client consent · Unretouched</p>
+  <p class="record text-2xs uppercase tracking-[0.16em] text-stone mt-8">Photographs published with written client consent · Unretouched</p>
 </section>

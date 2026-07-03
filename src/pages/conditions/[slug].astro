@@ -66,7 +66,7 @@ const jsonLd = [breadcrumbList(crumbs), faqPage(faqs), medicalCondition];
               Browse treatments
             </a>
           </div>
-          <p class="mt-7 record text-[0.62rem] uppercase tracking-[0.18em] text-stone">
+          <p class="mt-7 record text-2xs uppercase tracking-[0.18em] text-stone">
             Reviewed by the EGP medical team · Last updated June 2026
           </p>
         </div>
@@ -80,7 +80,7 @@ const jsonLd = [breadcrumbList(crumbs), faqPage(faqs), medicalCondition];
                 <li class="border-b border-beige-dark/50 last:border-0">
                   <a href={t.slug ? `/treatments/${t.slug}` : '/treatments'} class="group flex items-baseline justify-between gap-4 py-3.5">
                     <span class="font-display text-lg text-heading group-hover:text-brand transition-colors">{t.label}</span>
-                    {t.price != null && <span class="record text-xs text-stone group-hover:text-honey-ink whitespace-nowrap transition-colors">From {formatPrice(t.price)}</span>}
+                    {t.price != null && <span class="record text-2xs text-stone group-hover:text-honey-ink whitespace-nowrap transition-colors">From {formatPrice(t.price)}</span>}
                   </a>
                 </li>
               ))}

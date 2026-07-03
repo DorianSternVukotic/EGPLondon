@@ -3,37 +3,44 @@
 /* ── EGP Aesthetics — "The Regenerative Record" ───────────────────────
    A medical-monograph identity: warm living serif (Fraunces) over a
    precise clinical-record mono layer (Spline Sans Mono), set on clean
-   paper with a dominant sage and a single honey accent. Token names are
-   kept backward-compatible (cream/beige/sand) so every page inherits the
-   new palette; new semantic tokens (paper/forest/honey/lichen) drive the
+   paper in the two brand colours — deep sage #464c45 and warm greige
+   #e6ddd1 — with a single honey accent. Token names are kept
+   backward-compatible (cream/beige/sand) so every page inherits the
+   palette; the semantic tokens (paper/forest/honey/lichen) drive the
    redesigned surfaces.                                                   */
 @theme {
-  /* Sage family — the brand spine */
+  /* Sage family — brand colour № 1 (#464c45) and its shades */
   --color-brand: #464c45;        /* deep sage — primary */
   --color-brand-dark: #353b34;   /* hover / pressed */
-  --color-brand-soft: #5f6558;   /* lichen-grey for labels/icons — AA on paper (≈5.8:1) & lichen panels (≈4.9:1) */
+  --color-brand-soft: #5b6154;   /* sage-grey for labels/icons — AA on paper (≈6.1:1) & greige panels (≈4.8:1) */
   --color-forest: #282d26;       /* deepest sage — inverted surfaces */
 
-  /* Surfaces — clean warm paper, not spa-beige */
+  /* Surfaces — brand colour № 2 (#e6ddd1, warm greige) and its tints */
   --color-paper: #fbfaf6;        /* page background */
   --color-cream: #fbfaf6;        /* alias (legacy) → paper */
-  --color-lichen: #e7e8dd;       /* sage-tinted panels / cards */
-  --color-beige: #e7e8dd;        /* alias (legacy) → lichen */
-  --color-beige-light: #f1f0e8;  /* alt surface */
-  --color-beige-dark: #d8d9cc;   /* hairline borders / dividers */
+  --color-lichen: #e6ddd1;       /* warm-greige panels / cards — the brand surface */
+  --color-beige: #e6ddd1;        /* alias (legacy) → lichen */
+  --color-beige-light: #f2ede5;  /* alt surface — light greige tint */
+  --color-beige-dark: #d4c9bc;   /* hairline borders / dividers — greige shade */
 
   /* Accent + neutrals */
   --color-honey: #a98a5e;        /* single warm accent — fills/borders/icons only */
   --color-honey-soft: #c4a87f;   /* honey-on-dark (forest surfaces) */
-  --color-honey-ink: #7a6238;    /* honey used as TEXT on light — WCAG AA (≈5.5:1 paper, ≈4.6:1 lichen) */
-  --color-sand: #646760;         /* muted sage-grey text (legacy name) — darkened to meet WCAG AA (≈5.5:1 on paper, ≈4.9:1 on lichen panels) */
-  --color-stone: #646760;        /* muted sage-grey text — AA-legible on paper & lichen panels */
+  --color-honey-ink: #745d35;    /* honey used as TEXT on light — WCAG AA (≈6.0:1 paper, ≈4.7:1 greige panels) */
+  --color-sand: #5f5b54;         /* muted warm-grey text (legacy name) — AA (≈6.5:1 paper, ≈5.0:1 greige panels) */
+  --color-stone: #5f5b54;        /* muted warm-grey text — AA-legible on paper & greige panels */
   --color-ink: #23271f;          /* green-black body text */
   --color-heading: #1a1e16;      /* headings */
 
   --font-sans: "Hanken Grotesk", system-ui, -apple-system, sans-serif;
   --font-display: "Newsreader", Georgia, "Times New Roman", serif;
   --font-mono: "Spline Sans Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* The record layer's single micro size — every mono label, data cell,
+     chip and CTA sits here; the next step up is text-sm. Keeping ONE
+     micro step is deliberate (the scale was drifting into 9/10/11/12px). */
+  --text-2xs: 0.7rem;
+  --text-2xs--line-height: 1.45;
 
   --radius-card: 0.5rem;
 }
@@ -79,7 +86,7 @@ body {
     font-family: var(--font-mono);
     text-transform: uppercase;
     letter-spacing: 0.22em;
-    font-size: 0.68rem;
+    font-size: 0.7rem; /* = text-2xs, the record layer's one micro size */
     font-weight: 500;
     color: var(--color-honey-ink);
   }
@@ -93,7 +100,7 @@ body {
     font-family: var(--font-mono);
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-size: 0.66rem;
+    font-size: 0.7rem; /* = text-2xs, the record layer's one micro size */
     font-weight: 500;
     color: var(--color-brand-soft);
   }
