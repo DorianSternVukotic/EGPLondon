@@ -4,3 +4,7 @@ dist/
 .playwright-cli/
 *.png
 !public/**/*.png
+
+# Cartoon staging from Sol (large binaries; selections get wired into public/assets/cartoons)
+assets-src/*.zip
+assets-src/egp-cartoons-sol-5.6/
