@@ -1,4 +1,46 @@
+# EGP Aesthetics — www.egpaesthetics.co.uk
+# All crawlers are welcome, including AI assistants and their agents.
+# A machine-readable summary of the clinic (services, prices, hours, booking)
+# is published at https://www.egpaesthetics.co.uk/llms.txt
+
 User-agent: *
+Allow: /
+
+# AI search & assistant crawlers — explicitly welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: DuckAssistBot
 Allow: /
 
 Sitemap: https://www.egpaesthetics.co.uk/sitemap-index.xml

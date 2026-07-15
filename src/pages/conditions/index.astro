@@ -3,17 +3,23 @@ import Base from '../../layouts/Base.astro';
 import ConditionCard from '../../components/ConditionCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { conditionGroups, getConditions } from '../../lib/data';
+import { concernTaxonomy, getConditions } from '../../lib/data';
 import { breadcrumbList } from '../../lib/schema';
 
-const { face, body } = conditionGroups();
+const { face, body, prevention, more } = concernTaxonomy();
 const total = getConditions().length;
-const crumbs = [{ name: 'Home', href: '/' }, { name: 'Conditions', href: '/conditions' }];
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Concerns', href: '/conditions' }];
 const jsonLd = [breadcrumbList(crumbs)];
+
+const groups = [
+  { label: 'Face & skin concerns', cats: face },
+  { label: 'Body concerns', cats: body },
+];
+const chipCats = [...face, ...body, prevention];
 ---
 <Base
-  title="Conditions We Treat | EGP Aesthetics London"
-  description={`Browse the ${total} face and body concerns we treat at EGP Aesthetics London — from fine lines and pigmentation to cellulite and skin laxity.`}
+  title="Concerns We Treat | EGP Aesthetics London"
+  description={`Browse the ${total} face, skin and body concerns we treat at EGP Aesthetics London — organised by concern, from the eye area and collagen loss to skin left loose by rapid weight loss.`}
   canonicalPath="/conditions"
   jsonLd={jsonLd}
 >
@@ -21,22 +27,78 @@ const jsonLd = [breadcrumbList(crumbs)];
     <Breadcrumbs items={crumbs} />
     <div class="mt-7 max-w-2xl">
       <p class="rule-label mb-4 max-w-xs"><span>Start with your concern</span></p>
-      <h1 class="font-display text-5xl md:text-6xl tracking-[-0.02em]">Conditions we treat</h1>
+      <h1 class="font-display text-5xl md:text-6xl tracking-[-0.02em]">Concerns we treat</h1>
       <p class="mt-5 text-ink/75 leading-relaxed">
         Not sure which treatment is right for you? Begin with the concern you’d like to address and we’ll match it to
         the most effective, natural-looking approach.
       </p>
     </div>
+    <nav class="mt-8 flex flex-wrap items-center gap-2" aria-label="Concern categories">
+      <span class="record text-2xs uppercase tracking-[0.18em] text-stone mr-1">Jump to</span>
+      {chipCats.map((cat) => (
+        <a
+          href={`#${cat.key}`}
+          class="record text-2xs uppercase tracking-[0.1em] text-brand hover:text-honey-ink border border-beige-dark/60 hover:border-honey/60 px-3 py-1.5 transition-colors"
+        >
+          {cat.title}
+        </a>
+      ))}
+    </nav>
   </section>
 
-  {[{ label: 'Face concerns', items: face }, { label: 'Body concerns', items: body }].map((group) => (
-    <section class="max-w-6xl mx-auto px-5 lg:px-6 py-10">
-      <h2 class="font-display text-3xl md:text-4xl mb-7">{group.label}</h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {group.items.map((c) => <ConditionCard condition={c} />)}
+  {groups.map((group) => (
+    <section class="border-t border-beige-dark/60">
+      <div class="max-w-6xl mx-auto px-5 lg:px-6 pt-12">
+        <p class="rule-label max-w-xs"><span>{group.label}</span></p>
       </div>
+      {group.cats.map((cat) => (
+        <div id={cat.key} class="max-w-6xl mx-auto px-5 lg:px-6 py-9 scroll-mt-24">
+          <div class="max-w-2xl">
+            <h2 class="font-display text-3xl md:text-4xl">{cat.title}</h2>
+            <p class="mt-3 text-ink/70 leading-relaxed">{cat.intro}</p>
+          </div>
+          <div class="mt-7 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {cat.items.map((c) => <ConditionCard condition={c} />)}
+          </div>
+        </div>
+      ))}
+      <div class="pb-4"></div>
     </section>
   ))}
+
+  <!-- Prevention — a patient group rather than a problem, so it gets its own band -->
+  <section id={prevention.key} class="bg-lichen/30 border-y border-beige-dark/60 scroll-mt-24">
+    <div class="max-w-6xl mx-auto px-5 lg:px-6 py-14 md:py-16">
+      <div class="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-start">
+        <div class="max-w-xl">
+          <p class="rule-label mb-4 max-w-xs"><span>Prevention</span></p>
+          <h2 class="font-display text-3xl md:text-4xl">{prevention.title}</h2>
+          <p class="mt-4 text-ink/70 leading-relaxed">{prevention.intro}</p>
+          <p class="mt-4 text-ink/70 leading-relaxed">
+            If nothing on this page feels wrong yet — and you’d like to keep it that way — start with a digital skin
+            analysis and an honest, doctor-led plan.
+          </p>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-6">
+          {prevention.items.map((c) => <ConditionCard condition={c} />)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {more.length > 0 && (
+    <section class="max-w-6xl mx-auto px-5 lg:px-6 py-12">
+      <div class="max-w-2xl">
+        <h2 class="font-display text-3xl md:text-4xl">More concerns we treat</h2>
+        <p class="mt-3 text-ink/70 leading-relaxed">
+          Body contouring and skin-quality concerns we also see every week.
+        </p>
+      </div>
+      <div class="mt-7 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {more.map((c) => <ConditionCard condition={c} />)}
+      </div>
+    </section>
+  )}
 
   <div class="py-6"></div>
   <CtaBand />

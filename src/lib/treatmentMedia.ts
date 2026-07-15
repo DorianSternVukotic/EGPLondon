@@ -128,22 +128,22 @@ const condPhoto = (n: string) => `/assets/conditions/${n}.jpg`;
 
 // FACE — order matters (e.g. brows before eyes, gummy-smile before lips).
 const faceConditionRules: [RegExp, string][] = [
-  [/eyebrow|\bbrow/, condPhoto('brows')],
+  [/eyebrow|\bbrow|hooded|eyelid|forehead|upper.?face/, condPhoto('brows')],
   [/eye|tear|periorbit/, condPhoto('under-eye')],
   [/acne|blemish|spot|congest/, condPhoto('acne')],
-  [/rosacea|redness|flush|thread.?vein|couperos/, condPhoto('rosacea')],
+  [/rosacea|redness|flush|sensitive|thread.?vein|couperos/, condPhoto('rosacea')],
   [/pigment|melasma|freckle|sun.?damage|hyperpig/, condPhoto('pigmentation')],
   [/gummy|smile|teeth|tooth/, condPhoto('smile')],
   [/lip|barcode|perioral|mouth|smoker/, condPhoto('lips')],
-  [/jowl|heavy.?lower|lower.?face|sagging/, condPhoto('neck')],
+  [/jowl|heavy.?lower|lower.?face|sagging|weight.?loss/, condPhoto('neck')],
   [/chin|jaw|bruxism|masseter|pebble/, condPhoto('jawline')],
-  [/nasolabial|cheek|fold|shadow|marionette|mid.?face/, condPhoto('cheeks')],
+  [/nasolabial|cheek|fold|shadow|marionette|mid.?face|accordion|collagen/, condPhoto('cheeks')],
 ];
 
 // BODY — order matters (thigh before laxity so inner-thigh maps to legs).
 const bodyConditionRules: [RegExp, string][] = [
   [/cellulite/, condPhoto('cellulite')],
-  [/thigh|\bleg/, condPhoto('cellulite')],
+  [/thigh|\bleg|knee/, condPhoto('cellulite')],
   [/stretch.?mark/, condPhoto('stretch-marks')],
   [/belly|abdom|tummy|stomach|post.?pregnan|bloat|water.?retention|swelling/, condPhoto('belly')],
   [/love.?handle|flank|waist|muffin/, condPhoto('waist')],

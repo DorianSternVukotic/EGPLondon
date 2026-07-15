@@ -6,9 +6,9 @@ import BookingForm from '../../components/BookingForm.astro';
 import TreatmentCard from '../../components/TreatmentCard.astro';
 import BeforeAfterFigure from '../../components/BeforeAfterFigure.astro';
 import Testimonials from '../../components/Testimonials.astro';
-import { getTreatments, getTreatment, relatedTreatments, conditionsForTreatment, formatPrice, formatDuration } from '../../lib/data';
+import { getTreatments, getTreatment, relatedTreatments, conditionsForTreatment, formatPrice, formatDuration, galleryCaseFor } from '../../lib/data';
 import { mediaForSlug } from '../../lib/treatmentMedia';
-import { breadcrumbList, faqPage, medicalProcedure } from '../../lib/schema';
+import { absUrl, breadcrumbList, faqPage, medicalProcedure } from '../../lib/schema';
 import { site } from '../../lib/site';
 
 export function getStaticPaths() {
@@ -20,6 +20,10 @@ const t = getTreatment(slug!)!;
 const related = relatedTreatments(t);
 const concerns = conditionsForTreatment(t);
 const priceLabel = t.price === 0 ? 'Free' : formatPrice(t.discountedPrice ?? t.price);
+const isFreeConsult = t.price === 0;
+const freeConsultHref = '/book?treatment=Free%20Discovery%20Consultation';
+// Real case photos only where the photographed case matches this treatment.
+const caseStudy = galleryCaseFor(t.slug);
 
 const crumbs = [
   { name: 'Home', href: '/' },
@@ -61,6 +65,7 @@ const jsonLd = [
   description={metaDesc}
   canonicalPath={`/treatments/${t.slug}`}
   jsonLd={jsonLd}
+  availableService={{ '@id': `${absUrl(`/treatments/${t.slug}`)}#procedure` }}
 >
   <!-- Hero -->
   <section class="border-b border-beige-dark/60">
@@ -79,9 +84,13 @@ const jsonLd = [
               Ask a question
             </a>
           </div>
-          <p class="mt-7 record text-2xs uppercase tracking-[0.18em] text-stone">
-            Reviewed by the EGP medical team · Last updated June 2026
-          </p>
+          {!isFreeConsult && (
+            <p class="mt-6 text-sm text-ink/70">
+              Not sure yet? Start with a{' '}
+              <a href={freeConsultHref} class="text-brand underline decoration-honey-soft underline-offset-2 hover:text-honey-ink transition-colors">free discovery consultation</a>
+              {' '}— no commitment, no pressure.
+            </p>
+          )}
         </div>
 
         <!-- Clinical-record spec panel (replaces the placeholder image) -->
@@ -113,9 +122,13 @@ const jsonLd = [
       <h2>What is {t.name}?</h2>
       <p>{t.description || `${t.name} is one of the advanced, non-surgical treatments offered at EGP Aesthetics London.`}</p>
 
-      <h2>Before &amp; after</h2>
-      <p>A typical result following a course of {t.name} at EGP Aesthetics. Individual results vary; your plan is tailored at consultation.</p>
-      <BeforeAfterFigure seed={t.slug} caption={`Illustrative before & after · ${t.name}`} />
+      {caseStudy && (
+        <>
+          <h2>Before &amp; after</h2>
+          <p>A result from our clinic — {caseStudy.title.toLowerCase()}. Individual results vary; your plan is tailored at consultation.</p>
+          <BeforeAfterFigure before={caseStudy.before} after={caseStudy.after} caption={`${caseStudy.title} · Individual results vary`} />
+        </>
+      )}
 
       {detailParas.length > 0 && (
         <>
@@ -150,6 +163,11 @@ const jsonLd = [
           <a href={`/book?treatment=${encodeURIComponent(t.name)}`} class="block text-center mt-6 bg-paper text-forest px-6 py-3.5 text-sm uppercase tracking-[0.14em] font-medium hover:bg-honey-soft transition-colors">
             Book now
           </a>
+          {!isFreeConsult && (
+            <a href={freeConsultHref} class="block text-center mt-3 record text-2xs uppercase tracking-[0.16em] text-paper/80 hover:text-honey-soft underline decoration-paper/30 underline-offset-4 transition-colors">
+              or start with a free consultation
+            </a>
+          )}
         </div>
         <div class="bg-lichen/50 border border-beige-dark/60 p-7 text-sm">
           <p class="record text-2xs uppercase tracking-[0.18em] text-honey-ink mb-3">Questions?</p>

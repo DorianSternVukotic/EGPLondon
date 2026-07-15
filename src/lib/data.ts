@@ -1,5 +1,6 @@
 import servicesRaw from '../data/services.json';
 import conditionsRaw from '../data/conditions.json';
+import concernsLocalRaw from '../data/concerns-local.json';
 import galleryRaw from '../data/gallery.json';
 import reviewsRaw from '../data/reviews.json';
 
@@ -117,13 +118,19 @@ const treatmentAliases: Record<string, string> = {
   'gummy smile treatment': 'gummy-smile',
   'nasolabial folds filler': 'filler-nasolabial-folds',
   'body fat burning mesotherapy': 'body-fat-burning-mesotherapy',
+  'exosomes': 'exosomes-face',
+  'anti-wrinkle injections': 'anti-wrinkle-injections',
+  'forehead lines treatment': 'forehead-lines',
+  'eye wrinkles': 'eye-wrinkles',
+  'ultrasound + mesotherapy': 'ultrasound-mesotherapy-combined',
 };
 
 const _conditions: Condition[] = (() => {
   const seen = new Set<string>();
   const treatmentByName = new Map(_treatments.map((t) => [t.name.toLowerCase(), t.slug]));
+  const treatmentBySlug = new Map(_treatments.map((t) => [t.slug, t]));
   const bySlug = new Set(_treatments.map((t) => t.slug));
-  return (conditionsRaw.conditions as any[])
+  return ([...(conditionsRaw.conditions as any[]), ...(concernsLocalRaw.conditions as any[])])
     .filter((c) => c.is_active !== false)
     .map((c) => ({ ...c, _slug: normSlug(c.slug) }))
     .filter((c) => (seen.has(c._slug) ? false : (seen.add(c._slug), true)))
@@ -136,7 +143,11 @@ const _conditions: Condition[] = (() => {
         const key = label.toLowerCase();
         const aliased = treatmentAliases[key];
         const slug = treatmentByName.get(key) ?? (aliased && bySlug.has(aliased) ? aliased : null);
-        return { label, price, slug };
+        // Condition records carry their own price strings which drift out of
+        // date — when the label resolves to a real treatment, always show that
+        // treatment's current menu price instead.
+        const live = slug ? treatmentBySlug.get(slug) : undefined;
+        return { label, price: live ? (live.discountedPrice ?? live.price) : price, slug };
       });
       return {
         id: c.id,
@@ -174,6 +185,123 @@ export const conditionGroups = () => ({
   body: _conditions.filter((c) => c.group === 'body'),
 });
 
+/* ── Concern categories ────────────────────────────────────────────────
+   Editorial taxonomy set by Dr Galina (July 2026). Her named concerns come
+   first in each category, followed by clearly-related existing pages; any
+   condition in no category renders under "More concerns we treat". */
+export interface ConcernCategory {
+  key: string;
+  title: string;
+  group: 'face' | 'body' | 'prevention';
+  intro: string;
+  slugs: string[];
+}
+
+export const concernCategories: ConcernCategory[] = [
+  {
+    key: 'eye-area',
+    title: 'Eye area',
+    group: 'face',
+    intro: 'Hooded lids, hollows and dark circles — precise, delicate work for the area that shows tiredness first.',
+    slugs: ['hooded-upper-eyelids', 'under-eye-hollows', 'dark-under-eye-circles', 'eye-bags', 'low-eyebrows'],
+  },
+  {
+    key: 'volume-collagen',
+    title: 'Volume loss & collagen depletion',
+    group: 'face',
+    intro: 'From gradual collagen loss to the deflation that can follow rapid weight loss — rebuilt with biostimulation, not overfilling.',
+    slugs: ['collagen-depletion', 'facial-ageing-after-weight-loss', 'flat-cheeks', 'nasolabial-folds', 'shadows-around-nasolabial-folds'],
+  },
+  {
+    key: 'jawline-contouring',
+    title: 'Jawline & facial contouring',
+    group: 'face',
+    intro: 'Definition through the chin, jaw and lower face — contoured without surgery.',
+    slugs: ['double-chin', 'jowling', 'heavy-lower-face', 'flat-pebble-chin', 'bruxism'],
+  },
+  {
+    key: 'pigmentation-melasma',
+    title: 'Pigmentation & melasma',
+    group: 'face',
+    intro: 'Dark spots, sun damage and melasma, treated with medical-grade peels and skin science.',
+    slugs: ['hyperpigmentation-melasma'],
+  },
+  {
+    key: 'fine-lines-wrinkles',
+    title: 'Fine lines & wrinkles',
+    group: 'face',
+    intro: 'Softening upper-face lines, accordion lines and lip lines while keeping every expression your own.',
+    slugs: ['upper-face-wrinkles', 'accordion-lines', 'barcode-lines-around-lips'],
+  },
+  {
+    key: 'acne-scarring',
+    title: 'Acne & acne scarring',
+    group: 'face',
+    intro: 'Active breakouts, scarring and the pigmentation they leave behind.',
+    slugs: ['acne-acne-scarring', 'post-inflammatory-pigmentation'],
+  },
+  {
+    key: 'redness-sensitive',
+    title: 'Redness & sensitive skin',
+    group: 'face',
+    intro: 'Calming rosacea and reactive, easily flushed skin with a gentle, medically guided plan.',
+    slugs: ['rosacea', 'sensitive-skin'],
+  },
+  {
+    key: 'weight-loss-skin',
+    title: 'Loose skin after rapid weight loss',
+    group: 'body',
+    intro: 'GLP-1 and rapid weight loss can leave skin behind — we tighten and rebuild it non-surgically.',
+    slugs: ['loose-skin-knees', 'loose-abdominal-skin', 'sagging-skin-skin-laxity'],
+  },
+  {
+    key: 'prevention',
+    title: 'Prevention & skin awareness',
+    group: 'prevention',
+    intro:
+      'A growing group of patients comes to us before a concern takes hold — driven by greater skin awareness, social media and high-definition cameras. Preventative, low-intervention treatments protect skin quality early.',
+    slugs: ['early-signs-of-ageing'],
+  },
+];
+
+/* Near-duplicate records in the source data, soft-retired from the index
+   (their pages stay live so no URLs break). */
+const hiddenDupes = new Set(['double-chin-jawline-fat', 'cellulite-thighs-buttocks-abdomen']);
+
+export interface ResolvedConcernCategory extends ConcernCategory {
+  items: Condition[];
+}
+
+export const concernTaxonomy = () => {
+  const bySlug = new Map(_conditions.map((c) => [c.slug, c]));
+  const resolve = (cat: ConcernCategory): ResolvedConcernCategory => ({
+    ...cat,
+    items: cat.slugs.map((s) => bySlug.get(s)).filter(Boolean) as Condition[],
+  });
+  const placed = new Set(concernCategories.flatMap((c) => c.slugs));
+  return {
+    face: concernCategories.filter((c) => c.group === 'face').map(resolve),
+    body: concernCategories.filter((c) => c.group === 'body').map(resolve),
+    prevention: resolve(concernCategories.find((c) => c.group === 'prevention')!),
+    more: _conditions.filter((c) => !placed.has(c.slug) && !hiddenDupes.has(c.slug)),
+  };
+};
+
+/* Concerns related to a given one — same concern category first, topped up
+   from the same face/body group. */
+export const relatedConcerns = (c: Condition, n = 4) => {
+  const bySlug = new Map(_conditions.map((x) => [x.slug, x]));
+  const cat = concernCategories.find((k) => k.slugs.includes(c.slug));
+  const inCat = (cat?.slugs ?? [])
+    .filter((s) => s !== c.slug)
+    .map((s) => bySlug.get(s))
+    .filter(Boolean) as Condition[];
+  const fill = _conditions.filter(
+    (x) => x.group === c.group && x.slug !== c.slug && !inCat.includes(x) && !hiddenDupes.has(x.slug),
+  );
+  return [...inCat, ...fill].slice(0, n);
+};
+
 /* Treatments suggested as "related" for a given treatment (same category). */
 export const relatedTreatments = (t: Treatment, n = 4) =>
   _treatments.filter((x) => x.category === t.category && x.slug !== t.slug).slice(0, n);
@@ -205,6 +333,30 @@ const _gallery: GalleryCase[] = (galleryRaw.galleryItems as any[])
   }));
 export const getGallery = () => _gallery;
 
+/* Before/after imagery may only appear on pages whose treatment/concern the
+   photographed case actually demonstrates — anything else misrepresents a
+   clinical result. Keyed by the gallery item's stable id so a data re-sync
+   can't silently shift which photos land on which page. */
+const galleryCaseBySlug: Record<string, string> = {
+  // Case: 5-point lifting protocol — mid-face support, under-eye hollowing, facial descent.
+  '5-point-facelift': '3fae6618-0fd6-4db6-86ac-07052e8d0e56',
+  'dark-under-eye-circles': '3fae6618-0fd6-4db6-86ac-07052e8d0e56',
+  'under-eye-hollows': '3fae6618-0fd6-4db6-86ac-07052e8d0e56',
+  'flat-cheeks': '3fae6618-0fd6-4db6-86ac-07052e8d0e56',
+  // Case: upper-face anti-wrinkle treatment — softened forehead dynamic lines.
+  'anti-wrinkle-injections': 'e2a1ad28-7b46-4e74-9a9c-1b7357e2d4de',
+  'forehead-lines': 'e2a1ad28-7b46-4e74-9a9c-1b7357e2d4de',
+  'upper-face-wrinkles': 'e2a1ad28-7b46-4e74-9a9c-1b7357e2d4de',
+  // Case: natural lip enhancement — central volume, definition, hydration.
+  'lip-hydration': '1868f522-2fb1-444a-83d4-8a0d03e6feb5',
+  'lip-enhancement': '1868f522-2fb1-444a-83d4-8a0d03e6feb5',
+  'lip-fillers': '1868f522-2fb1-444a-83d4-8a0d03e6feb5',
+};
+export const galleryCaseFor = (slug: string): GalleryCase | null => {
+  const id = galleryCaseBySlug[slug];
+  return (id && _gallery.find((g) => g.id === id)) || null;
+};
+
 /* ── Customer reviews (approved only) ──────────────────────────────── */
 export interface Review {
   name: string;
@@ -212,8 +364,11 @@ export interface Review {
   title: string;
   comment: string;
 }
+/* The live feed's moderation lets link-spam through (e.g. SEO outreach messages
+   approved as "reviews") — anything containing a URL is not a client review. */
+const looksLikeSpam = (r: any) => /https?:\/\/|www\./i.test(`${r.comment ?? ''} ${r.customer_name ?? ''}`);
 const _reviews: Review[] = (reviewsRaw.reviews as any[])
-  .filter((r) => r.is_approved !== false)
+  .filter((r) => r.is_approved !== false && !looksLikeSpam(r))
   .map((r) => ({
     name: r.customer_name ?? 'Verified client',
     rating: r.rating ?? 5,

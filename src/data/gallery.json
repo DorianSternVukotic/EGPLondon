@@ -1,1 +1,216 @@
-{"galleryItems":[{"id":"3fae6618-0fd6-4db6-86ac-07052e8d0e56","admin_id":null,"section_id":null,"title":"Facial Rebalancing and Under-Eye Restoration","description":"This patient presented with mild volume loss in the mid-face, under-eye hollowing, and early signs of facial descent.\n\nWe performed a 5-point lifting protocol to restore structural support, improve facial proportions, and rejuvenate the periorbital area.\n\nThe after image demonstrates:\n\t•\tImproved mid-face support\n\t•\tReduced under-eye hollowing\n\t•\tRestored facial contour\n\t•\tA fresher, more youthful appearance\n\nThe result maintains natural expression while enhancing overall facial harmony.","image_url":null,"before_image_url":"https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/before_1772618014436_IMG_4616.JPG","after_image_url":"https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/after_1772618015123_IMG_5125.HEIC","alt_text":null,"completion_date":"2026-03-05","project_type":"Mid-face, under-eye, facial descent","location":"","is_featured":false,"order":0,"is_active":true,"created_at":"2026-03-04T09:53:35.969777+00:00","updated_at":"2026-03-04T09:53:35.969777+00:00","service_id":"945cbdb5-c41f-4714-a228-b6f82ce2f3fd","category_id":"4a4109c0-d291-4fa8-9869-11bfd002be97","service":{"id":"945cbdb5-c41f-4714-a228-b6f82ce2f3fd","name":"Dark under-eye circles","category":{"id":"4a4109c0-d291-4fa8-9869-11bfd002be97","name":"Face","slug":"face","main_tab":{"id":"24038588-5558-4f6f-810a-b240d19fee50","name":"BY CONDITION","slug":"by-condition"}}},"category":{"id":"4a4109c0-d291-4fa8-9869-11bfd002be97","name":"Face","slug":"face","main_tab":{"id":"24038588-5558-4f6f-810a-b240d19fee50","name":"BY CONDITION","slug":"by-condition"}}},{"id":"e2a1ad28-7b46-4e74-9a9c-1b7357e2d4de","admin_id":null,"section_id":null,"title":"Dynamic Line Softening","description":"his patient presented with pronounced dynamic lines across the forehead caused by repetitive muscle movement.\n\nA targeted upper-face anti-wrinkle treatment was performed to reduce muscular overactivity while maintaining natural facial expression.\n\nThe result demonstrates:\n\nSoftened forehead lines\nReduced dynamic movement\nA smoother and more refreshed upper face\nPreserved natural expression\n\n\nThe aim was not to eliminate movement completely, but to achieve a balanced, relaxed and naturally rejuvenated appearance.","image_url":null,"before_image_url":"https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/before_1772623229456_before.JPG","after_image_url":"https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/after_1772623230736_after.JPG","alt_text":null,"completion_date":"2026-01-14","project_type":"Upper-face","location":"","is_featured":false,"order":0,"is_active":true,"created_at":"2026-03-04T11:20:31.572798+00:00","updated_at":"2026-04-03T11:24:46.962704+00:00","service_id":"c6b8273d-d82e-41e8-a87c-c8c75102acee","category_id":"fa21babc-024d-45ea-b7bb-fb557f256a36","service":{"id":"c6b8273d-d82e-41e8-a87c-c8c75102acee","name":"Anti-Wrinkle Injections (Botox)","category":{"id":"fa21babc-024d-45ea-b7bb-fb557f256a36","name":"Anti-wrinkle","slug":"anti-wrinkle","main_tab":{"id":"c0ca35f1-437e-41e6-bcbf-dffe3cd34503","name":"BOOK NOW","slug":"book-now"}}},"category":{"id":"fa21babc-024d-45ea-b7bb-fb557f256a36","name":"Anti-wrinkle","slug":"anti-wrinkle","main_tab":{"id":"c0ca35f1-437e-41e6-bcbf-dffe3cd34503","name":"BOOK NOW","slug":"book-now"}}},{"id":"1868f522-2fb1-444a-83d4-8a0d03e6feb5","admin_id":null,"section_id":null,"title":"Natural Lip Enhancement","description":"This patient desired a fresh and healthy lip enhancement while maintaining a natural appearance.\n\nA precise lip augmentation treatment was performed to:\n\nRestore central volume\nImprove lip definition\nEnhance hydration\nMaintain natural proportions\n\n\nThe result demonstrates improved fullness in the central lip body, enhanced symmetry, and a soft, hydrated finish without overcorrection.\n\nThe lips remain balanced, elegant, and in harmony with the patient’s facial features.","image_url":null,"before_image_url":"https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/before_1772630067483_1_before.JPG","after_image_url":"https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/after_1772630068638_2_after.JPG","alt_text":null,"completion_date":"2026-02-17","project_type":"Natural Lip Enhancement","location":"","is_featured":true,"order":0,"is_active":true,"created_at":"2026-03-04T13:14:30.471462+00:00","updated_at":"2026-03-04T13:18:27.915045+00:00","service_id":"c4609bf0-a1ba-4bd9-b49e-fb21545f5eb5","category_id":"b1085824-08b7-465e-9459-8766dce44caa","service":{"id":"c4609bf0-a1ba-4bd9-b49e-fb21545f5eb5","name":"Lip hydration","category":{"id":"b1085824-08b7-465e-9459-8766dce44caa","name":"Fillers","slug":"fillers","main_tab":{"id":"c0ca35f1-437e-41e6-bcbf-dffe3cd34503","name":"BOOK NOW","slug":"book-now"}}},"category":{"id":"b1085824-08b7-465e-9459-8766dce44caa","name":"Fillers","slug":"fillers","main_tab":{"id":"c0ca35f1-437e-41e6-bcbf-dffe3cd34503","name":"BOOK NOW","slug":"book-now"}}},{"id":"7e638b34-b62f-433d-a7ac-5e6aa638ca85","admin_id":null,"section_id":null,"title":"Natural Lip Enhancement","description":"This patient desired a fresh and healthy lip enhancement while maintaining a natural appearance.\n\nA precise lip augmentation treatment was performed to:\n\nRestore central volume\nImprove lip definition\nEnhance hydration\nMaintain natural proportions\n\n\nThe result demonstrates improved fullness in the central lip body, enhanced symmetry, and a soft, hydrated finish without overcorrection.\n\nThe lips remain balanced, elegant, and in harmony with the patient’s facial features.","image_url":null,"before_image_url":"https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/before_1772627401623_after_1.jpeg","after_image_url":"https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/after_1772627403122_before_1.jpeg","alt_text":null,"completion_date":"2026-02-10","project_type":"Lip Enhancement","location":"","is_featured":true,"order":0,"is_active":true,"created_at":"2026-03-04T12:30:04.335785+00:00","updated_at":"2026-03-04T13:18:42.525414+00:00","service_id":"c4609bf0-a1ba-4bd9-b49e-fb21545f5eb5","category_id":"b1085824-08b7-465e-9459-8766dce44caa","service":{"id":"c4609bf0-a1ba-4bd9-b49e-fb21545f5eb5","name":"Lip hydration","category":{"id":"b1085824-08b7-465e-9459-8766dce44caa","name":"Fillers","slug":"fillers","main_tab":{"id":"c0ca35f1-437e-41e6-bcbf-dffe3cd34503","name":"BOOK NOW","slug":"book-now"}}},"category":{"id":"b1085824-08b7-465e-9459-8766dce44caa","name":"Fillers","slug":"fillers","main_tab":{"id":"c0ca35f1-437e-41e6-bcbf-dffe3cd34503","name":"BOOK NOW","slug":"book-now"}}},{"id":"159daedc-58ef-460f-a416-4d683908998d","admin_id":null,"section_id":null,"title":"Facial Rebalancing and Under-Eye Restoration","description":"This patient presented with mild volume loss in the mid-face, under-eye hollowing, and early signs of facial descent.\n\nWe performed a 5-point lifting protocol to restore structural support, improve facial proportions, and rejuvenate the periorbital area.\n\nThe after image demonstrates:\n\t•\tImproved mid-face support\n\t•\tReduced under-eye hollowing\n\t•\tRestored facial contour\n\t•\tA fresher, more youthful appearance\n\nThe result maintains natural expression while enhancing overall facial harmony.","image_url":null,"before_image_url":"https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/before_1770909967876_IMG_8409.HEIC","after_image_url":"https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/after_1770909969055_IMG_0388.HEIC","alt_text":null,"completion_date":"2026-02-11","project_type":"Mid-face, under-eye hollowing, facial descent","location":"","is_featured":false,"order":0,"is_active":true,"created_at":"2026-02-12T15:26:10.199546+00:00","updated_at":"2026-03-16T21:28:53.732165+00:00","service_id":null,"category_id":"fb08157f-2681-4153-89f1-fc70725cd01c","service":null,"category":{"id":"fb08157f-2681-4153-89f1-fc70725cd01c","name":"FACE","slug":"face","main_tab":{"id":"c0ca35f1-437e-41e6-bcbf-dffe3cd34503","name":"BOOK NOW","slug":"book-now"}}}]}
+{
+  "galleryItems": [
+    {
+      "id": "3fae6618-0fd6-4db6-86ac-07052e8d0e56",
+      "admin_id": null,
+      "section_id": null,
+      "title": "Facial Rebalancing and Under-Eye Restoration",
+      "description": "This patient presented with mild volume loss in the mid-face, under-eye hollowing, and early signs of facial descent.\n\nWe performed a 5-point lifting protocol to restore structural support, improve facial proportions, and rejuvenate the periorbital area.\n\nThe after image demonstrates:\n\t•\tImproved mid-face support\n\t•\tReduced under-eye hollowing\n\t•\tRestored facial contour\n\t•\tA fresher, more youthful appearance\n\nThe result maintains natural expression while enhancing overall facial harmony.",
+      "image_url": null,
+      "before_image_url": "https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/before_1772618014436_IMG_4616.JPG",
+      "after_image_url": "https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/after_1772618015123_IMG_5125.HEIC",
+      "alt_text": null,
+      "completion_date": "2026-03-05",
+      "project_type": "Mid-face, under-eye, facial descent",
+      "location": "",
+      "is_featured": false,
+      "order": 0,
+      "is_active": true,
+      "created_at": "2026-03-04T09:53:35.969777+00:00",
+      "updated_at": "2026-03-04T09:53:35.969777+00:00",
+      "service_id": "945cbdb5-c41f-4714-a228-b6f82ce2f3fd",
+      "category_id": "4a4109c0-d291-4fa8-9869-11bfd002be97",
+      "service": {
+        "id": "945cbdb5-c41f-4714-a228-b6f82ce2f3fd",
+        "name": "Dark under-eye circles",
+        "category": {
+          "id": "4a4109c0-d291-4fa8-9869-11bfd002be97",
+          "name": "Face",
+          "slug": "face",
+          "main_tab": {
+            "id": "24038588-5558-4f6f-810a-b240d19fee50",
+            "name": "BY CONDITION",
+            "slug": "by-condition"
+          }
+        }
+      },
+      "category": {
+        "id": "4a4109c0-d291-4fa8-9869-11bfd002be97",
+        "name": "Face",
+        "slug": "face",
+        "main_tab": {
+          "id": "24038588-5558-4f6f-810a-b240d19fee50",
+          "name": "BY CONDITION",
+          "slug": "by-condition"
+        }
+      }
+    },
+    {
+      "id": "e2a1ad28-7b46-4e74-9a9c-1b7357e2d4de",
+      "admin_id": null,
+      "section_id": null,
+      "title": "Dynamic Line Softening",
+      "description": "his patient presented with pronounced dynamic lines across the forehead caused by repetitive muscle movement.\n\nA targeted upper-face anti-wrinkle treatment was performed to reduce muscular overactivity while maintaining natural facial expression.\n\nThe result demonstrates:\n\nSoftened forehead lines\nReduced dynamic movement\nA smoother and more refreshed upper face\nPreserved natural expression\n\n\nThe aim was not to eliminate movement completely, but to achieve a balanced, relaxed and naturally rejuvenated appearance.",
+      "image_url": null,
+      "before_image_url": "https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/before_1772623229456_before.JPG",
+      "after_image_url": "https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/after_1772623230736_after.JPG",
+      "alt_text": null,
+      "completion_date": "2026-01-14",
+      "project_type": "Upper-face",
+      "location": "",
+      "is_featured": false,
+      "order": 0,
+      "is_active": true,
+      "created_at": "2026-03-04T11:20:31.572798+00:00",
+      "updated_at": "2026-04-03T11:24:46.962704+00:00",
+      "service_id": "c6b8273d-d82e-41e8-a87c-c8c75102acee",
+      "category_id": "fa21babc-024d-45ea-b7bb-fb557f256a36",
+      "service": {
+        "id": "c6b8273d-d82e-41e8-a87c-c8c75102acee",
+        "name": "Anti-Wrinkle Injections (Botox)",
+        "category": {
+          "id": "fa21babc-024d-45ea-b7bb-fb557f256a36",
+          "name": "Anti-wrinkle",
+          "slug": "anti-wrinkle",
+          "main_tab": {
+            "id": "c0ca35f1-437e-41e6-bcbf-dffe3cd34503",
+            "name": "BOOK NOW",
+            "slug": "book-now"
+          }
+        }
+      },
+      "category": {
+        "id": "fa21babc-024d-45ea-b7bb-fb557f256a36",
+        "name": "Anti-wrinkle",
+        "slug": "anti-wrinkle",
+        "main_tab": {
+          "id": "c0ca35f1-437e-41e6-bcbf-dffe3cd34503",
+          "name": "BOOK NOW",
+          "slug": "book-now"
+        }
+      }
+    },
+    {
+      "id": "1868f522-2fb1-444a-83d4-8a0d03e6feb5",
+      "admin_id": null,
+      "section_id": null,
+      "title": "Natural Lip Enhancement",
+      "description": "This patient desired a fresh and healthy lip enhancement while maintaining a natural appearance.\n\nA precise lip augmentation treatment was performed to:\n\nRestore central volume\nImprove lip definition\nEnhance hydration\nMaintain natural proportions\n\n\nThe result demonstrates improved fullness in the central lip body, enhanced symmetry, and a soft, hydrated finish without overcorrection.\n\nThe lips remain balanced, elegant, and in harmony with the patient’s facial features.",
+      "image_url": null,
+      "before_image_url": "https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/before_1772630067483_1_before.JPG",
+      "after_image_url": "https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/after_1772630068638_2_after.JPG",
+      "alt_text": null,
+      "completion_date": "2026-02-17",
+      "project_type": "Natural Lip Enhancement",
+      "location": "",
+      "is_featured": true,
+      "order": 0,
+      "is_active": true,
+      "created_at": "2026-03-04T13:14:30.471462+00:00",
+      "updated_at": "2026-03-04T13:18:27.915045+00:00",
+      "service_id": "c4609bf0-a1ba-4bd9-b49e-fb21545f5eb5",
+      "category_id": "b1085824-08b7-465e-9459-8766dce44caa",
+      "service": {
+        "id": "c4609bf0-a1ba-4bd9-b49e-fb21545f5eb5",
+        "name": "Lip hydration",
+        "category": {
+          "id": "b1085824-08b7-465e-9459-8766dce44caa",
+          "name": "Fillers",
+          "slug": "fillers",
+          "main_tab": {
+            "id": "c0ca35f1-437e-41e6-bcbf-dffe3cd34503",
+            "name": "BOOK NOW",
+            "slug": "book-now"
+          }
+        }
+      },
+      "category": {
+        "id": "b1085824-08b7-465e-9459-8766dce44caa",
+        "name": "Fillers",
+        "slug": "fillers",
+        "main_tab": {
+          "id": "c0ca35f1-437e-41e6-bcbf-dffe3cd34503",
+          "name": "BOOK NOW",
+          "slug": "book-now"
+        }
+      }
+    },
+    {
+      "id": "7e638b34-b62f-433d-a7ac-5e6aa638ca85",
+      "admin_id": null,
+      "section_id": null,
+      "title": "Natural Lip Enhancement",
+      "description": "This patient desired a fresh and healthy lip enhancement while maintaining a natural appearance.\n\nA precise lip augmentation treatment was performed to:\n\nRestore central volume\nImprove lip definition\nEnhance hydration\nMaintain natural proportions\n\n\nThe result demonstrates improved fullness in the central lip body, enhanced symmetry, and a soft, hydrated finish without overcorrection.\n\nThe lips remain balanced, elegant, and in harmony with the patient’s facial features.",
+      "image_url": null,
+      "before_image_url": "https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/before_1772627401623_after_1.jpeg",
+      "after_image_url": "https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/after_1772627403122_before_1.jpeg",
+      "alt_text": null,
+      "completion_date": "2026-02-10",
+      "project_type": "Lip Enhancement",
+      "location": "",
+      "is_featured": true,
+      "order": 0,
+      "is_active": true,
+      "created_at": "2026-03-04T12:30:04.335785+00:00",
+      "updated_at": "2026-03-04T13:18:42.525414+00:00",
+      "service_id": "c4609bf0-a1ba-4bd9-b49e-fb21545f5eb5",
+      "category_id": "b1085824-08b7-465e-9459-8766dce44caa",
+      "service": {
+        "id": "c4609bf0-a1ba-4bd9-b49e-fb21545f5eb5",
+        "name": "Lip hydration",
+        "category": {
+          "id": "b1085824-08b7-465e-9459-8766dce44caa",
+          "name": "Fillers",
+          "slug": "fillers",
+          "main_tab": {
+            "id": "c0ca35f1-437e-41e6-bcbf-dffe3cd34503",
+            "name": "BOOK NOW",
+            "slug": "book-now"
+          }
+        }
+      },
+      "category": {
+        "id": "b1085824-08b7-465e-9459-8766dce44caa",
+        "name": "Fillers",
+        "slug": "fillers",
+        "main_tab": {
+          "id": "c0ca35f1-437e-41e6-bcbf-dffe3cd34503",
+          "name": "BOOK NOW",
+          "slug": "book-now"
+        }
+      }
+    },
+    {
+      "id": "159daedc-58ef-460f-a416-4d683908998d",
+      "admin_id": null,
+      "section_id": null,
+      "title": "Facial Rebalancing and Under-Eye Restoration",
+      "description": "This patient presented with mild volume loss in the mid-face, under-eye hollowing, and early signs of facial descent.\n\nWe performed a 5-point lifting protocol to restore structural support, improve facial proportions, and rejuvenate the periorbital area.\n\nThe after image demonstrates:\n\t•\tImproved mid-face support\n\t•\tReduced under-eye hollowing\n\t•\tRestored facial contour\n\t•\tA fresher, more youthful appearance\n\nThe result maintains natural expression while enhancing overall facial harmony.",
+      "image_url": null,
+      "before_image_url": "https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/before_1770909967876_IMG_8409.HEIC",
+      "after_image_url": "https://ynarvpmgjlpubecixgfu.supabase.co/storage/v1/object/public/egp/after_1770909969055_IMG_0388.HEIC",
+      "alt_text": null,
+      "completion_date": "2026-02-11",
+      "project_type": "Mid-face, under-eye hollowing, facial descent",
+      "location": "",
+      "is_featured": false,
+      "order": 0,
+      "is_active": true,
+      "created_at": "2026-02-12T15:26:10.199546+00:00",
+      "updated_at": "2026-03-16T21:28:53.732165+00:00",
+      "service_id": null,
+      "category_id": "fb08157f-2681-4153-89f1-fc70725cd01c",
+      "service": null,
+      "category": {
+        "id": "fb08157f-2681-4153-89f1-fc70725cd01c",
+        "name": "FACE",
+        "slug": "face",
+        "main_tab": {
+          "id": "c0ca35f1-437e-41e6-bcbf-dffe3cd34503",
+          "name": "BOOK NOW",
+          "slug": "book-now"
+        }
+      }
+    }
+  ]
+}

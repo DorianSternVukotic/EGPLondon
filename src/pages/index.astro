@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import ConditionCard from '../components/ConditionCard.astro';
+import ConcernCategoryCard from '../components/ConcernCategoryCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
@@ -8,8 +8,8 @@ import Testimonials from '../components/Testimonials.astro';
 import TreatmentShowcase from '../components/TreatmentShowcase.astro';
 import ClinicLocation from '../components/ClinicLocation.astro';
 import { site, credentials } from '../lib/site';
-import { conditionGroups, getTreatments, getConditions, treatmentCategories, formatPrice } from '../lib/data';
-import { mediaForSlug, cartoonForCategory } from '../lib/treatmentMedia';
+import { concernTaxonomy, getTreatments, getConditions, treatmentCategories, formatPrice } from '../lib/data';
+import { mediaForSlug, cartoonForCategory, conditionPhoto } from '../lib/treatmentMedia';
 import { faqPage } from '../lib/schema';
 
 // Three most-requested categories, each shown as image+title + a few sub-treatments.
@@ -17,10 +17,48 @@ const featuredCats = treatmentCategories()
   .slice()
   .sort((a, b) => b.items.length - a.items.length)
   .slice(0, 3);
-const { face, body } = conditionGroups();
-const popularConditions = [...face, ...body].filter((c) => c.popular).slice(0, 6);
+const { face: faceCats, body: bodyCats, prevention } = concernTaxonomy();
+const concernCats = [...faceCats, ...bodyCats, prevention];
+/* One representative photo per category tile — candidates ranked by how many
+   of the category's concerns map to them, then de-duplicated across the grid
+   so no two tiles share an image. */
+const usedPhotos = new Set<string>();
+const catPhotos = concernCats.map((cat) => {
+  const freq = new Map<string, number>();
+  for (const c of cat.items) {
+    const p = conditionPhoto(c);
+    freq.set(p, (freq.get(p) ?? 0) + 1);
+  }
+  const candidates = [...freq.entries()].sort((a, b) => b[1] - a[1]).map(([p]) => p);
+  const photo = candidates.find((p) => !usedPhotos.has(p)) ?? candidates[0] ?? '/assets/conditions/face.jpg';
+  usedPhotos.add(photo);
+  return photo;
+});
 const treatmentCount = getTreatments().length;
 const conditionCount = getConditions().length;
+
+/* The two patient groups Galina flagged as growing fastest — spotlighted
+   after "Why EGP" as narrative bands rather than navigation. */
+const spotlights = [
+  {
+    label: 'After rapid weight loss',
+    title: 'Lost weight quickly?',
+    copy: 'GLP-1 medications and rapid weight loss can leave skin behind — deflated in the face, loose on the body. We rebuild volume and tighten skin without surgery.',
+    links: [
+      { label: 'Loose skin after weight loss', href: '/conditions#weight-loss-skin' },
+      { label: 'Facial ageing after weight loss', href: '/conditions/facial-ageing-after-weight-loss' },
+    ],
+  },
+  {
+    label: 'Prevention',
+    title: 'Nothing wrong yet?',
+    copy: 'High-definition cameras, video calls and social feeds have made us all more skin-aware. Preventative, low-intervention treatments protect skin quality before lines and laxity set in.',
+    links: [
+      { label: 'Prevention & skin awareness', href: '/conditions#prevention' },
+      { label: 'Early signs of ageing', href: '/conditions/early-signs-of-ageing' },
+    ],
+  },
+];
 
 const values = [
   { label: 'Approach', t: 'Non-surgical first', d: 'We reach for advanced biostimulating science — Profhilo, Polynucleotides, PRP, Exosomes, Sculptra — and turn to filler only when it’s genuinely the right tool.' },
@@ -61,7 +99,7 @@ const jsonLd = [faqPage(faqs)];
         Non-surgical, doctor-led treatments that work with your biology — biostimulators, polynucleotides and regenerative science, not a default syringe of filler.
       </p>
       <div class="mt-9 flex flex-col sm:flex-row gap-3">
-        <a href="/book" class="bg-paper text-forest px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium text-center hover:bg-honey-soft transition-colors">
+        <a href="/book?treatment=Free%20Discovery%20Consultation" class="bg-paper text-forest px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium text-center hover:bg-honey-soft transition-colors">
           Book a free consultation
         </a>
         <a href="/about" class="border border-paper/40 text-paper px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium text-center hover:bg-paper/10 transition-colors">
@@ -193,14 +231,14 @@ const jsonLd = [faqPage(faqs)];
     <div class="max-w-6xl mx-auto px-5 lg:px-6 py-20">
       <div class="max-w-2xl mb-10">
         <p class="rule-label mb-4 max-w-xs"><span>Start with your concern</span></p>
-        <h2 class="font-display text-4xl md:text-5xl">Explore by condition</h2>
+        <h2 class="font-display text-4xl md:text-5xl">Explore by concern</h2>
         <p class="mt-4 text-ink/70 leading-relaxed">Not sure which treatment you need? Begin with what you’d like to change — we’ll match it to the most appropriate, least invasive approach.</p>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {popularConditions.map((c) => <ConditionCard condition={c} />)}
+        {concernCats.map((cat, i) => <ConcernCategoryCard category={cat} photo={catPhotos[i]} />)}
       </div>
       <div class="mt-9">
-        <a href="/conditions" class="record text-2xs uppercase tracking-[0.15em] text-brand hover:text-honey-ink transition-colors">All {conditionCount} conditions →</a>
+        <a href="/conditions" class="record text-2xs uppercase tracking-[0.15em] text-brand hover:text-honey-ink transition-colors">All {conditionCount} concerns →</a>
       </div>
     </div>
   </section>
@@ -219,6 +257,36 @@ const jsonLd = [faqPage(faqs)];
           <p class="text-ink/70 text-sm leading-relaxed">{v.d}</p>
         </div>
       ))}
+    </div>
+  </section>
+
+  <!-- Growth audiences — the two patient groups from Galina's concern taxonomy,
+       framed as narrative rather than navigation (the tiles above cover that) -->
+  <section class="bg-lichen/30 border-y border-beige-dark/60">
+    <div class="max-w-6xl mx-auto px-5 lg:px-6 py-16 md:py-20">
+      <div class="max-w-2xl mb-12">
+        <p class="rule-label mb-4 max-w-xs"><span>Growing patient groups</span></p>
+        <h2 class="font-display text-4xl md:text-5xl">Two reasons people find us now</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        {spotlights.map((s) => (
+          <div class="bg-paper border border-beige-dark/70 p-8 md:p-10 flex flex-col">
+            <p class="record text-2xs uppercase tracking-[0.2em] text-honey-ink mb-3">{s.label}</p>
+            <h3 class="font-display text-3xl md:text-4xl">{s.title}</h3>
+            <p class="mt-4 text-ink/70 leading-relaxed">{s.copy}</p>
+            <ul class="mt-auto pt-8">
+              {s.links.map((l) => (
+                <li class="border-t border-beige-dark/50">
+                  <a href={l.href} class="group flex items-baseline justify-between gap-4 py-3.5">
+                    <span class="font-display text-lg text-heading group-hover:text-brand transition-colors">{l.label}</span>
+                    <span class="record text-2xs text-stone group-hover:text-honey-ink transition-colors" aria-hidden="true">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 

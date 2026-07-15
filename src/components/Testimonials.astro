@@ -14,13 +14,9 @@ const reviews = Array.from({ length: Math.min(limit, all.length) }, (_, i) => al
 if (reviews.length === 0) return null;
 const clamp = (s: string) => (s.length > 240 ? s.slice(0, 237).trimEnd() + '…' : s);
 
-// Placeholder avatar per reviewer — stable per name across builds.
-const faces = Array.from({ length: 12 }, (_, i) => `/assets/avatars/face${i + 1}.jpg`);
-const avatarFor = (name: string) => {
-  let h = 0;
-  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
-  return faces[h % faces.length];
-};
+// Initials monogram — never a stock face presented as the reviewer.
+const initials = (name: string) =>
+  name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]!.toUpperCase()).join('');
 ---
 <section class="bg-lichen/50 border-y border-beige-dark/60">
   <div class="max-w-6xl mx-auto px-5 lg:px-6 py-20 md:py-24">
@@ -31,9 +27,9 @@ const avatarFor = (name: string) => {
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {reviews.map((r) => (
         <figure class="bg-paper border border-beige-dark/70 p-7 flex flex-col">
-          <div class="flex gap-1 mb-4" aria-label={`${r.rating} out of 5 stars`}>
+          <div class="flex gap-1 mb-4" role="img" aria-label={`Rated ${r.rating} out of 5 stars`}>
             {Array.from({ length: 5 }).map((_, i) => (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill={i < r.rating ? '#a98a5e' : 'none'} stroke="#a98a5e" stroke-width="1.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill={i < r.rating ? '#a98a5e' : 'none'} stroke="#a98a5e" stroke-width="1.5" aria-hidden="true">
                 <polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9" />
               </svg>
             ))}
@@ -41,7 +37,7 @@ const avatarFor = (name: string) => {
           {r.title && <h3 class="font-display text-lg text-heading mb-2">{r.title}</h3>}
           <blockquote class="text-sm text-ink/75 leading-relaxed flex-1">“{clamp(r.comment)}”</blockquote>
           <figcaption class="mt-5 pt-4 border-t border-beige-dark/60 flex items-center gap-3">
-            <img src={avatarFor(r.name)} alt={r.name} loading="lazy" width="40" height="40" class="w-10 h-10 rounded-full object-cover bg-lichen shrink-0" />
+            <span aria-hidden="true" class="w-10 h-10 rounded-full bg-lichen text-honey-ink record text-2xs tracking-[0.08em] flex items-center justify-center shrink-0">{initials(r.name)}</span>
             <span class="record text-2xs uppercase tracking-[0.18em] text-brand">{r.name}</span>
           </figcaption>
         </figure>

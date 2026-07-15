@@ -1,1 +1,184 @@
-{"reviews":[{"id":"3e9e3f1f-2c4a-449b-b9af-fa9952438f0a","customer_name":"Zoe Allen","customer_email":"zoe.allen@email.com","rating":5,"title":"Fantastic Experience","comment":"Fantastic experience from consultation to treatment. The practitioner took time to understand my goals and provided honest, professional advice. The treatment was comfortable and the results exceeded my expectations. Best aesthetics clinic in the area!","is_approved":true,"is_featured":false,"created_at":"2025-10-31T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"17271646-e923-418c-a111-945213c2de27","customer_name":"Lily Hall","customer_email":"lily.hall@email.com","rating":5,"title":"Top Notch Service","comment":"Top notch service from a top notch clinic! The team is experienced, professional, and results-oriented. I've tried other clinics but none compare to the quality here. My treatments have boosted my confidence significantly. Highly recommended!","is_approved":true,"is_featured":false,"created_at":"2025-10-30T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"cd3610d1-4f4d-41a4-8f6a-b22e07757db9","customer_name":"Grace Lee","customer_email":"grace.lee@email.com","rating":5,"title":"Exceptional Care","comment":"The level of care and attention to detail is exceptional. From the initial consultation through to the follow-up, every step was handled professionally. The results are subtle and natural - exactly what I wanted. Already planning my next treatment!","is_approved":true,"is_featured":false,"created_at":"2025-10-28T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"fa2d4786-16de-449f-8f87-51acd238ec02","customer_name":"Victoria Rodriguez","customer_email":"victoria.r@email.com","rating":4,"title":"Very Happy","comment":"Very happy with my treatment. The clinic is modern and clean, the staff is knowledgeable, and the results are great. The only minor issue was the waiting time, but the quality of service made up for it. Would definitely recommend.","is_approved":true,"is_featured":false,"created_at":"2025-10-27T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"e841abc8-4705-4112-8604-6709b1f2a0cd","customer_name":"Scarlett Garcia","customer_email":"scarlett.g@email.com","rating":5,"title":"Best Decision Ever","comment":"After months of research, I chose EGP Aesthetics and it was the best decision I could have made. The consultation was comprehensive, the treatment was flawless, and the results are exactly what I envisioned. Thank you for restoring my confidence!","is_approved":true,"is_featured":false,"created_at":"2025-10-26T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"3e0e554d-7207-4073-93cf-f4abdcf1ab56","customer_name":"Madison Thompson","customer_email":"madison.t@email.com","rating":5,"title":"Incredible Results!","comment":"Just had my second treatment and I'm amazed at the improvement! The team is so professional and caring. They really understand what makes natural-looking aesthetics. My skin has never looked better. This clinic is a gem!","is_approved":true,"is_featured":false,"created_at":"2025-10-25T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"06b5e3f2-fc54-495a-94f3-3aa94f24628c","customer_name":"Olivia Davis","customer_email":"olivia.davis@email.com","rating":5,"title":"Professional and Caring","comment":"From the moment I walked in, I knew I was in good hands. The consultation was comprehensive, and the treatment was done with such precision. The aftercare advice was excellent. My skin looks amazing after the Profhilo treatment. Thank you!","is_approved":true,"is_featured":true,"created_at":"2025-10-24T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"b7ac90ec-2b7d-4a80-83c8-85341e9a2d09","customer_name":"Ava Thomas","customer_email":"ava.thomas@email.com","rating":4,"title":"Pleasant Visit","comment":"Clean, professional clinic with friendly staff. The consultation was thorough and I felt well-informed. The treatment was quick and comfortable. Results are good, though I might try a different approach next time based on their recommendations.","is_approved":true,"is_featured":false,"created_at":"2025-10-23T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"527408d2-846b-4827-88d0-b8f2c22ce6e5","customer_name":"Jessica Williams","customer_email":"j.williams@email.com","rating":5,"title":"Exceeded My Expectations","comment":"The lip enhancement treatment I received exceeded all my expectations! The practitioner was skilled and understood exactly what I was looking for. No pain, quick recovery, and beautiful natural results. This clinic sets the standard for aesthetics treatments.","is_approved":true,"is_featured":true,"created_at":"2025-10-22T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"ca467e22-6870-4bf9-ae4e-191610539b2e","customer_name":"Mia Taylor","customer_email":"mia.taylor@email.com","rating":5,"title":"Skilled Practitioner","comment":"The practitioner has an excellent eye for detail and symmetry. My treatment was perfect - subtle but effective. The follow-up care was also great. I'm planning my next visit already. This clinic knows what they're doing!","is_approved":true,"is_featured":false,"created_at":"2025-10-21T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"ce76f4c7-cd7d-4c1c-8bd1-0a027bdf992e","customer_name":"Emily Thompson","customer_email":"emily.t@email.com","rating":5,"title":"Best Aesthetics Clinic in London","comment":"After trying several clinics, I finally found the one! The team at EGP Aesthetics is exceptional. I had dermal fillers and the results are so natural - exactly what I wanted. The consultation was thorough and I felt listened to. Will definitely be returning.","is_approved":true,"is_featured":true,"created_at":"2025-10-20T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"1dba5f47-1539-460c-9387-92a237ca1d35","customer_name":"Sarah Mitchell","customer_email":"sarah.mitchell@email.com","rating":5,"title":"Amazing Results!","comment":"I had my first Botox treatment here and I'm absolutely thrilled with the results! The staff is professional, knowledgeable, and made me feel comfortable throughout the entire process. The clinic is spotless and the practitioner took time to explain everything. Highly recommend!","is_approved":true,"is_featured":true,"created_at":"2025-10-17T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"c491f5da-fe6c-495c-a0e0-80fb239a08ab","customer_name":"Sophia Martinez","customer_email":"sophia.m@email.com","rating":5,"title":"Worth Every Penny","comment":"The investment in my appearance here has been worth every penny. The treatments are reasonably priced for the quality of service. I've recommended this clinic to all my friends and family. The team truly cares about achieving the best results.","is_approved":true,"is_featured":false,"created_at":"2025-10-16T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"146388be-aecd-46bd-b4a6-d602a8de358f","customer_name":"Abigail Harris","customer_email":"abigail.h@email.com","rating":5,"title":"Highly Recommend","comment":"Exceptional service from start to finish. The team is professional, the clinic is beautiful, and the results speak for themselves. I've had multiple treatments and each one has been perfect. Couldn't be happier with my decision to choose EGP Aesthetics.","is_approved":true,"is_featured":false,"created_at":"2025-10-15T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"b2ebae4a-c5ae-4c79-9a48-2ee24d9672e7","customer_name":"Amelia Wilson","customer_email":"amelia.w@email.com","rating":5,"title":"Natural Looking Results","comment":"I was nervous about getting treatments, but the team put me at ease immediately. The results look completely natural - my friends can't tell I've had anything done, they just say I look refreshed and younger. That's exactly what I wanted!","is_approved":true,"is_featured":false,"created_at":"2025-10-14T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"755cc231-a598-49d3-afd1-de9e9841adf8","customer_name":"Evelyn White","customer_email":"evelyn.white@email.com","rating":4,"title":"Satisfied Customer","comment":"The consultation process was excellent - very informative. The treatment itself was quick and relatively painless. I'm happy with the results so far. The clinic could improve on appointment availability, but service quality is high.","is_approved":true,"is_featured":false,"created_at":"2025-10-13T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"33f62b4f-ba26-4053-b7db-2bc699de14c6","customer_name":"Charlotte Brown","customer_email":"charlotte.brown@email.com","rating":5,"title":"Outstanding Service","comment":"I've been a regular client for 6 months now and every visit is exceptional. The team remembers my preferences and always provides personalized advice. The anti-wrinkle treatments have worked wonders for my confidence. Highly professional clinic!","is_approved":true,"is_featured":false,"created_at":"2025-10-12T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"},{"id":"6ac1ebbb-4d68-4874-a926-2fa6461e6496","customer_name":"Harper Jackson","customer_email":"harper.j@email.com","rating":4,"title":"Good Service","comment":"Had a positive experience overall. The staff is professional and the clinic is well-maintained. The treatment results were good, though it took a bit longer than expected to see full effects. Would return for follow-up treatments.","is_approved":true,"is_featured":false,"created_at":"2025-10-10T19:20:11.715528+00:00","updated_at":"2025-11-01T19:20:11.715528+00:00"}]}
+{
+  "reviews": [
+    {
+      "id": "1d17d2c9-a671-48a0-80fc-7f0d106e11bd",
+      "customer_name": "David",
+      "customer_email": "info@bestldn.com",
+      "rating": 5,
+      "title": "",
+      "comment": " Hi, I'm David from bestldn.com.\n\nWe'd like to include EGP Aesthetics in our listing \"The 8 Best Skincare Clinics in London\":\nhttps://bestldn.com/skin-care-clinic/\n\nYour company matches what our users are looking for.\n\nInclusion means:\n• Featured profile with logo and direct contact (phone / website)\n• Dofollow link to your website (local SEO)\n• More visibility in AI assistant answers (ChatGPT, Gemini, Copilot, Google AI)\n\nWe have free and premium spots available.\n\nReply \"info\" and I'll send you the details with no commitment.\n\nBest regards,\nDavid\nD503429Hi, I'm David from bestldn.com.\n\nWe'd like to include EGP Aesthetics in our listing \"The 8 Best Skincare Clinics in London\":\nhttps://bestldn.com/skin-care-clinic/\n\nYour company matches what our users are looking for.\n\nInclusion means:\n• Featured profile with logo and direct contact (phone / website)\n• Dofollow link to your website (local SEO)\n• More visibility in AI assistant answers (ChatGPT, Gemini, Copilot, Google AI)\n\nWe have free ",
+      "is_approved": true,
+      "is_featured": false,
+      "created_at": "2026-06-18T09:46:34.499362+00:00",
+      "updated_at": "2026-07-03T22:16:53.556912+00:00"
+    },
+    {
+      "id": "3e9e3f1f-2c4a-449b-b9af-fa9952438f0a",
+      "customer_name": "Zoe Allen",
+      "customer_email": "zoe.allen@email.com",
+      "rating": 5,
+      "title": "Fantastic Experience",
+      "comment": "Fantastic experience from consultation to treatment. The practitioner took time to understand my goals and provided honest, professional advice. The treatment was comfortable and the results exceeded my expectations. Best aesthetics clinic in the area!",
+      "is_approved": true,
+      "is_featured": false,
+      "created_at": "2025-10-31T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "17271646-e923-418c-a111-945213c2de27",
+      "customer_name": "Lily Hall",
+      "customer_email": "lily.hall@email.com",
+      "rating": 5,
+      "title": "Top Notch Service",
+      "comment": "Top notch service from a top notch clinic! The team is experienced, professional, and results-oriented. I've tried other clinics but none compare to the quality here. My treatments have boosted my confidence significantly. Highly recommended!",
+      "is_approved": true,
+      "is_featured": false,
+      "created_at": "2025-10-30T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "cd3610d1-4f4d-41a4-8f6a-b22e07757db9",
+      "customer_name": "Grace Lee",
+      "customer_email": "grace.lee@email.com",
+      "rating": 5,
+      "title": "Exceptional Care",
+      "comment": "The level of care and attention to detail is exceptional. From the initial consultation through to the follow-up, every step was handled professionally. The results are subtle and natural - exactly what I wanted. Already planning my next treatment!",
+      "is_approved": true,
+      "is_featured": false,
+      "created_at": "2025-10-28T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "e841abc8-4705-4112-8604-6709b1f2a0cd",
+      "customer_name": "Scarlett Garcia",
+      "customer_email": "scarlett.g@email.com",
+      "rating": 5,
+      "title": "Best Decision Ever",
+      "comment": "After months of research, I chose EGP Aesthetics and it was the best decision I could have made. The consultation was comprehensive, the treatment was flawless, and the results are exactly what I envisioned. Thank you for restoring my confidence!",
+      "is_approved": true,
+      "is_featured": false,
+      "created_at": "2025-10-26T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "3e0e554d-7207-4073-93cf-f4abdcf1ab56",
+      "customer_name": "Madison Thompson",
+      "customer_email": "madison.t@email.com",
+      "rating": 5,
+      "title": "Incredible Results!",
+      "comment": "Just had my second treatment and I'm amazed at the improvement! The team is so professional and caring. They really understand what makes natural-looking aesthetics. My skin has never looked better. This clinic is a gem!",
+      "is_approved": true,
+      "is_featured": false,
+      "created_at": "2025-10-25T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "06b5e3f2-fc54-495a-94f3-3aa94f24628c",
+      "customer_name": "Olivia Davis",
+      "customer_email": "olivia.davis@email.com",
+      "rating": 5,
+      "title": "Professional and Caring",
+      "comment": "From the moment I walked in, I knew I was in good hands. The consultation was comprehensive, and the treatment was done with such precision. The aftercare advice was excellent. My skin looks amazing after the Profhilo treatment. Thank you!",
+      "is_approved": true,
+      "is_featured": true,
+      "created_at": "2025-10-24T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "527408d2-846b-4827-88d0-b8f2c22ce6e5",
+      "customer_name": "Jessica Williams",
+      "customer_email": "j.williams@email.com",
+      "rating": 5,
+      "title": "Exceeded My Expectations",
+      "comment": "The lip enhancement treatment I received exceeded all my expectations! The practitioner was skilled and understood exactly what I was looking for. No pain, quick recovery, and beautiful natural results. This clinic sets the standard for aesthetics treatments.",
+      "is_approved": true,
+      "is_featured": true,
+      "created_at": "2025-10-22T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "ca467e22-6870-4bf9-ae4e-191610539b2e",
+      "customer_name": "Mia Taylor",
+      "customer_email": "mia.taylor@email.com",
+      "rating": 5,
+      "title": "Skilled Practitioner",
+      "comment": "The practitioner has an excellent eye for detail and symmetry. My treatment was perfect - subtle but effective. The follow-up care was also great. I'm planning my next visit already. This clinic knows what they're doing!",
+      "is_approved": true,
+      "is_featured": false,
+      "created_at": "2025-10-21T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "ce76f4c7-cd7d-4c1c-8bd1-0a027bdf992e",
+      "customer_name": "Emily Thompson",
+      "customer_email": "emily.t@email.com",
+      "rating": 5,
+      "title": "Best Aesthetics Clinic in London",
+      "comment": "After trying several clinics, I finally found the one! The team at EGP Aesthetics is exceptional. I had dermal fillers and the results are so natural - exactly what I wanted. The consultation was thorough and I felt listened to. Will definitely be returning.",
+      "is_approved": true,
+      "is_featured": true,
+      "created_at": "2025-10-20T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "1dba5f47-1539-460c-9387-92a237ca1d35",
+      "customer_name": "Sarah Mitchell",
+      "customer_email": "sarah.mitchell@email.com",
+      "rating": 5,
+      "title": "Amazing Results!",
+      "comment": "I had my first Botox treatment here and I'm absolutely thrilled with the results! The staff is professional, knowledgeable, and made me feel comfortable throughout the entire process. The clinic is spotless and the practitioner took time to explain everything. Highly recommend!",
+      "is_approved": true,
+      "is_featured": true,
+      "created_at": "2025-10-17T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "c491f5da-fe6c-495c-a0e0-80fb239a08ab",
+      "customer_name": "Sophia Martinez",
+      "customer_email": "sophia.m@email.com",
+      "rating": 5,
+      "title": "Worth Every Penny",
+      "comment": "The investment in my appearance here has been worth every penny. The treatments are reasonably priced for the quality of service. I've recommended this clinic to all my friends and family. The team truly cares about achieving the best results.",
+      "is_approved": true,
+      "is_featured": false,
+      "created_at": "2025-10-16T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "146388be-aecd-46bd-b4a6-d602a8de358f",
+      "customer_name": "Abigail Harris",
+      "customer_email": "abigail.h@email.com",
+      "rating": 5,
+      "title": "Highly Recommend",
+      "comment": "Exceptional service from start to finish. The team is professional, the clinic is beautiful, and the results speak for themselves. I've had multiple treatments and each one has been perfect. Couldn't be happier with my decision to choose EGP Aesthetics.",
+      "is_approved": true,
+      "is_featured": false,
+      "created_at": "2025-10-15T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "b2ebae4a-c5ae-4c79-9a48-2ee24d9672e7",
+      "customer_name": "Amelia Wilson",
+      "customer_email": "amelia.w@email.com",
+      "rating": 5,
+      "title": "Natural Looking Results",
+      "comment": "I was nervous about getting treatments, but the team put me at ease immediately. The results look completely natural - my friends can't tell I've had anything done, they just say I look refreshed and younger. That's exactly what I wanted!",
+      "is_approved": true,
+      "is_featured": false,
+      "created_at": "2025-10-14T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    },
+    {
+      "id": "33f62b4f-ba26-4053-b7db-2bc699de14c6",
+      "customer_name": "Charlotte Brown",
+      "customer_email": "charlotte.brown@email.com",
+      "rating": 5,
+      "title": "Outstanding Service",
+      "comment": "I've been a regular client for 6 months now and every visit is exceptional. The team remembers my preferences and always provides personalized advice. The anti-wrinkle treatments have worked wonders for my confidence. Highly professional clinic!",
+      "is_approved": true,
+      "is_featured": false,
+      "created_at": "2025-10-12T19:20:11.715528+00:00",
+      "updated_at": "2025-11-01T19:20:11.715528+00:00"
+    }
+  ]
+}

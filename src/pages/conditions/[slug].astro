@@ -6,9 +6,9 @@ import ConditionCard from '../../components/ConditionCard.astro';
 import BeforeAfterFigure from '../../components/BeforeAfterFigure.astro';
 import Testimonials from '../../components/Testimonials.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { getConditions, getCondition, formatPrice } from '../../lib/data';
+import { getConditions, getCondition, relatedConcerns, formatPrice, galleryCaseFor } from '../../lib/data';
 import { conditionPhoto } from '../../lib/treatmentMedia';
-import { breadcrumbList, faqPage } from '../../lib/schema';
+import { absUrl, breadcrumbList, faqPage } from '../../lib/schema';
 import { site } from '../../lib/site';
 
 export function getStaticPaths() {
@@ -17,11 +17,23 @@ export function getStaticPaths() {
 
 const { slug } = Astro.params;
 const c = getCondition(slug!)!;
-const related = getConditions().filter((x) => x.group === c.group && x.slug !== c.slug).slice(0, 4);
+
+// Live-API leftovers that duplicate a curated concern page — still built (old
+// links keep working) but canonicalized to the primary and left out of the
+// sitemap (see astro.config.mjs).
+const canonicalTwin: Record<string, string> = {
+  'cellulite-thighs-buttocks-abdomen': 'cellulite',
+  'double-chin-jawline-fat': 'double-chin',
+};
+const canonicalSlug = canonicalTwin[c.slug] ?? c.slug;
+const related = relatedConcerns(c, 4);
+// Real case photos only where the photographed case matches this concern.
+const caseStudy = galleryCaseFor(c.slug);
+const freeConsultHref = '/book?treatment=Free%20Discovery%20Consultation';
 
 const crumbs = [
   { name: 'Home', href: '/' },
-  { name: 'Conditions', href: '/conditions' },
+  { name: 'Concerns', href: '/conditions' },
   { name: c.title, href: `/conditions/${c.slug}` },
 ];
 
@@ -32,22 +44,23 @@ const faqs = [
   { q: `Is treatment suitable for me?`, a: `Suitability depends on your medical history and goals, which we review at your complimentary consultation. We’ll always give you honest advice.` },
 ];
 
-const metaDesc = `${c.title} treatment in London at EGP Aesthetics. ${c.description}. Book a free consultation to find the right approach for you.`;
+const metaDescFull = `${c.title} treatment in London at EGP Aesthetics. ${c.description}. Book a free consultation to find the right approach for you.`;
+const metaDesc = metaDescFull.length > 155 ? metaDescFull.slice(0, 152).trimEnd() + '…' : metaDescFull;
 
 const medicalCondition = {
   '@context': 'https://schema.org',
   '@type': 'MedicalCondition',
   name: c.title,
   description: c.description,
-  url: new URL(`/conditions/${c.slug}`, site.url).href,
+  url: absUrl(`/conditions/${canonicalSlug}`),
   possibleTreatment: c.treatments.map((t) => ({ '@type': 'MedicalTherapy', name: t.label })),
 };
 const jsonLd = [breadcrumbList(crumbs), faqPage(faqs), medicalCondition];
 ---
 <Base
   title={`${c.title} Treatment London | EGP Aesthetics`}
-  description={metaDesc.slice(0, 160)}
-  canonicalPath={`/conditions/${c.slug}`}
+  description={metaDesc}
+  canonicalPath={`/conditions/${canonicalSlug}`}
   jsonLd={jsonLd}
 >
   <section class="border-b border-beige-dark/60">
@@ -59,15 +72,15 @@ const jsonLd = [breadcrumbList(crumbs), faqPage(faqs), medicalCondition];
           <h1 class="font-display text-4xl md:text-6xl leading-[1.04] tracking-[-0.02em]">{c.title}</h1>
           <p class="mt-6 text-lg text-ink/75 leading-relaxed max-w-xl">{c.description}.</p>
           <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href="/book" class="bg-brand text-paper px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium text-center hover:bg-brand-dark transition-colors">
-              Book a consultation
+            <a href={freeConsultHref} class="bg-brand text-paper px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium text-center hover:bg-brand-dark transition-colors">
+              Book a free consultation
             </a>
             <a href="/treatments" class="border border-brand/25 text-brand px-8 py-4 text-sm uppercase tracking-[0.14em] font-medium text-center hover:bg-brand/5 transition-colors">
               Browse treatments
             </a>
           </div>
-          <p class="mt-7 record text-2xs uppercase tracking-[0.18em] text-stone">
-            Reviewed by the EGP medical team · Last updated June 2026
+          <p class="mt-6 text-sm text-ink/70">
+            Every plan starts with an honest assessment — your first discovery consultation is free.
           </p>
         </div>
 
@@ -104,12 +117,16 @@ const jsonLd = [breadcrumbList(crumbs), faqPage(faqs), medicalCondition];
       {c.description}. It’s one of the most common concerns we help with at EGP Aesthetics London. Because every case is
       different, we begin with a thorough assessment to understand the underlying cause before recommending treatment.
     </p>
-    <h2>Results you can expect</h2>
-    <p>
-      With the right plan, {c.title.toLowerCase()} can be visibly improved. The example below illustrates the kind of
-      natural-looking change our non-surgical, science-led approach aims for — results vary from person to person.
-    </p>
-    <BeforeAfterFigure seed={c.slug} caption={`Illustrative before & after · ${c.title}`} />
+    {caseStudy && (
+      <>
+        <h2>Results you can expect</h2>
+        <p>
+          With the right plan, {c.title.toLowerCase()} can be visibly improved. Below is a result from our clinic —
+          {' '}{caseStudy.title.toLowerCase()} — and results vary from person to person.
+        </p>
+        <BeforeAfterFigure before={caseStudy.before} after={caseStudy.after} caption={`${caseStudy.title} · Individual results vary`} />
+      </>
+    )}
     <h2>Why treat it?</h2>
     <p>
       Addressing {c.title.toLowerCase()} can restore confidence and help you feel like yourself again. Our approach is

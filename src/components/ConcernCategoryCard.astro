@@ -1,0 +1,43 @@
+---
+/** Tile for one concern category (Dr Galina's taxonomy) — the homepage
+    counterpart of ConditionCard, linking to the category's anchor on
+    /conditions. `photo` is passed in so the caller can de-duplicate
+    representative photos across the grid. */
+import type { ResolvedConcernCategory } from '../lib/data';
+interface Props {
+  category: ResolvedConcernCategory;
+  photo: string;
+}
+const { category: cat, photo } = Astro.props;
+const preview = cat.items.slice(0, 3);
+---
+<a
+  href={`/conditions#${cat.key}`}
+  class="group block bg-paper rounded-card overflow-hidden border border-beige-dark/70 hover:border-honey/60 hover:shadow-lg transition-all"
+>
+  <div class="aspect-[3/2] overflow-hidden bg-lichen">
+    <img
+      src={photo}
+      alt={`${cat.title} — concern category`}
+      loading="lazy"
+      decoding="async"
+      width="600"
+      height="400"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+    />
+  </div>
+  <div class="p-6">
+    <p class="record text-2xs uppercase tracking-[0.2em] text-honey-ink">
+      {cat.items.length} {cat.items.length === 1 ? 'concern' : 'concerns'}
+    </p>
+    <h3 class="font-display text-2xl text-heading mt-1 group-hover:text-brand transition-colors">{cat.title}</h3>
+    <p class="mt-2 text-sm text-ink/70 leading-relaxed line-clamp-2">{cat.intro}</p>
+    {preview.length > 0 && (
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {preview.map((c) => (
+          <li class="record text-2xs px-2.5 py-1 bg-lichen/70 border border-beige-dark/70 text-ink/75">{c.title}</li>
+        ))}
+      </ul>
+    )}
+  </div>
+</a>

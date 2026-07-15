@@ -3,13 +3,22 @@ import { site } from '../lib/site';
 
 const nav = [
   { label: 'Treatments', href: '/treatments' },
-  { label: 'Conditions', href: '/conditions' },
+  { label: 'Concerns', href: '/conditions' },
   { label: 'About', href: '/about' },
   { label: 'Find Us', href: '/find-us' },
 ];
 const path = Astro.url.pathname;
 const isActive = (href: string) => path === href || path.startsWith(href + '/');
 ---
+
+<div class="bg-forest text-center">
+  <a
+    href="/book?treatment=Free%20Discovery%20Consultation"
+    class="block px-4 py-2 record text-2xs uppercase tracking-[0.18em] text-honey-soft hover:text-paper transition-colors"
+  >
+    Your first discovery consultation is free — book yours →
+  </a>
+</div>
 
 <header class="sticky top-0 z-50 bg-paper/90 backdrop-blur border-b border-beige-dark/70">
   <nav class="max-w-6xl mx-auto px-5 lg:px-6 h-16 md:h-[4.5rem] flex items-center justify-between gap-6">
@@ -45,10 +54,15 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
       </a>
     </div>
 
-    <!-- Mobile toggle (CSS-only) -->
-    <input type="checkbox" id="nav-toggle" class="peer hidden" />
-    <label for="nav-toggle" class="md:hidden cursor-pointer p-2 -mr-2" aria-label="Toggle menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-heading">
+    <!-- Mobile toggle (CSS-only). The checkbox stays in the tab order (sr-only,
+         not display:none) so the drawer is keyboard- and screen-reader-operable;
+         the label mirrors its focus ring. -->
+    <input type="checkbox" id="nav-toggle" class="peer sr-only" aria-label="Open menu" />
+    <label
+      for="nav-toggle"
+      class="md:hidden cursor-pointer p-2 -mr-2 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-brand"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-heading" aria-hidden="true">
         <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
       </svg>
     </label>

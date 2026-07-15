@@ -1,0 +1,156 @@
+{
+  "_comment": "Locally authored concern records for Dr Galina's concern-category taxonomy (July 2026). conditions.json mirrors the live public API and must stay untouched — these records are merged in on top by src/lib/data.ts. Same record shape as the API; treatment strings follow the 'Name - £price' convention so they parse and cross-link like the rest.",
+  "conditions": [
+    {
+      "id": "local-hooded-upper-eyelids",
+      "title": "Hooded Upper Eyelids",
+      "slug": "hooded-upper-eyelids",
+      "category": "Face Conditions",
+      "description": "Non-surgical lifting for heavy upper lids that make eyes look smaller and more tired than you feel",
+      "treatments": [
+        "Brow Lift - £279",
+        "Ultrasound Lift & Tighten - £190",
+        "Eye Wrinkles - £179"
+      ],
+      "popular": false,
+      "is_active": true
+    },
+    {
+      "id": "local-collagen-depletion",
+      "title": "Collagen Depletion",
+      "slug": "collagen-depletion",
+      "category": "Face Conditions",
+      "description": "Rebuild firmness and bounce as natural collagen production slows, using biostimulating treatments",
+      "treatments": [
+        "Sculptra - £790",
+        "Profhilo - £390",
+        "Polynucleotides - £390",
+        "PRP Treatment - £480",
+        "Exosomes - £650"
+      ],
+      "popular": false,
+      "is_active": true
+    },
+    {
+      "id": "local-facial-ageing-after-weight-loss",
+      "title": "Facial Ageing After Rapid Weight Loss",
+      "slug": "facial-ageing-after-weight-loss",
+      "category": "Face Conditions",
+      "description": "Restore volume and firmness lost through rapid or GLP-1-assisted weight loss",
+      "treatments": [
+        "Sculptra - £790",
+        "Profhilo - £390",
+        "Cheek & Mid-Face Filler - £450",
+        "Ultrasound Lift & Tighten - £190",
+        "Full Face Balancing - £790"
+      ],
+      "popular": false,
+      "is_active": true
+    },
+    {
+      "id": "local-upper-face-wrinkles",
+      "title": "Upper-Face Wrinkles",
+      "slug": "upper-face-wrinkles",
+      "category": "Face Conditions",
+      "description": "Soften forehead lines, frown lines and crow's feet while keeping natural expression",
+      "treatments": [
+        "Anti-Wrinkle Injections - £329",
+        "Forehead Lines Treatment - £179",
+        "Baby Botox - £199",
+        "Eye Wrinkles - £179"
+      ],
+      "popular": false,
+      "is_active": true
+    },
+    {
+      "id": "local-accordion-lines",
+      "title": "Accordion Lines",
+      "slug": "accordion-lines",
+      "category": "Face Conditions",
+      "description": "Smooth the vertical cheek lines that concertina when you smile",
+      "treatments": [
+        "Skin Boosters - £390",
+        "Profhilo - £390",
+        "Polynucleotides - £390",
+        "Microneedling Facial - £170"
+      ],
+      "popular": false,
+      "is_active": true
+    },
+    {
+      "id": "local-post-inflammatory-pigmentation",
+      "title": "Post-Inflammatory Pigmentation",
+      "slug": "post-inflammatory-pigmentation",
+      "category": "Face Conditions",
+      "description": "Fade the dark marks left behind by acne, breakouts and skin trauma",
+      "treatments": [
+        "Medical Skin Peels - £200",
+        "Microneedling Facial - £170",
+        "Injectable Mesotherapy - £200",
+        "Digital Skin Analysis & Consultation - £50"
+      ],
+      "popular": false,
+      "is_active": true
+    },
+    {
+      "id": "local-sensitive-skin",
+      "title": "Sensitive Skin",
+      "slug": "sensitive-skin",
+      "category": "Face Conditions",
+      "description": "Calm reactive, easily irritated skin with a gentle, medically guided plan",
+      "treatments": [
+        "Polynucleotides - £390",
+        "Deep Hydro Detox Facial - £210",
+        "Skin Boosters - £390",
+        "Digital Skin Analysis & Consultation - £50"
+      ],
+      "popular": false,
+      "is_active": true
+    },
+    {
+      "id": "local-loose-skin-knees",
+      "title": "Loose Skin Around the Knees",
+      "slug": "loose-skin-knees",
+      "category": "Body Conditions",
+      "description": "Tighten crepey, lax skin around the knees, often following rapid weight loss",
+      "treatments": [
+        "Radiofrequency & Ultrasound - £250",
+        "Ultrasound Lift & Tighten - £190",
+        "Ultrasound + Mesotherapy - £350",
+        "Injectable Mesotherapy - £200"
+      ],
+      "popular": false,
+      "is_active": true
+    },
+    {
+      "id": "local-loose-abdominal-skin",
+      "title": "Loose Abdominal Skin",
+      "slug": "loose-abdominal-skin",
+      "category": "Body Conditions",
+      "description": "Firm loose abdominal skin left behind after rapid or GLP-1-assisted weight loss",
+      "treatments": [
+        "Radiofrequency & Ultrasound - £250",
+        "Ultrasound + Mesotherapy - £350",
+        "Body Fat Burning Mesotherapy - £200",
+        "Ultrasound Lift & Tighten - £190"
+      ],
+      "popular": false,
+      "is_active": true
+    },
+    {
+      "id": "local-early-signs-of-ageing",
+      "title": "Early Signs of Ageing",
+      "slug": "early-signs-of-ageing",
+      "category": "Face Conditions",
+      "description": "Preventative, low-intervention treatments that protect skin quality before lines and laxity set in",
+      "treatments": [
+        "Baby Botox - £199",
+        "Skin Boosters - £390",
+        "Profhilo - £390",
+        "Digital Skin Analysis & Consultation - £50"
+      ],
+      "popular": false,
+      "is_active": true
+    }
+  ]
+}

@@ -2,8 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { site } from '../lib/site';
-import { getReviews, reviewStats } from '../lib/data';
+import { site, hours } from '../lib/site';
 
 interface Props {
   title: string;
@@ -13,7 +12,10 @@ interface Props {
   ogImage?: string;
   /** Extra JSON-LD objects to inject (FAQPage, MedicalProcedure, BreadcrumbList…). */
   jsonLd?: object[];
-  noHeaderOffset?: boolean;
+  /** Procedure offered on this page — linked from the clinic node as availableService. */
+  availableService?: object;
+  /** Keep utility pages (thank-you, 404) out of search indexes. */
+  noindex?: boolean;
 }
 
 const {
@@ -22,21 +24,29 @@ const {
   canonicalPath,
   ogImage = '/assets/og-default.png',
   jsonLd = [],
+  availableService,
+  noindex = false,
 } = Astro.props;
 
-const canonical = new URL(canonicalPath ?? Astro.url.pathname, site.url).href;
+// Pages are built as directories (/about/index.html), so the served URL — and
+// the sitemap entry — ends in a slash. Canonicals must match exactly.
+const rawPath = canonicalPath ?? Astro.url.pathname;
+const path = rawPath.endsWith('/') || /\.[a-z0-9]+$/i.test(rawPath) ? rawPath : `${rawPath}/`;
+const canonical = new URL(path, site.url).href;
 const ogImageUrl = new URL(ogImage, site.url).href;
 const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 
 // LocalBusiness schema injected on every page for local SEO / E-E-A-T.
 const localBusiness = {
   '@context': 'https://schema.org',
-  '@type': 'MedicalBusiness',
+  // MedicalClinic ⊂ MedicalBusiness ⊂ LocalBusiness — most specific type, and
+  // the one that legitimately carries availableService.
+  '@type': 'MedicalClinic',
   '@id': `${site.url}/#clinic`,
   name: site.legalName,
   description: site.description,
   url: site.url,
-  telephone: site.phone,
+  telephone: '+447944242079',
   email: site.email,
   image: ogImageUrl,
   priceRange: '££',
@@ -48,26 +58,27 @@ const localBusiness = {
     addressCountry: site.address.country,
   },
   geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
+  hasMap: site.mapsUrl,
+  currenciesAccepted: 'GBP',
   sameAs: Object.values(site.social),
-  ...(reviewStats().count
-    ? {
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: reviewStats().average,
-          reviewCount: reviewStats().count,
-          bestRating: 5,
-        },
-        review: getReviews().slice(0, 5).map((r) => ({
-          '@type': 'Review',
-          author: { '@type': 'Person', name: r.name },
-          reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5 },
-          ...(r.title ? { name: r.title } : {}),
-          ...(r.comment ? { reviewBody: r.comment } : {}),
-        })),
-      }
-    : {}),
+  ...(availableService ? { availableService } : {}),
+  /* No aggregateRating/review markup: Google ignores self-serving review
+     schema on LocalBusiness pages and can issue manual actions for it.
+     Reviews stay visible on-page via the Testimonials component. */
+  openingHoursSpecification: hours
+    .filter((h) => h.value !== 'Closed')
+    .map((h) => {
+      const [opens, closes] = h.value.split('–').map((s) => s.trim());
+      return { '@type': 'OpeningHoursSpecification', dayOfWeek: h.day, opens, closes };
+    }),
 };
-const schemas = [localBusiness, ...jsonLd];
+// WebSite node on the homepage only — tells Google (and AI crawlers) the
+// site-wide name to display in results.
+const webSite =
+  path === '/'
+    ? [{ '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: site.url }]
+    : [];
+const schemas = [localBusiness, ...webSite, ...jsonLd];
 ---
 
 <!doctype html>
@@ -79,7 +90,9 @@ const schemas = [localBusiness, ...jsonLd];
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#282d26" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -88,19 +101,17 @@ const schemas = [localBusiness, ...jsonLd];
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
+    <meta property="og:locale" content="en_GB" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
-    <!-- Newsreader (display) · Hanken Grotesk (body) · Spline Sans Mono (record) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=Hanken+Grotesk:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-
+    <!-- Fonts (Newsreader · Hanken Grotesk · Spline Sans Mono) are self-hosted
+         via @fontsource-variable imports in global.css. -->
     {schemas.map((s) => (
       <script type="application/ld+json" set:html={JSON.stringify(s)} />
     ))}

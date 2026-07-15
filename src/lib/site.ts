@@ -18,12 +18,13 @@ export const site = {
     postcode: 'SW8 3JH',
     country: 'GB',
   },
-  geo: { lat: 51.4709, lng: -0.1396 }, // approx Wandsworth Rd / Clapham
+  geo: { lat: 51.4672, lng: -0.1447 }, // 809 Wandsworth Road SW8 3JH
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=809+Wandsworth+Road+SW8+3JH+London',
   // Booking enquiries are emailed to the clinic; staff then enter them in Fresha.
-  // Replace with your real Web3Forms access key (https://web3forms.com — free, no backend).
+  // Set the real Web3Forms access key (https://web3forms.com — free, no backend)
+  // via PUBLIC_WEB3FORMS_KEY in .env, or replace the fallback below.
   formEndpoint: 'https://api.web3forms.com/submit',
-  formAccessKey: 'YOUR-WEB3FORMS-ACCESS-KEY',
+  formAccessKey: import.meta.env.PUBLIC_WEB3FORMS_KEY ?? 'YOUR-WEB3FORMS-ACCESS-KEY',
   social: {
     instagram: 'https://www.instagram.com/egpaesthetics_london',
     facebook: 'https://www.facebook.com/beautyqueenlondon2019',

@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../lib/site';
+
+const links = [
+  { label: 'Browse all treatments', href: '/treatments' },
+  { label: 'Explore concerns we treat', href: '/conditions' },
+  { label: 'Book an appointment', href: '/book' },
+];
+---
+<Base title="Page Not Found" description="The page you were looking for doesn't exist." noindex>
+  <section class="max-w-xl mx-auto px-5 lg:px-6 py-28 text-center">
+    <p class="rule-label justify-center mb-5 max-w-[10rem] mx-auto"><span>404</span></p>
+    <h1 class="font-display text-4xl md:text-5xl">We couldn’t find that page</h1>
+    <p class="mt-5 text-ink/75 leading-relaxed">
+      The page may have moved or no longer exists. If you were looking for a treatment, everything we offer is one
+      click below — or call us on <a href={site.phoneHref} class="text-brand underline decoration-honey-soft underline-offset-2">{site.phone}</a>.
+    </p>
+    <div class="mt-9 flex flex-col gap-3">
+      {links.map((l) => (
+        <a href={l.href} class="border border-brand/25 text-brand px-8 py-3.5 text-sm uppercase tracking-[0.14em] font-medium hover:bg-brand/5 transition-colors">
+          {l.label}
+        </a>
+      ))}
+    </div>
+    <a href="/" class="inline-block mt-8 record text-2xs uppercase tracking-[0.18em] text-brand hover:text-honey-ink border-b border-honey/50 pb-1 transition-colors">
+      Back to home →
+    </a>
+  </section>
+</Base>
