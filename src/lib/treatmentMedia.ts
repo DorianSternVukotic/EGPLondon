@@ -68,6 +68,22 @@ const CAT_ART: Record<string, string> = {
 export const cartoonForCategory = (name: string): string =>
   CAT_ART[name.trim().toLowerCase()] ?? cartoon('cat-face');
 
+/** A second, complementary sheet per category for layouts that want line-art
+    on both sides (homepage featured blocks: accent left, category art right).
+    The cat-* subjects all face left, so accents are frontal or right-facing
+    compositions that read inward from a left edge. */
+const CAT_ACCENT: Record<string, string> = {
+  face: cartoon('profhilo'),
+  'anti-wrinkle': cartoon('eye-wrinkles'),
+  fillers: cartoon('chin-filler'),
+  body: cartoon('ultrasound-lift-tighten'),
+  hair: cartoon('laser-hair-removal'),
+  lips: cartoon('lip-hydration'),
+  skin: cartoon('microneedling'),
+};
+export const cartoonAccentForCategory = (name: string): string =>
+  CAT_ACCENT[name.trim().toLowerCase()] ?? cartoon('profhilo');
+
 /** The free-discovery-consultation sheet — used wherever a consultation CTA
     wants art of the consultation itself rather than a category's subject. */
 export const consultationCartoon = cartoon('free-discovery-consultation');

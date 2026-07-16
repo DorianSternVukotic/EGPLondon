@@ -9,7 +9,7 @@ import TreatmentShowcase from '../components/TreatmentShowcase.astro';
 import ClinicLocation from '../components/ClinicLocation.astro';
 import { site, credentials } from '../lib/site';
 import { concernTaxonomy, getTreatments, getConditions, treatmentCategories, formatPrice } from '../lib/data';
-import { mediaForSlug, cartoonForCategory, conditionPhoto } from '../lib/treatmentMedia';
+import { mediaForSlug, cartoonForCategory, cartoonAccentForCategory, conditionPhoto } from '../lib/treatmentMedia';
 import { faqPage } from '../lib/schema';
 
 // Three most-requested categories, each shown as image+title + a few sub-treatments.
@@ -36,6 +36,8 @@ const catPhotos = concernCats.map((cat) => {
 });
 const treatmentCount = getTreatments().length;
 const conditionCount = getConditions().length;
+// Matches the section ids on /treatments, so category links land on the section.
+const anchor = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
 /* The two patient groups Galina flagged as growing fastest — spotlighted
    after "Why EGP" as narrative bands rather than navigation. */
@@ -186,6 +188,7 @@ const jsonLd = [faqPage(faqs)];
       {featuredCats.map((cat) => {
         const media = mediaForSlug(cat.items[0]?.categorySlug);
         const cartoon = cartoonForCategory(cat.name);
+        const accent = cartoonAccentForCategory(cat.name);
         const items = cat.items.slice(0, 6);
         return (
           <div class="grid md:grid-cols-[0.85fr_1.4fr] border border-beige-dark/60 bg-paper overflow-hidden">
@@ -195,15 +198,19 @@ const jsonLd = [faqPage(faqs)];
               <div class="absolute inset-0 bg-gradient-to-t from-forest/90 via-forest/45 to-transparent"></div>
               <div class="absolute bottom-0 inset-x-0 p-6 md:p-8">
                 <p class="eyebrow text-honey-soft mb-2">{cat.items.length} treatments</p>
-                <h3 class="font-display text-3xl md:text-4xl text-paper capitalize">{cat.name.toLowerCase()}</h3>
+                <h3 class="font-display text-3xl md:text-4xl text-paper capitalize">
+                  <a href={`/treatments#${anchor(cat.name)}`} class="hover:text-honey-soft transition-colors">{cat.name.toLowerCase()}</a>
+                </h3>
                 <p class="mt-2 text-paper/80 text-sm max-w-xs leading-relaxed hidden md:block">{media.blurb}</p>
               </div>
             </div>
 
-            {/* List — one cartoon behind the whole list */}
+            {/* List — category art on the right, a complementary accent sheet on
+                 the left (md+), with a centre-weighted veil keeping the rows legible */}
             <div class="relative overflow-hidden p-6 md:p-8 flex flex-col justify-center">
-              <img src={cartoon} alt="" aria-hidden="true" class="pointer-events-none absolute -right-8 top-1/2 -translate-y-1/2 h-[125%] w-auto max-w-[60%] object-contain object-right mix-blend-multiply opacity-70" />
-              <div class="absolute inset-0 bg-gradient-to-r from-paper via-paper/70 to-paper/20 pointer-events-none"></div>
+              <img src={accent} alt="" aria-hidden="true" class="pointer-events-none hidden md:block absolute -left-6 top-1/2 -translate-y-1/2 h-[118%] w-auto max-w-[46%] object-contain object-left mix-blend-multiply opacity-70" />
+              <img src={cartoon} alt="" aria-hidden="true" class="pointer-events-none absolute -right-8 top-1/2 -translate-y-1/2 h-[125%] w-auto max-w-[55%] object-contain object-right mix-blend-multiply opacity-70" />
+              <div class="absolute inset-0 bg-gradient-to-r from-paper/25 via-paper/85 to-paper/20 pointer-events-none"></div>
               <ul class="relative grid sm:grid-cols-2 gap-x-8">
                 {items.map((t) => (
                   <li class="border-b border-beige-dark/50">
@@ -214,7 +221,7 @@ const jsonLd = [faqPage(faqs)];
                   </li>
                 ))}
               </ul>
-              <a href="/treatments" class="relative mt-5 record text-2xs uppercase tracking-[0.18em] text-brand hover:text-honey-ink border-b border-honey/50 pb-1 self-start transition-colors">View all {cat.name.toLowerCase()} →</a>
+              <a href={`/treatments#${anchor(cat.name)}`} class="relative mt-5 record text-2xs uppercase tracking-[0.18em] text-brand hover:text-honey-ink border-b border-honey/50 pb-1 self-start transition-colors">View all {cat.name.toLowerCase()} →</a>
             </div>
           </div>
         );
