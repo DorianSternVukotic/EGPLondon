@@ -1,6 +1,10 @@
-/** DEMO MEDIA ONLY — imagery for the treatments page + homepage featured blocks.
-    Category photos pulled from skinspirit.com (public/assets/demo); cartoon
-    line-art supplied by the client (public/assets/cartoons). Not final imagery. */
+/** Imagery for the treatments page + homepage featured blocks.
+    Cartoon line-art is final (Sol v5.6 set, one sheet per treatment — see
+    assets-src/cartoon-generation-brief.md). Category PHOTOS are still DEMO
+    MEDIA pulled from skinspirit.com (public/assets/demo) — launch blocker. */
+import { readdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
 export interface CatMedia { photo: string; blurb: string; }
 
 /** Category banner photo + blurb, keyed by a treatment's `categorySlug`.
@@ -22,102 +26,58 @@ export const fallbackMedia: CatMedia = {
 
 export const mediaForSlug = (slug?: string): CatMedia => catMeta[slug ?? ''] ?? fallbackMedia;
 
-/** Named cartoon line-art (public/assets/cartoons), so pools read clearly.
-    Each is right-weighted line-art on a near-white field — designed to sit
-    full-bleed under mix-blend-multiply with text overlaid on the left/bottom. */
-const ART = {
-  faceHand: '/assets/cartoons/category12122.webp',     // woman, hand at chin, eyes closed
-  bodyArmsUp: '/assets/cartoons/category19577.webp',   // female torso, arms raised
-  profileLips: '/assets/cartoons/category26289.webp',  // side profile, lips
-  vial: '/assets/cartoons/category50064.webp',         // hand holding a serum/PRP vial
-  maleAbs: '/assets/cartoons/category59085.webp',      // male torso / abdomen
-  hair: '/assets/cartoons/category72859.webp',         // styled hair / scalp
-  dna: '/assets/cartoons/category75876.webp',          // DNA double helix
-  faceWoman: '/assets/cartoons/category87331.webp',    // woman's face, three-quarter
-  bodyFemale: '/assets/cartoons/category91566.webp',   // female body, standing
-  profilesPair: '/assets/cartoons/category98864.webp', // two male head/shoulder profiles
-} as const;
+/* ── Cartoon line-art (Sol v5.6) ──────────────────────────────────────
+   One sheet per bookable treatment, filename = slug, plus four large
+   category sheets (cat-*.webp) — soft-gray editorial strokes on a
+   near-white field, subject slightly right of centre on a ~0.93:1 portrait
+   canvas, designed to sit under mix-blend-multiply. */
+const cartoon = (name: string) => `/assets/cartoons/${name}.webp`;
 
-/** Full pool (kept for any generic use). */
-export const cartoons = Object.values(ART);
+/** Sheets on disk, read once at build time — a treatment without its own
+    sheet (e.g. a new service after a data re-sync) falls back to its
+    category art instead of 404ing. */
+const sheets = new Set(
+  readdirSync(fileURLToPath(new URL('../../public/assets/cartoons/', import.meta.url)))
+    .filter((f) => f.endsWith('.webp'))
+    .map((f) => f.replace(/\.webp$/, '')),
+);
 
-/** Subject focus per artwork for the row vignettes on the treatments index.
-    Each sheet is 393×422 with thin strokes on a near-white field, so the
-    vignette zooms (CSS transform: scale) into the subject, anchored at
-    transform-origin. Origins were eyeballed from the artwork (e.g. profileLips
-    hugs the right edge, dna sits left of centre). `scale` is calibrated for a
-    tiny (~48px) frame; larger frames damp it (see treatments/index.astro). */
+/** Subject focus for the row vignettes on the treatments index. Every Sol
+    sheet follows the same composition template, so one default focus works;
+    add per-sheet overrides here (keyed by the /assets path) only where the
+    subject sits off-template. `scale` is damped by larger frames
+    (see treatments/index.astro). */
 export interface MedallionFocus { origin: string; scale: number; }
-export const medallionFocus: Record<string, MedallionFocus> = {
-  [ART.faceHand]: { origin: '40% 30%', scale: 2 },
-  [ART.bodyArmsUp]: { origin: '52% 45%', scale: 2.1 },
-  [ART.profileLips]: { origin: '85% 55%', scale: 2 },
-  [ART.vial]: { origin: '55% 42%', scale: 1.9 },
-  [ART.maleAbs]: { origin: '62% 50%', scale: 1.8 },
-  [ART.hair]: { origin: '55% 30%', scale: 1.9 },
-  [ART.dna]: { origin: '40% 55%', scale: 2.6 },
-  [ART.faceWoman]: { origin: '52% 42%', scale: 1.9 },
-  [ART.bodyFemale]: { origin: '60% 45%', scale: 1.9 },
-  [ART.profilesPair]: { origin: '63% 42%', scale: 1.8 },
+export const medallionFocus: Record<string, MedallionFocus> = {};
+export const fallbackFocus: MedallionFocus = { origin: '58% 42%', scale: 1.7 };
+
+/** Category watermark art, keyed by lowercased category name/slug. The three
+    categories without a dedicated cat-* sheet lean on a representative
+    treatment sheet. */
+const CAT_ART: Record<string, string> = {
+  face: cartoon('cat-face'),
+  'anti-wrinkle': cartoon('cat-anti-wrinkle'),
+  fillers: cartoon('cat-fillers'),
+  body: cartoon('cat-body'),
+  hair: cartoon('prp-hair-treatment'),
+  lips: cartoon('lip-fillers'),
+  skin: cartoon('chemical-peel'),
 };
-export const fallbackFocus: MedallionFocus = { origin: '50% 40%', scale: 1.8 };
 
-/** Subject pools, each ordered with the most on-subject art first and kept broad
-    (≥2 members) so a category's cards rotate through several illustrations rather
-    than repeating one or two. Regenerative/biostimulation treatments lead with
-    the science line-art (vial / DNA). */
-const POOLS = {
-  science: [ART.vial, ART.dna, ART.faceHand, ART.faceWoman],
-  face: [ART.faceWoman, ART.faceHand, ART.profileLips, ART.vial, ART.dna],
-  lips: [ART.profileLips, ART.faceWoman, ART.faceHand],
-  body: [ART.bodyFemale, ART.bodyArmsUp, ART.maleAbs, ART.profilesPair],
-  hair: [ART.hair, ART.profilesPair],
-  skin: [ART.faceHand, ART.faceWoman, ART.vial, ART.dna, ART.profileLips],
-} as const;
-type PoolKey = keyof typeof POOLS;
+/** Cartoon for a whole category block (homepage featured + /treatments cards). */
+export const cartoonForCategory = (name: string): string =>
+  CAT_ART[name.trim().toLowerCase()] ?? cartoon('cat-face');
 
-const hash = (s: string): number => {
-  let h = 0;
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
-  return h;
-};
-const pick = (pool: readonly string[], seed: string) => pool[hash(seed) % pool.length];
+/** The free-discovery-consultation sheet — used wherever a consultation CTA
+    wants art of the consultation itself rather than a category's subject. */
+export const consultationCartoon = cartoon('free-discovery-consultation');
 
-/** Pick the subject pool key for a treatment from its name/category. */
-const poolKeyFor = (hay: string, categorySlug?: string): PoolKey => {
-  if (categorySlug === 'hair' || /hair|scalp/.test(hay)) return 'hair';
-  if (categorySlug === 'lips' || /\blip\b|\blips\b|lip /.test(hay)) return 'lips';
-  if (categorySlug === 'body' || /body|fat|cellulite|coolsculpt|freez|contour|tighten|radiofrequenc|ultrasound|sculpt/.test(hay)) return 'body';
-  if (/prp|exosome|polynucleotide|profhilo|sculptra|booster|mesotherap|stem|nctf|collagen|biostim|microneedl|peel/.test(hay)) return 'science';
-  if (categorySlug === 'skin' || /facial|detox|cleansing|pigment|acne|texture|glow/.test(hay)) return 'skin';
-  return 'face'; // face, anti-wrinkle, most fillers
-};
-const poolFor = (hay: string, categorySlug?: string): readonly string[] => POOLS[poolKeyFor(hay, categorySlug)];
-
-/** Centerpiece cartoons for a whole category's cards, in render order. Each
-    subject pool keeps its own cursor so its members cycle evenly, and a card is
-    nudged to the next member whenever it would repeat the card before it — so the
-    grid stays varied with no two adjacent cards sharing the same line-art. */
+/** Centerpiece cartoons for a category's menu rows, in render order — each
+    treatment shows its own sheet (or its category art if missing). */
 export const cartoonsForTreatments = (
   items: { slug: string; name: string; categorySlug?: string }[],
-): string[] => {
-  const cursor = new Map<PoolKey, number>();
-  const out: string[] = [];
-  items.forEach((t, idx) => {
-    const key = poolKeyFor(`${t.slug} ${t.name}`.toLowerCase(), t.categorySlug);
-    const pool = POOLS[key];
-    let n = cursor.get(key) ?? 0;
-    let art = pool[n % pool.length];
-    if (idx > 0 && art === out[idx - 1] && pool.length > 1) { n++; art = pool[n % pool.length]; }
-    cursor.set(key, n + 1);
-    out.push(art);
-  });
-  return out;
-};
-
-/** Cartoon for a whole category block (homepage featured), keyed by category name. */
-export const cartoonForCategory = (name: string): string =>
-  pick(poolFor(name.toLowerCase(), name.toLowerCase().replace(/[^a-z]/g, '')), name);
+): string[] =>
+  items.map((t) => (sheets.has(t.slug) ? cartoon(t.slug) : cartoonForCategory(t.categorySlug ?? 'face')));
 
 /* ── Condition card imagery ───────────────────────────────────────────
    Each concern is matched to a tasteful, real stock close-up of the relevant

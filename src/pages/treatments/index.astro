@@ -4,7 +4,7 @@ import CtaBand from '../../components/CtaBand.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ProblemFaceNav from '../../components/ProblemFaceNav.astro';
 import { treatmentCategories, getTreatments, formatPrice, formatDuration } from '../../lib/data';
-import { mediaForSlug, cartoonsForTreatments, cartoonForCategory, medallionFocus, fallbackFocus } from '../../lib/treatmentMedia';
+import { mediaForSlug, cartoonsForTreatments, consultationCartoon, medallionFocus, fallbackFocus } from '../../lib/treatmentMedia';
 import { breadcrumbList } from '../../lib/schema';
 
 const cats = treatmentCategories();
@@ -82,7 +82,7 @@ const anchor = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-');
               {cat.items.length > 4 ? (
                 <a href="/book" class="group/cta relative hidden lg:block shrink-0 overflow-hidden border-t border-beige-dark/60 bg-lichen/40 px-6 py-5">
                   <img
-                    src={cartoonForCategory(cat.name)}
+                    src={consultationCartoon}
                     alt=""
                     aria-hidden="true"
                     loading="lazy"
